@@ -1,5 +1,45 @@
 [
   {
+    "id": "2026-10-31-reddit-chce-logowania",
+    "status": "published",
+    "category": "technologia",
+    "slug": "reddit-chce-logowania",
+    "title": "Reddit chce logowania. Dlaczego AI zmienia otwarty internet?",
+    "lead": "Reddit zamyka internet za ekranem logowania?",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=aLEJaAtZnGI",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 56,
+    "summary": [
+      "Reddit zamyka internet za ekranem logowania? Jeszcze nie, ale zapowiada dużą zmianę."
+    ],
+    "transcript": [
+      "Reddit zamyka internet za ekranem logowania? Jeszcze nie, ale zapowiada dużą zmianę.",
+      "Szef serwisu chce, by Reddit opierał się głównie na zalogowanych kontach. Najpierw testy w wybranych krajach poza Stanami Zjednoczonymi.",
+      "Firma mówi o lepszych rekomendacjach, dopasowanych reklamach i ochronie danych przed masowym kopiowaniem. To deklarowane motywy, nie zmierzony efekt.",
+      "Stawka jest duża. Kwartalne przychody wyniosły osiemset dziewięćdziesiąt pięć milionów dolarów. Z reklam pochodziło osiemset czterdzieści siedem milionów.",
+      "W tle jest sztuczna inteligencja. Jej podsumowanie w wyszukiwarce może dać odpowiedź bez wejścia na forum. Reddit chce kontrolować komercyjne licencjonowanie treści użytkowników.",
+      "Nie ogłoszono globalnej blokady. Zasady wejścia z wyszukiwarki lub udostępnionego linku nadal są ustalane.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "About that login screen",
+        "publisher": "Steve Huffman, CEO Reddit (u/spez)",
+        "url": "https://www.reddit.com/user/spez/comments/1xiupm0/about_that_login_screen/"
+      },
+      {
+        "title": "Reddit will switch to a logged-in only experience",
+        "publisher": "PC Gamer",
+        "url": "https://www.pcgamer.com/software/ai/reddit-will-switch-to-a-logged-in-only-experience/"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-10-31-reddit-chce-logowania.jpg"
+  },
+  {
     "id": "2026-10-31-czy-peka-banka-ai",
     "status": "published",
     "category": "gospodarka",
