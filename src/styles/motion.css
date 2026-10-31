@@ -5,7 +5,7 @@
   from { clip-path: inset(0 100% 0 0); }
   to { clip-path: inset(0 -2% 0 0); }
 }
-@keyframes corner-in { from { opacity: 0; transform: translate(-0.3em, -0.3em); } }
+@keyframes kadr-in { from { opacity: 0; transform: scale(1.05); } }
 @keyframes rule-in { from { transform: scaleX(0); } }
 @keyframes float { 50% { --fy: -9; } }
 @keyframes orbit { from { --orbit-a: -8deg; } to { --orbit-a: 8deg; } }
@@ -15,8 +15,8 @@
 
 .scene { animation: fade-in 0.7s ease-out both; }
 .panels, .globe { animation: fade-in 1.2s 0.15s ease-out both; }
-.brand__word { animation: logo-reveal 0.9s 0.1s var(--ease-out) both; }
-.brand__corner { animation: corner-in 0.6s 0.55s var(--ease-out) both; }
+.brand__svg { animation: logo-reveal 0.9s 0.1s var(--ease-out) both; }
+.brand__kadr { transform-box: view-box; transform-origin: center; animation: kadr-in 0.7s 0.5s var(--ease-out) both; }
 .brand__tagline { animation: rise-in 0.7s 0.45s var(--ease-out) both; }
 .brand__rule { animation: rule-in 0.7s 0.6s var(--ease-out) both; }
 .topic { animation: rise-in 0.6s var(--ease-out) both; }

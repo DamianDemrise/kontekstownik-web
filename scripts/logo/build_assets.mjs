@@ -53,4 +53,6 @@ const jobs = [
 ];
 for (const [src, out, w, opts] of jobs) await render(src, out, w, opts);
 copyFileSync(`${SVG}favicon.svg`, 'public/favicon.svg');
+mkdirSync('public/brand', { recursive: true });
+for (const n of ['logo-kolor.svg', 'logo-na-jasnym.svg', 'sygnet-kolor.svg']) copyFileSync(`${SVG}${n}`, `public/brand/${n}`);
 console.log(`gotowe: ${jobs.length} plików PNG + public/favicon.svg`);

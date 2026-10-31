@@ -30,7 +30,7 @@ for (const [w, h, name, mobile, path = ''] of SIZES) {
   await page.waitForTimeout(1800);
   const r = await page.evaluate(() => {
     const rect = (s) => document.querySelector(s).getBoundingClientRect();
-    const logo = rect('.brand__word'), yt = rect('.cta--yt'), tt = rect('.cta--tt');
+    const logo = rect('.brand__svg'), yt = rect('.cta--yt'), tt = rect('.cta--tt');
     return {
       hScroll: document.documentElement.scrollWidth > window.innerWidth,
       vScroll: document.documentElement.scrollHeight > window.innerHeight,

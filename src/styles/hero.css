@@ -19,25 +19,11 @@
 
 .brand__logo {
   position: relative;
-  font-size: max(30px, calc(var(--u) * 6.1));
-  font-weight: 800;
+  font-size: max(30px, calc(var(--u) * 5.6));
   line-height: 1;
-  letter-spacing: -0.005em;
-  color: #fff;
-  padding-left: 0.42em;
-  margin-left: -0.42em;
 }
-.brand__word { display: block; text-shadow: 0 0 0.5em rgb(255 255 255 / 0.08); }
-/* Pomarańczowy narożnik: róg ramki przy lewej górnej krawędzi znaku */
-.brand__corner {
-  position: absolute;
-  left: 0;
-  top: -0.34em;
-  width: 0.92em;
-  height: 0.78em;
-  border-top: 0.12em solid var(--orange);
-  border-left: 0.12em solid var(--orange);
-}
+/* Logo A · Kadr jako SVG na krzywych (brand/svg/logo-kolor.svg); szerokość w em, więc skaluje się jak dawny tekst */
+.brand__svg { display: block; width: 9.988em; height: auto; overflow: visible; filter: drop-shadow(0 0 0.35em rgb(255 255 255 / 0.06)); }
 
 .brand__tagline {
   margin-top: calc(var(--u) * 1.9);

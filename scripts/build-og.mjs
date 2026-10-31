@@ -4,7 +4,7 @@
 import { chromium } from 'playwright';
 
 const URL_ = process.argv[2] || 'http://localhost:4188/';
-const OUT = process.argv[3] || 'public/og-image-v3.jpg';
+const OUT = process.argv[3] || 'public/og-image-v4.jpg';
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 const browser = await chromium.launch({ executablePath: CHROME });
@@ -16,7 +16,7 @@ await page.addStyleTag({ content: `
   :root { --u: 13px; }
   .topics, .legal, .consent, .watch__title, .social, .new-pill, .lang { display: none !important; }
   .hero { gap: 44px; padding: 0 16px 40px; }
-  .brand__logo { font-size: 84px; }
+  .brand__logo { font-size: 78px; }
   .brand__tagline { font-size: 21px; margin-top: 26px; }
   .brand__rule { margin-top: 26px; }
   .cta { width: 300px; height: 84px; min-height: 0; font-size: 32px; border-radius: 22px; }

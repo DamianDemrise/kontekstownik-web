@@ -19,7 +19,7 @@
     padding-bottom: max(40px, env(safe-area-inset-bottom));
   }
   /* 13 znaków logo ≈ 9,4 em szerokości; zostawiamy margines na narożnik */
-  .brand__logo { font-size: min(44px, calc((100vw - 40px) / 9.9)); }
+  .brand__logo { font-size: min(44px, calc((100vw - 40px) / 9.99)); }
   .brand__tagline { margin-top: 18px; font-size: 12px; letter-spacing: 0.2em; padding-left: 0.22em; max-width: 340px; line-height: 1.7; text-wrap: balance; }
   .brand__rule { margin-top: 16px; width: 88px; height: 3px; }
 

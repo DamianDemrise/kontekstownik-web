@@ -320,7 +320,7 @@ ${jsonLd(m, lang)}
 <body class="doc mp-page">
   ${langSwitch(lang, pagePath(m, 'pl'), m.en ? pagePath(m, 'en') : null)}
   <main class="mp">
-    <a class="doc__logo" href="${t.home}"><span class="doc__corner" aria-hidden="true"></span>KONTEKSTOWNIK</a>
+    <a class="doc__logo" href="${t.home}"><img src="/brand/logo-kolor.svg" alt="KONTEKSTOWNIK" width="250" height="30"></a>
     <nav class="mp-crumbs" aria-label="${t.crumbs}">
       <a href="${t.home}">${t.crumbHome}</a><span aria-hidden="true">›</span><a href="${t.home}#materialy">${t.crumbList}</a><span aria-hidden="true">›</span><span aria-current="page">${esc(title)}</span>
     </nav>
