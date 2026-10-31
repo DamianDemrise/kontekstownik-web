@@ -1,5 +1,80 @@
 [
   {
+    "id": "2026-10-31-jak-dziala-kryptowaluta-i-dlaczego-trudno-odzyskac-skradzione-srodki",
+    "status": "published",
+    "category": "technologia",
+    "slug": "jak-dziala-kryptowaluta-i-dlaczego-trudno-odzyskac-skradzione-srodki",
+    "title": "Jak działa kryptowaluta i dlaczego trudno odzyskać skradzione środki?",
+    "lead": "Jak działa kryptowaluta i dlaczego tak trudno odzyskać skradzione środki?",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=KCoRfcOKQWo",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 75,
+    "summary": [
+      "Jak działa kryptowaluta i dlaczego tak trudno odzyskać skradzione środki?"
+    ],
+    "transcript": [
+      "Jak działa kryptowaluta i dlaczego tak trudno odzyskać skradzione środki?",
+      "Kryptowaluta zapisuje przelewy we wspólnej księdze, którą sieć uzgadnia. W bitcoinie ta księga jest publiczna. Widać zatwierdzony zapis, ale sam adres nie jest imieniem i nazwiskiem.",
+      "Portfel nie jest workiem monet. To narzędzie dostępu. Adres można pokazać innym. Klucz prywatny zostaje tajny i służy do podpisu. Podpis pokazuje, że zlecenie wyszło od posiadacza klucza, i utrudnia późniejszą zmianę treści.",
+      "Giełda jest dodatkowym pośrednikiem. Trzyma środki i podpisuje przelewy za klienta. Różne kryptowaluty mają odmienne mechanizmy. Ten film nie mówi, co kupować ani jakiego zysku się spodziewać.",
+      "Zobaczenie przelewu nie oznacza ustalenia osoby. Sieć nie ma centralnego operatora, który na żądanie klienta anuluje zatwierdzoną transakcję. Część emitentów potrafi zamrozić własne tokeny. To nie znaczy, że da się zatrzymać każde aktywo, na przykład bitcoina.",
+      "Źródła tego wyjaśnienia to Bitcoin.org, Ethereum.org i opis zamrożeń w raporcie TRM.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "How does Bitcoin work?",
+        "publisher": "bitcoin.org",
+        "url": "https://bitcoin.org/en/how-it-works"
+      },
+      {
+        "title": "Ethereum wallets explained: what is a crypto wallet?",
+        "publisher": "ethereum.org",
+        "url": "https://ethereum.org/en/wallets/"
+      },
+      {
+        "title": "North Korea Steals USD 6.36 Billion From Binance in the Largest Hack in History",
+        "publisher": "trmlabs.com",
+        "url": "https://www.trmlabs.com/resources/blog/north-korea-steals-usd-6-36-billion-from-binance-in-the-largest-hack-in-history"
+      },
+      {
+        "title": "Kryptowaluta - Wikipedia, wolna encyklopedia",
+        "publisher": "pl.wikipedia.org",
+        "url": "https://pl.wikipedia.org/wiki/Kryptowaluta"
+      },
+      {
+        "title": "Czy można odzyskać skradzione kryptowaluty? Ekspert wyjaśnia, jak ...",
+        "publisher": "infor.pl",
+        "url": "https://www.infor.pl/twoje-pieniadze/kryptowaluty/7672527,kryptowaluty-zostawiaja-slady-czy-mozna-odzyskac-skradzione-pieniadze.html"
+      },
+      {
+        "title": "Wielka kradzież z Binance. Jak się zabezpieczyć? Oto wnioski",
+        "publisher": "businessinsider.com.pl",
+        "url": "https://businessinsider.com.pl/gielda/wiadomosci/wielka-kradziez-z-binance-jak-sie-zabezpieczyc-oto-wnioski/4h2hpwr"
+      },
+      {
+        "title": "Kryptowaluty: co to jest, jak działają i jakie są ryzyka",
+        "publisher": "tradingcompendium.com",
+        "url": "https://tradingcompendium.com/pl/rynki-i-aktywa/kryptowaluty"
+      },
+      {
+        "title": "Czym jest kryptowaluta? Czym są, jak działają i jak z nich korzystać ...",
+        "publisher": "kraken.com",
+        "url": "https://www.kraken.com/pl/learn/what-is-cryptocurrency"
+      },
+      {
+        "title": "Gdzie naprawdę trafiają skradzione kryptowaluty: kulisy 45-dniowego ...",
+        "publisher": "news.bitcoin.com",
+        "url": "https://news.bitcoin.com/pl/learning-insights/gdzie-naprawde-trafiaja-skradzione-kryptowaluty-kulisy-45-dniowego-procesu-prania-pieniedzy/"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-10-31-jak-dziala-kryptowaluta-i-dlaczego-trudno-odzyskac-skradzione-srodki.jpg"
+  },
+  {
     "id": "2026-10-31-tk-nowe-zarzadzenia-i-konsultacje-aktualizacja-16-25",
     "status": "published",
     "category": "polityka",
