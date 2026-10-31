@@ -33,6 +33,16 @@ check('odrzuca profil TikTok', checkVideoUrl('tiktok', 'https://www.tiktok.com/@
 check('odrzuca skracacz vm.tiktok', checkVideoUrl('tiktok', 'https://vm.tiktok.com/ZMabc/') !== null);
 
 await expectError('zła kategoria', { category: 'sport' }, /category/);
+for (const category of ['polityka', 'gospodarka', 'wydarzenia', 'medycyna', 'katastrofy', 'motoryzacja', 'technologia', 'spoleczenstwo', 'swiat']) {
+  const r = await run([{ ...base, category }]);
+  check(`kategoria „${category}” poprawna`, !r.error, r.error ? r.error.split('\n')[1] : '');
+}
+{
+  const r = await run([{ ...base, category: 'katastrofy' }, { ...base, id: 'test-2', category: 'technologia', youtube: 'https://www.youtube.com/watch?v=BBBBBBBBBBB' }]);
+  if (r.items) await renderCovers(r.items, r.dir);
+  const html = r.items ? renderSection(r.items, 'pl').section : '';
+  check('filtr i etykieta nowych kategorii (PL)', /data-filter="katastrofy"[^>]*>Katastrofy/.test(html) && /data-cat="technologia">Technologia</.test(html) && !/data-filter="medycyna"/.test(html));
+}
 await expectError('kategoria z prototypu (constructor)', { category: 'constructor' }, /category/);
 await expectError('format z prototypu (constructor)', { format: 'constructor' }, /format/);
 await expectError('tytuł nie-tekst', { title: 42 }, /title/);

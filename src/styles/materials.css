@@ -122,7 +122,17 @@
 .card__title { padding: 18px 20px 0; font-size: 1.125rem; font-weight: 700; line-height: 1.35; color: #fff; }
 .card__main:hover .card__title { color: var(--orange); }
 .card__meta { display: flex; gap: 8px; padding: 10px 20px 0; font-size: 0.8125rem; color: var(--muted); }
-.card__cat { color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.card__cat { color: var(--cat, var(--orange)); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+/* Akcent kategorii (kontrast ≥ 6,4:1 na tle kart). Polityka zostaje w kolorze marki. */
+[data-cat="polityka"], [data-filter="polityka"] { --cat: #ff8a00; }
+[data-cat="gospodarka"], [data-filter="gospodarka"] { --cat: #f2c94c; }
+[data-cat="wydarzenia"], [data-filter="wydarzenia"] { --cat: #4fd1c5; }
+[data-cat="medycyna"], [data-filter="medycyna"] { --cat: #6fdb8f; }
+[data-cat="katastrofy"], [data-filter="katastrofy"] { --cat: #ff6f61; }
+[data-cat="motoryzacja"], [data-filter="motoryzacja"] { --cat: #b9a2ff; }
+[data-cat="technologia"], [data-filter="technologia"] { --cat: #6fa8ff; }
+[data-cat="spoleczenstwo"], [data-filter="spoleczenstwo"] { --cat: #f49ac1; }
+[data-cat="swiat"], [data-filter="swiat"] { --cat: #a9bccb; }
 .card__lead { padding: 10px 20px 0; font-size: 0.9375rem; line-height: 1.55; color: #d5dde5; flex: 1; }
 .card__actions { display: flex; flex-wrap: wrap; gap: 10px; padding: 18px 20px 20px; }
 .watch-link {
@@ -170,6 +180,8 @@
 }
 .chip:hover, .sortbtn:hover { border-color: rgb(255 138 0 / 0.6); color: #fff; }
 .chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #111; }
+.chip[data-filter]:not([data-filter="all"])::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--cat, var(--orange)); flex: none; }
+.chip[aria-pressed="true"]::before { box-shadow: 0 0 0 1.5px #111; }
 .chip__n { font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 999px; background: rgb(245 247 250 / 0.1); }
 .chip[aria-pressed="true"] .chip__n { background: rgb(17 17 17 / 0.15); }
 .mtools__sort { padding: 3px; border-radius: 999px; border: 1px solid rgb(200 220 240 / 0.14); }

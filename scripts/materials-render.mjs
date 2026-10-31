@@ -104,7 +104,7 @@ function card(m, lang) {
     `<span class="card__cover">${coverImg(m, '(max-width: 640px) calc(100vw - 32px), (max-width: 1000px) calc(50vw - 30px), (max-width: 1272px) calc(33vw - 30px), 395px')}` +
     `${fmt ? `<span class="card__format" aria-hidden="true">${fmt}</span>` : ''}</span>` +
     `<h3 class="card__title">${esc(title)}</h3></a>` +
-    `<p class="card__meta"><span class="card__cat">${t.cats[m.category]}</span><span aria-hidden="true">·</span><time datetime="${m.date}">${fmtDate(m.date, lang)}</time></p>` +
+    `<p class="card__meta"><span class="card__cat" data-cat="${m.category}">${t.cats[m.category]}</span><span aria-hidden="true">·</span><time datetime="${m.date}">${fmtDate(m.date, lang)}</time></p>` +
     `<p class="card__lead">${esc(txt(m, lang, 'lead'))}</p><div class="card__actions">${actions}</div></article></li>`;
 }
 
@@ -275,7 +275,7 @@ export function renderPage(m, all, lang = 'pl') {
   const big = platforms(m).map((k) => platformLink(m, k, `cta cta--${k === 'youtube' ? 'yt' : 'tt'}`,
     `<span class="cta__label">${t.cta[k]}</span>${sr(t.newTab)}<svg class="cta__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>`, 'podstrona')).join('');
   const { items: more, related } = relatedFor(m, all, lang);
-  const meta = [`<span class="card__cat">${t.cats[m.category]}</span>`, `<time datetime="${m.date}">${fmtDate(m.date, lang)}</time>`]
+  const meta = [`<span class="card__cat" data-cat="${m.category}">${t.cats[m.category]}</span>`, `<time datetime="${m.date}">${fmtDate(m.date, lang)}</time>`]
     .concat(m.duration_seconds ? [`<span>${fmtDuration(m.duration_seconds)} ${t.min}</span>`] : [])
     .concat(fmt ? [`<span>${fmt}</span>`] : []).join('<span aria-hidden="true">·</span>');
 
