@@ -18,8 +18,15 @@
 | A | kontekstownik.pl | 185.199.110.153 |
 | A | kontekstownik.pl | 185.199.111.153 |
 | CNAME | www.kontekstownik.pl | damiandemrise.github.io. |
+| TXT | kontekstownik.pl | google-site-verification=H1PMctY8RSDUGA6sq2ZhGXxbD8QyqOdRxtiM7NH_0oI (Search Console – **nie usuwać**) |
 
 Pozostałe rekordy (autoconfig, SRV autodiscover, TXT SPF) to domyślne rekordy poczty LH.pl, zostawione bez zmian.
+
+### Google Search Console (od 31.10.2026)
+Usługa typu **Domena** `kontekstownik.pl` na koncie Google Damiana, zweryfikowana rekordem TXT powyżej.
+Zgłoszona mapa `https://www.kontekstownik.pl/sitemap.xml` (generowana przy buildzie z materiałami);
+ręcznie poproszono o indeksację strony głównej i `/materialy/spor-o-trybunal-konstytucyjny/`.
+Nowe podstrony Google znajdzie sam przez sitemap; przy ważnym materiale można dodatkowo użyć „Sprawdzenie adresu URL → Poproś o zindeksowanie”.
 
 ### Publikacja zmian
 
