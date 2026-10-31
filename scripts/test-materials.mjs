@@ -101,6 +101,10 @@ await expectError('złe id', { id: 'Zły ID' }, /id:/);
   check('HTML z danych jest escapowany', section.includes('&lt;img') && !section.includes('<img src=x'));
   check('brak iframe/embed w sekcji', !/<iframe|<embed|<video/.test(section));
 }
+await expectError('oś czasu: zła data', { timeline: [{ date: '2015-13', text: 'a' }, { date: '2016', text: 'b' }] }, /timeline\[0\]\.date/);
+await expectError('oś czasu: za krótka', { timeline: [{ date: '2015', text: 'a' }] }, /timeline: 2–15/);
+await expectError('oś czasu: źródło http', { timeline: [{ date: '2015', text: 'a', source: 'http://x.pl' }, { date: '2016', text: 'b' }] }, /timeline\[0\]\.source/);
+await expectError('oś czasu EN: inna długość', { timeline: [{ date: '2015', text: 'a' }, { date: '2016', text: 'b' }], en: { title: 'T', lead: 'L', timeline: ['x'] } }, /en\.timeline/);
 await expectError('zły slug', { slug: 'Zły Slug' }, /slug/);
 await expectError('źródło przez http', { sources: [{ title: 'X', url: 'http://example.com' }] }, /sources\[0\]\.url/);
 await expectError('źródło bez tytułu', { sources: [{ title: '', url: 'https://example.com' }] }, /sources\[0\]\.title/);

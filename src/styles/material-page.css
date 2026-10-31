@@ -55,3 +55,24 @@
 .mp-more { padding: 48px 0 0; background: none; }
 .mp-more .materials__inner { max-width: none; }
 .mp-more .materials__grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+
+/* Oś czasu „Jak do tego doszło” */
+.mp-timeline { margin-top: 36px; }
+.mp-timeline h2 { font-size: 1.125rem; font-weight: 700; color: #fff; margin: 0 0 16px; }
+.mp-timeline ol { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid rgb(255 138 0 / 0.45); display: grid; gap: 18px; }
+.mp-timeline li { position: relative; }
+.mp-timeline li::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--orange);
+}
+.mp-timeline time { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); }
+.mp-timeline p { margin: 4px 0 0; color: #d5dde5; line-height: 1.6; }
+.mp-timeline a { color: var(--muted); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.mp-page .topic-cta { margin-top: 40px; }

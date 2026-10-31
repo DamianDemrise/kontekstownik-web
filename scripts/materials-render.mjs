@@ -18,6 +18,11 @@ const T = {
     consentTitle: 'Twoja prywatność',
     consentText: 'Za Twoją zgodą używamy Google Analytics, żeby wiedzieć, ile osób odwiedza stronę i które przejście wybiera. Bez zgody nic nie mierzymy.',
     reject: 'Odrzucam', accept: 'Akceptuję', langNav: 'Język',
+    filterLabel: 'Filtruj materiały według kategorii', all: 'Wszystkie', sortLabel: 'Kolejność', newest: 'Najnowsze', oldest: 'Najstarsze',
+    shown: (n) => `Widoczne materiały: ${n}`,
+    topicTitle: 'Masz temat, który warto wyjaśnić?', topicText: 'Napisz, co mamy rozłożyć na czynniki pierwsze w kolejnym materiale.',
+    topicBtn: 'Zaproponuj temat', topicSubject: 'Propozycja tematu – KONTEKSTOWNIK', topicBody: 'Temat:\n\nCo chcesz zrozumieć:\n',
+    timeline: 'Jak do tego doszło', source: 'źródło',
   },
   en: {
     locale: 'en', og: 'en_GB', home: '/en/', privacy: '/en/privacy-policy/', base: '/en/materials/',
@@ -31,6 +36,11 @@ const T = {
     consentTitle: 'Your privacy',
     consentText: 'With your consent we use Google Analytics to see how many people visit the site and which platform they choose. Without consent we measure nothing.',
     reject: 'Reject', accept: 'Accept', langNav: 'Language',
+    filterLabel: 'Filter videos by category', all: 'All', sortLabel: 'Order', newest: 'Newest', oldest: 'Oldest',
+    shown: (n) => `Videos shown: ${n}`,
+    topicTitle: 'Got a topic worth explaining?', topicText: 'Tell us which issue we should break down in an upcoming video.',
+    topicBtn: 'Suggest a topic', topicSubject: 'Topic suggestion – KONTEKSTOWNIK', topicBody: 'Topic:\n\nWhat would you like to understand:\n',
+    timeline: 'How we got here', source: 'source',
   },
 };
 const PLATFORM_LABEL = { youtube: 'YouTube', tiktok: 'TikTok' };
@@ -46,6 +56,21 @@ const txt = (m, lang, key) => (lang === 'en' ? m.en?.[key] : m[key]);
 const formatLabel = (m, t) => (m.format === 'short' ? t.short : m.related_id ? t.full : null);
 const platforms = (m) => Object.keys(PLATFORM_LABEL).filter((k) => m[k]);
 const sr = (s) => `<span class="visually-hidden">${s}</span>`;
+function fmtPartialDate(d, lang) {
+  if (d.length === 10) return fmtDate(d, lang);
+  if (d.length === 4) return d;
+  return new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'pl-PL', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${d}-15T12:00:00Z`));
+}
+function timelineHtml(m, lang, t) {
+  if (!m.timeline?.length) return '';
+  const texts = lang === 'en' ? m.en?.timeline : null;
+  if (lang === 'en' && !texts) return '';
+  const host = (u) => new URL(u).hostname.replace(/^www\./, '');
+  return `<section class="mp-timeline" aria-labelledby="os-czasu"><h2 id="os-czasu">${t.timeline}</h2><ol>` +
+    m.timeline.map((ev, i) => `<li><time datetime="${ev.date}">${fmtPartialDate(ev.date, lang)}</time><p>${esc(texts ? texts[i] : ev.text)}` +
+      (ev.source ? ` <a href="${esc(ev.source)}" target="_blank" rel="noopener noreferrer">${t.source}: ${esc(host(ev.source))}${sr(t.newTab)}</a>` : '') + `</p></li>`).join('') +
+    `</ol></section>`;
+}
 
 function platformLink(m, platform, cls, inner, placement) {
   return `<a class="${cls}" href="${esc(m[platform])}" target="_blank" rel="noopener noreferrer" data-platform="${platform}" ` +
@@ -65,7 +90,7 @@ function card(m, lang) {
   const fmt = formatLabel(m, t);
   const actions = platforms(m).map((k) => platformLink(m, k, `watch-link watch-link--${k === 'youtube' ? 'yt' : 'tt'}`,
     `${t.cta[k]}${sr(`: ${esc(title)}`)}${sr(t.newTab)}<span aria-hidden="true">↗</span>`)).join('');
-  return `<li><article class="card"><a class="card__main" href="${pagePath(m, lang)}">` +
+  return `<li data-category="${m.category}" data-date="${m.date}"><article class="card"><a class="card__main" href="${pagePath(m, lang)}">` +
     `<span class="card__cover">${coverImg(m, '(max-width: 640px) calc(100vw - 32px), (max-width: 1000px) calc(50vw - 30px), (max-width: 1272px) calc(33vw - 30px), 395px')}` +
     `${fmt ? `<span class="card__format" aria-hidden="true">${fmt}</span>` : ''}</span>` +
     `<h3 class="card__title">${esc(title)}</h3></a>` +
@@ -85,6 +110,29 @@ function newPill(m, count, lang) {
     `<button type="button" class="new-pill__close" data-new-pill-close aria-label="${t.pillClose}">×</button></div>`;
 }
 
+// Tagi kategorii (tylko te, które mają materiały) i sortowanie. Bez JS pasek jest ukryty, a widać wszystkie karty.
+function toolbar(items, t) {
+  const counts = items.reduce((acc, m) => ({ ...acc, [m.category]: (acc[m.category] || 0) + 1 }), {});
+  const chip = (cat, label, n, on) => `<button type="button" class="chip" data-filter="${cat}" aria-pressed="${on}">${label}<span class="chip__n">${n}</span></button>`;
+  const chips = [chip('all', t.all, items.length, true)]
+    .concat(Object.keys(t.cats).filter((c) => counts[c]).map((c) => chip(c, t.cats[c], counts[c], false))).join('');
+  return `<div class="mtools" data-mtools hidden>` +
+    `<div class="mtools__chips" role="group" aria-label="${t.filterLabel}">${chips}</div>` +
+    `<div class="mtools__sort" role="group" aria-label="${t.sortLabel}">` +
+    `<button type="button" class="sortbtn" data-sort="newest" aria-pressed="true">${t.newest}</button>` +
+    `<button type="button" class="sortbtn" data-sort="oldest" aria-pressed="false">${t.oldest}</button></div>` +
+    `<p class="visually-hidden" role="status" aria-live="polite" data-mtools-status data-template="${esc(t.shown('{n}'))}"></p></div>`;
+}
+
+// „Zaproponuj temat”: mailto z gotowym tematem (bez formularza i backendu).
+export function topicCta(lang = 'pl') {
+  const t = T[lang];
+  const href = `mailto:kontekstownik@gmail.com?subject=${encodeURIComponent(t.topicSubject)}&body=${encodeURIComponent(t.topicBody)}`;
+  return `<aside class="topic-cta" aria-labelledby="topic-cta-${lang}"><div class="topic-cta__text">` +
+    `<h2 class="topic-cta__title" id="topic-cta-${lang}">${t.topicTitle}</h2><p>${t.topicText}</p></div>` +
+    `<a class="topic-cta__btn" href="${esc(href)}" data-social="topic">${t.topicBtn}<span aria-hidden="true"> →</span></a></aside>`;
+}
+
 export function renderSection(all, lang = 'pl') {
   const items = forLang(all, lang);
   if (!items.length) return { hint: '', section: '' };
@@ -95,7 +143,8 @@ export function renderSection(all, lang = 'pl') {
     section: `<section class="materials" id="materialy" aria-labelledby="materialy-title"><div class="materials__inner">` +
       `<header class="materials__head"><h2 class="materials__title" id="materialy-title">${t.latest}</h2>` +
       `<p class="materials__sub">${t.latestSub}</p></header>` +
-      `<ul class="materials__grid">${items.map((m) => card(m, lang)).join('')}</ul></div></section>`,
+      toolbar(items, t) +
+      `<ul class="materials__grid" data-mgrid>${items.map((m) => card(m, lang)).join('')}</ul>${topicCta(lang)}</div></section>`,
   };
 }
 
@@ -235,6 +284,7 @@ ${jsonLd(m, lang)}
       <div class="mp-watch">${big}</div>
       ${t.inPolish ? `<p class="mp-inpolish">${t.inPolish}</p>` : ''}
       ${summary?.length ? `<div class="mp-body">${summary.map((p) => `<p>${esc(p)}</p>`).join('')}</div>` : ''}
+      ${timelineHtml(m, lang, t)}
       ${m.as_of ? `<p class="mp-asof">${t.asOf} <time datetime="${m.as_of}">${fmtDate(m.as_of, lang)}</time></p>` : ''}
       ${m.sources?.length ? `<section class="mp-sources" aria-labelledby="zrodla"><h2 id="zrodla">${t.sources}</h2><ol>${m.sources.map((s) =>
         `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer"${lang === 'en' ? ' lang="pl"' : ''}>${esc(s.title)}${sr(t.newTab)}</a> <span class="mp-host">${esc(host(s.url))}</span></li>`).join('')}</ol></section>` : ''}
@@ -243,6 +293,7 @@ ${jsonLd(m, lang)}
         <button type="button" class="mp-share__btn" data-share data-share-title="${esc(title)}" data-share-url="${url}" data-share-done="${t.shareDone}" data-share-fallback="${t.shareFallback}">${t.share}</button>
         <span class="mp-share__status" role="status" aria-live="polite"></span>
       </div>
+      ${topicCta(lang)}
     </article>
     ${more.length ? `<section class="materials mp-more" aria-labelledby="wiecej"><div class="materials__inner"><header class="materials__head"><h2 class="materials__title" id="wiecej">${t.more}</h2></header><ul class="materials__grid">${more.map((x) => card(x, lang)).join('')}</ul></div></section>` : ''}
   </main>

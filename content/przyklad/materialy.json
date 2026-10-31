@@ -11,7 +11,22 @@
     "cover_alt": "",
     "youtube": "https://www.youtube.com/watch?v=AAAAAAAAAAA",
     "tiktok": "https://www.tiktok.com/@kontekstownik/video/7400000000000000001",
-    "primary": "youtube"
+    "primary": "youtube",
+    "timeline": [
+      {
+        "date": "2026-01",
+        "text": "Przykładowe wydarzenie 1 (dane testowe)."
+      },
+      {
+        "date": "2026-06-15",
+        "text": "Przykładowe wydarzenie 2 (dane testowe).",
+        "source": "https://eli.gov.pl/"
+      },
+      {
+        "date": "2026",
+        "text": "Przykładowe wydarzenie 3 (dane testowe)."
+      }
+    ]
   },
   {
     "id": "2026-10-30-ustawa",

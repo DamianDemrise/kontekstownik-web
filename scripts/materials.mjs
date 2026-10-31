@@ -100,6 +100,15 @@ export async function loadMaterials(dir = contentDir()) {
     }
     if (m.as_of !== undefined && !isRealDate(m.as_of)) err('as_of: RRRR-MM-DD');
     if (m.note !== undefined && !text(m.note, 300)) err('note: niepusty tekst do 300 znaków');
+    // Oś czasu „Jak do tego doszło”: tylko zweryfikowane wydarzenia, każde może wskazać źródło
+    if (m.timeline !== undefined) {
+      if (!Array.isArray(m.timeline) || m.timeline.length < 2 || m.timeline.length > 15) err('timeline: 2–15 wydarzeń');
+      else m.timeline.forEach((ev, k) => {
+        if (!ev || !/^\d{4}(-(0[1-9]|1[0-2])(-\d{2})?)?$/.test(ev.date || '') || (ev.date.length === 10 && !isRealDate(ev.date))) err(`timeline[${k}].date: RRRR, RRRR-MM albo RRRR-MM-DD`);
+        if (!text(ev?.text, 220)) err(`timeline[${k}].text: niepusty tekst do 220 znaków`);
+        if (ev?.source !== undefined) { const e = checkSourceUrl(ev.source); if (e) err(`timeline[${k}].source: ${e}`); }
+      });
+    }
     // Wersja angielska (opcjonalna): bez niej materiał nie pojawia się na /en/
     if (m.en !== undefined) {
       const en = m.en;
@@ -109,8 +118,9 @@ export async function loadMaterials(dir = contentDir()) {
         if (!text(en.lead, 200)) err('en.lead: niepusty tekst, max 200 znaków');
         if (en.summary !== undefined && !(Array.isArray(en.summary) && en.summary.length >= 1 && en.summary.length <= 8 && en.summary.every((t) => text(t, 1200)))) err('en.summary: 1–8 akapitów do 1200 znaków');
         if (en.note !== undefined && !text(en.note, 300)) err('en.note: niepusty tekst do 300 znaków');
+        if (en.timeline !== undefined && !(Array.isArray(en.timeline) && Array.isArray(m.timeline) && en.timeline.length === m.timeline.length && en.timeline.every((t) => text(t, 220)))) err('en.timeline: lista tekstów tej samej długości co timeline');
         if (en.slug !== undefined && (typeof en.slug !== 'string' || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(en.slug) || en.slug.length > 80)) err('en.slug: małe litery, cyfry i myślniki, max 80 znaków');
-        const extra = Object.keys(en).filter((k) => !['title', 'lead', 'summary', 'note', 'slug'].includes(k));
+        const extra = Object.keys(en).filter((k) => !['title', 'lead', 'summary', 'note', 'slug', 'timeline'].includes(k));
         if (extra.length) err(`en: nieznane pola ${extra.join(', ')}`);
       }
     }

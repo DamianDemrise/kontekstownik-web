@@ -138,7 +138,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   const { ctx, log } = await consentContext({ width: 1366, height: 768 });
   const page = await ctx.newPage();
   await page.goto(URL_, { waitUntil: 'networkidle' });
-  const soc = await page.$$eval('a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
+  const soc = await page.$$eval('.social a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
   check('kanały: Facebook, Instagram, e-mail', soc.map((x) => x.n).join() === 'facebook,instagram,email', soc.map((x) => x.href).join(' '));
   check('kanały: FB/IG w nowej karcie z noopener, mailto do kontekstownik@gmail.com',
     soc.filter((x) => x.n !== 'email').every((x) => x.t === '_blank' && x.rel === 'noopener noreferrer') && soc.find((x) => x.n === 'email').href === 'mailto:kontekstownik@gmail.com');
@@ -191,6 +191,28 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     await page.click('[data-consent="accept"]');
     await page.waitForTimeout(2500);
     ctx.on('page', (p) => p.close().catch(() => {}));
+    // Tagi i sortowanie
+    {
+      const t = await page.evaluate(() => ({
+        visible: !document.querySelector('[data-mtools]').hidden,
+        chips: [...document.querySelectorAll('[data-filter]')].map((b) => b.dataset.filter),
+        cats: [...new Set([...document.querySelectorAll('[data-mgrid] > li')].map((li) => li.dataset.category))],
+      }));
+      check('tagi: pasek widoczny, „Wszystkie” + tylko kategorie z materiałami', t.visible && t.chips[0] === 'all' && t.chips.slice(1).sort().join() === t.cats.sort().join(), t.chips.join(','));
+      if (t.chips.length > 2) {
+        await page.click(`[data-filter="${t.chips[1]}"]`);
+        const f = await page.evaluate((c) => [...document.querySelectorAll('[data-mgrid] > li')].every((li) => li.hidden === (li.dataset.category !== c)), t.chips[1]);
+        check('tagi: filtr pokazuje tylko wybraną kategorię', f);
+        await page.click('[data-filter="all"]');
+      }
+      const before = await page.$$eval('[data-mgrid] > li', (l) => l.map((x) => x.dataset.date));
+      await page.click('[data-sort="oldest"]');
+      const after = await page.$$eval('[data-mgrid] > li', (l) => l.map((x) => x.dataset.date));
+      check('sortowanie: Najstarsze odwraca kolejność, Najnowsze przywraca', after.join() === [...before].sort().join());
+      await page.click('[data-sort="newest"]');
+      const mail = await page.$eval('.topic-cta__btn', (a) => a.href);
+      check('„Zaproponuj temat”: mailto z gotowym tematem', mail.startsWith('mailto:kontekstownik@gmail.com?subject=') && decodeURIComponent(mail).includes('Propozycja tematu'));
+    }
     // Podstrona materiału
     {
       const sub = new URL(info.pages[0], URL_).href;
@@ -231,6 +253,9 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
       await sp.click('[data-share]');
       await sp.waitForTimeout(400);
       check('podstrona: Udostępnij kopiuje link', (await sp.textContent('.mp-share__status')).includes('skopiowany'));
+      const tl = await sp.$$eval('.mp-timeline li', (l) => l.length);
+      const hasTl = await sp.evaluate(() => !!document.querySelector('.mp-timeline'));
+      check('podstrona: oś czasu (jeśli w danych) + „Zaproponuj temat”', (!hasTl || tl >= 2) && !!(await sp.$('.topic-cta__btn')), `wydarzeń: ${tl}`);
       await spCtx.close();
     }
     const first = await page.$eval('.card .watch-link--tt', (a) => a.dataset.material);
@@ -267,7 +292,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     current: document.querySelector('.lang a[aria-current="page"]')?.textContent,
     other: [...document.querySelectorAll('.lang a:not([aria-current])')].map((a) => new URL(a.href).pathname),
     platforms: document.querySelectorAll('a.cta[data-platform]').length,
-    socials: document.querySelectorAll('a[data-social]').length,
+    socials: document.querySelectorAll('.social a[data-social]').length,
     topics: [...document.querySelectorAll('.topic span')].map((x) => x.textContent),
     cards: [...document.querySelectorAll('.card__main')].map((a) => new URL(a.href).pathname),
     privacy: document.querySelector('.legal a') ? new URL(document.querySelector('.legal a').href).pathname : null,
@@ -287,13 +312,14 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   const leftovers = ['Oglądaj', 'Wyjaśniamy', 'Polityka prywatności', 'Ustawienia cookies', 'Najnowsze', 'Obejrzyj', 'Odrzucam', 'Akceptuję'].filter((w) => en.text.includes(w));
   check('EN: brak polskich tekstów interfejsu', leftovers.length === 0, leftovers.join(','));
   check('EN: informacja, że filmy są po polsku', /Videos in Polish/i.test(en.text));
-  if (pl.cards.length) {
-    check('EN: karty prowadzą do /en/materials/…', en.cards.length > 0 && en.cards.every((x) => x.startsWith('/en/materials/')), en.cards.join(' '));
+  // Po angielsku są tylko materiały z tłumaczeniem (pole en), więc EN może mieć mniej kart niż PL
+  if (en.cards.length) {
+    check('EN: karty prowadzą do /en/materials/…', en.cards.every((x) => x.startsWith('/en/materials/')), en.cards.join(' '));
     await page.goto(new URL(en.cards[0], URL_).href, { waitUntil: 'networkidle' });
     const sub = await scan();
     const og = await page.$eval('meta[property="og:locale"]', (m) => m.content);
-    check('EN podstrona: lang en, hreflang do PL, og:locale en_GB', sub.lang === 'en' && sub.alt.pl === `${S}${pl.cards[0]}` && sub.alt.en === `${S}${en.cards[0]}` && og === 'en_GB');
-    check('EN podstrona: przełącznik prowadzi do polskiej podstrony', sub.other.join() === pl.cards[0]);
+    check('EN podstrona: lang en, hreflang do PL, og:locale en_GB', sub.lang === 'en' && sub.alt.pl?.startsWith(`${S}/materialy/`) && sub.alt.en === `${S}${en.cards[0]}` && og === 'en_GB');
+    check('EN podstrona: przełącznik prowadzi do polskiej podstrony', sub.other.length === 1 && `${S}${sub.other[0]}` === sub.alt.pl);
     check('EN podstrona: dopisek, że film jest po polsku, przyciski Watch on', /The video is in Polish/.test(sub.text) && /Watch on YouTube/.test(sub.text));
   }
   await page.goto(new URL('en/privacy-policy/', URL_).href, { waitUntil: 'networkidle' });

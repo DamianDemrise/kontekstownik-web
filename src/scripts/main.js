@@ -12,9 +12,11 @@ import '../styles/consent.css';
 import '../styles/materials.css';
 import { initConsent } from './consent.js';
 import { initNewPill } from './new-pill.js';
+import { initMaterialsTools } from './materials-tools.js';
 
 initConsent();
 initNewPill();
+initMaterialsTools();
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
