@@ -58,9 +58,9 @@ export function initGlobe(canvas, { reducedMotion }) {
       const b = light > 0.85 ? 3 : light > 0.6 ? 2 : light > 0.35 ? 1 : 0;
       buckets[b].push(c + x0 * r, c - y * r);
     }
-    const alphas = [0.3, 0.55, 0.8, 1];
+    const alphas = [0.35, 0.62, 0.85, 1];
     for (let b = 0; b < 4; b++) {
-      ctx.fillStyle = `rgba(214, 230, 246, ${alphas[b]})`;
+      ctx.fillStyle = `rgba(228, 240, 252, ${alphas[b]})`;
       const arr = buckets[b];
       for (let i = 0; i < arr.length; i += 2) ctx.fillRect(arr[i] - dot / 2, arr[i + 1] - dot / 2, dot, dot);
     }

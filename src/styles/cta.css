@@ -27,7 +27,21 @@
     0 0 calc(var(--u) * 3) var(--glow-b),
     inset 0 1px 0 rgb(255 255 255 / 0.06);
   transition: box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-out), background 0.35s var(--ease-out);
-  -webkit-box-reflect: below calc(var(--u) * 1.4) linear-gradient(transparent 62%, rgb(255 255 255 / 0.16));
+  -webkit-box-reflect: below calc(var(--u) * 1.4) linear-gradient(transparent 55%, rgb(255 255 255 / 0.28));
+}
+/* Kolorowa poświata na „podłodze” pod przyciskiem (działa też bez -webkit-box-reflect) */
+.cta::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: calc(100% + var(--u) * 1.2);
+  height: 70%;
+  background: radial-gradient(50% 60% at 50% 0%, var(--glow-a), transparent 75%);
+  filter: blur(calc(var(--u) * 0.8));
+  opacity: 0.8;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out);
 }
 .cta__logo { height: 1.55em; width: auto; flex: none; }
 .cta--yt .cta__logo { height: 1.5em; width: 2.1em; }

@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--u) * 4.6);
+  gap: calc(var(--u) * 3.7);
   padding: calc(var(--u) * 5) 16px calc(var(--u) * 8);
   padding-left: max(16px, env(safe-area-inset-left));
   padding-right: max(16px, env(safe-area-inset-right));
@@ -19,7 +19,7 @@
 
 .brand__logo {
   position: relative;
-  font-size: max(30px, calc(var(--u) * 6.4));
+  font-size: max(30px, calc(var(--u) * 6.7));
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.005em;
@@ -40,8 +40,8 @@
 }
 
 .brand__tagline {
-  margin-top: calc(var(--u) * 2.9);
-  font-size: max(11px, calc(var(--u) * 1.4));
+  margin-top: calc(var(--u) * 1.9);
+  font-size: max(12px, calc(var(--u) * 1.4));
   font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -51,7 +51,7 @@
 
 .brand__rule {
   display: block;
-  margin-top: calc(var(--u) * 2.6);
+  margin-top: calc(var(--u) * 2.4);
   width: max(96px, calc(var(--u) * 14.6));
   height: max(3px, calc(var(--u) * 0.5));
   border-radius: 1px;
@@ -70,7 +70,7 @@
   align-items: center;
   gap: calc(var(--u) * 1.2);
   padding: 0 calc(var(--u) * 2.5);
-  font-size: max(11px, calc(var(--u) * 1.15));
+  font-size: max(12px, calc(var(--u) * 1.15));
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -98,9 +98,9 @@
   opacity: 0.92;
 }
 
-.watch { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 2.4); }
+.watch { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 2.1); }
 .watch__title {
-  font-size: max(11px, calc(var(--u) * 1.25));
+  font-size: max(12px, calc(var(--u) * 1.25));
   font-weight: 500;
   letter-spacing: 0.36em;
   text-transform: uppercase;

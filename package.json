@@ -9,7 +9,10 @@
     "build": "vite build && node scripts/check-dist.mjs",
     "preview": "vite preview --port 4188 --strictPort",
     "shots": "node scripts/screenshots.mjs",
-    "zip": "node scripts/zip-dist.mjs"
+    "zip": "node scripts/zip-dist.mjs",
+    "test": "node scripts/screenshots.mjs && node scripts/test-functional.mjs",
+    "deploy": "./scripts/deploy-lh.sh",
+    "verify-live": "./scripts/verify-live.sh"
   },
   "devDependencies": {
     "@fontsource-variable/montserrat": "^5.3.0",
