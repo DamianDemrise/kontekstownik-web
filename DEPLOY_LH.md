@@ -6,7 +6,7 @@
   Każdy push na `main` uruchamia `.github/workflows/deploy.yml`: `npm ci` → `npm run build` → publikacja `dist/`.
 - **Domena i DNS:** LH.pl, konto `damiandobrolinski`, sposób zarządzania „Zaparkowana w LH.pl”.
   Serwer WWW w LH.pl **nie jest potrzebny**.
-- **Adres główny:** `https://www.kontekstownik.pl/` (CNAME w Pages + `public/CNAME`). `kontekstownik.pl` → 301 na www robi GitHub.
+- **Adres główny:** `https://www.kontekstownik.pl/` (CNAME w Pages + `public/CNAME`). `kontekstownik.pl` → 301 na www robi GitHub (z `http://kontekstownik.pl` dwa skoki: http://www, potem https).
 - **SSL:** certyfikat Let's Encrypt wystawia GitHub automatycznie, „Enforce HTTPS” włączone.
 
 ### Rekordy DNS (Panel LH.pl → Domeny → kontekstownik.pl → Edytuj rekordy DNS)

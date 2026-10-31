@@ -14,7 +14,7 @@ const SIZES = [
 ];
 
 mkdirSync(OUT, { recursive: true });
-const browser = await chromium.launch({ executablePath: CHROME });
+const browser = await chromium.launch({ executablePath: CHROME, args: process.env.CHROME_ARGS ? [process.env.CHROME_ARGS] : [] });
 let failed = 0;
 for (const [w, h, name, mobile] of SIZES) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: w > 1920 ? 1 : 2, isMobile: mobile, hasTouch: mobile });
