@@ -7,6 +7,7 @@ import '../styles/cta.css';
 import '../styles/motion.css';
 import '../styles/responsive.css';
 import '../styles/consent.css';
+import '../styles/materials.css';
 import { initConsent } from './consent.js';
 
 initConsent();
