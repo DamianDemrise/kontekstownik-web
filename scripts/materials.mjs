@@ -142,10 +142,23 @@ function card(m) {
     `<p class="card__lead">${esc(m.lead)}</p><div class="card__actions">${actions}</div></article></li>`;
 }
 
+function newPill(m, count) {
+  const more = count > 1 ? ` <span class="new-pill__more">+${count - 1}</span>` : '';
+  return `<div class="new-pill" data-new-pill hidden>` +
+    `<a class="new-pill__link" href="#materialy" data-new-pill-link>` +
+    `<img class="new-pill__thumb" src="${m._cover[480]}" alt="" width="1920" height="1080" decoding="async">` +
+    `<span class="new-pill__text"><span class="new-pill__label">Nowy materiał${more}</span>` +
+    `<span class="new-pill__title">${esc(m.title)}</span></span>` +
+    `<span class="new-pill__go" aria-hidden="true">↓</span>` +
+    `<span class="visually-hidden">. Przewiń do najnowszych materiałów</span></a>` +
+    `<button type="button" class="new-pill__close" data-new-pill-close aria-label="Ukryj powiadomienie o nowym materiale">×</button></div>`;
+}
+
 export function renderSection(items) {
   if (!items.length) return { hint: '', section: '' };
   return {
-    hint: '<a class="scroll-hint" href="#materialy">Najnowsze materiały <span aria-hidden="true">↓</span></a>',
+    // Przyklejony pasek o najnowszym materiale (pokazuje go new-pill.js; bez JS zostaje ukryty).
+    hint: newPill(items[0], items.length),
     section: `<section class="materials" id="materialy" aria-labelledby="materialy-title"><div class="materials__inner">` +
       `<header class="materials__head"><h2 class="materials__title" id="materialy-title">Najnowsze materiały</h2>` +
       `<p class="materials__sub">Oglądaj na YouTube lub TikToku</p></header>` +

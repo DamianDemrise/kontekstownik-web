@@ -14,7 +14,7 @@ const page = await ctx.newPage();
 await page.goto(URL_, { waitUntil: 'networkidle' });
 await page.addStyleTag({ content: `
   :root { --u: 13px; }
-  .topics, .legal, .consent, .watch__title, .social, .scroll-hint { display: none !important; }
+  .topics, .legal, .consent, .watch__title, .social, .new-pill { display: none !important; }
   .hero { gap: 44px; padding: 0 16px 40px; }
   .brand__logo { font-size: 84px; }
   .brand__tagline { font-size: 21px; margin-top: 26px; }

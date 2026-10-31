@@ -158,7 +158,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   await page.goto(URL_, { waitUntil: 'networkidle' });
   const n = await page.$$eval('.materials .card', (c) => c.length);
   if (!n) {
-    check('materiały: brak opublikowanych -> brak sekcji i strzałki', !(await page.$('#materialy')) && !(await page.$('.scroll-hint')));
+    check('materiały: brak opublikowanych -> brak sekcji i paska', !(await page.$('#materialy')) && !(await page.$('[data-new-pill]')));
   } else {
     const info = await page.evaluate(() => ({
       embeds: document.querySelectorAll('iframe, video, embed, object').length,
@@ -170,11 +170,20 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     check('materiały: wszystkie linki do konkretnych platform, nowa karta, noopener', info.bad === 0);
     check('materiały: okładki lazy, wymiary, srcset 3 szer.', info.imgs.every(([w, l, s]) => w === '1920' && l === 'lazy' && s === 3));
     check('materiały: linki mają nazwę z tytułem lub platformą', info.names.every((t) => t.length > 12));
-    await page.click('.scroll-hint');
+    // Pasek „Nowy materiał”: czeka na decyzję o cookies, potem pojawia się; klik przewija do sekcji i znika
+    await page.waitForTimeout(1800);
+    check('pasek ukryty, dopóki widać baner zgody', await page.$eval('[data-new-pill]', (p) => p.hidden));
+    await page.click('[data-consent="reject"]');
     await page.waitForTimeout(800);
-    check('strzałka „Najnowsze materiały” przewija do sekcji', await page.evaluate(() => Math.abs(document.getElementById('materialy').getBoundingClientRect().top) < 40));
+    check('pasek „Nowy materiał” pojawia się po decyzji o cookies', await page.isVisible('[data-new-pill]'));
+    await page.screenshot({ path: 'docs/screenshots/nowy-material-pasek-1366.png' });
+    await page.click('[data-new-pill-link]');
+    await page.waitForTimeout(1200);
+    const after = await page.evaluate(() => ({ top: document.getElementById('materialy').getBoundingClientRect().top, hidden: document.querySelector('[data-new-pill]').hidden }));
+    check('klik paska przewija do materiałów i chowa pasek', Math.abs(after.top) < 40 && after.hidden);
     const broken = await page.$$eval('.card__cover img', (is) => is.filter((i) => !i.complete || !i.naturalWidth).length);
     check('materiały: okładki się wczytują', broken === 0);
+    await page.click('[data-consent-open]');
     await page.click('[data-consent="accept"]');
     await page.waitForTimeout(2500);
     ctx.on('page', (p) => p.close().catch(() => {}));
@@ -184,6 +193,18 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     const beacons = await page.evaluate(() => window.__beacons || []);
     const hit = [...log.hits, ...beacons].find((h) => /en=platform_click/.test(h) && h.includes('placement=material'));
     check('klik w karcie -> platform_click z material_id i kategorią', !!hit && hit.includes(`ep.material_id=${first}`) && /ep\.category=/.test(hit));
+    // Zamknięcie paska krzyżykiem pamiętane do końca wizyty (osobny kontekst ze zgodą zapisaną, baner nie blokuje)
+    const ctx2 = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    await ctx2.addInitScript(REJECTED);
+    const p2 = await ctx2.newPage();
+    await p2.goto(URL_, { waitUntil: 'networkidle' });
+    await p2.waitForTimeout(1800);
+    await p2.click('[data-new-pill-close]');
+    await p2.waitForTimeout(600);
+    await p2.reload({ waitUntil: 'networkidle' });
+    await p2.waitForTimeout(1800);
+    check('zamknięty pasek nie wraca w tej samej wizycie', !(await p2.isVisible('[data-new-pill]')));
+    await ctx2.close();
   }
   await ctx.close();
 }

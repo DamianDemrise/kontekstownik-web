@@ -10,8 +10,10 @@ import '../styles/responsive.css';
 import '../styles/consent.css';
 import '../styles/materials.css';
 import { initConsent } from './consent.js';
+import { initNewPill } from './new-pill.js';
 
 initConsent();
+initNewPill();
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
