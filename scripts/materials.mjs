@@ -94,6 +94,7 @@ export async function loadMaterials(dir = contentDir()) {
       if (!Array.isArray(m.sources) || m.sources.length > 20) err('sources: lista do 20 pozycji');
       else m.sources.forEach((src, k) => {
         if (!src || !text(src.title, 200)) err(`sources[${k}].title: niepusty tekst do 200 znaków`);
+        if (src?.publisher !== undefined && !text(src.publisher, 120)) err(`sources[${k}].publisher: niepusty tekst do 120 znaków`);
         const e = checkSourceUrl(src?.url);
         if (e) err(`sources[${k}].url: ${e}`);
       });

@@ -8,3 +8,4 @@ backups/
 deploy.env
 /materialy/
 /en/materials/
+.import.lock/

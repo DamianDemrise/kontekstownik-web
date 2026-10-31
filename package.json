@@ -10,11 +10,12 @@
     "preview": "vite preview --port 4188 --strictPort",
     "shots": "node scripts/screenshots.mjs",
     "zip": "node scripts/zip-dist.mjs",
-    "test": "node scripts/test-materials.mjs && node scripts/screenshots.mjs && node scripts/test-functional.mjs",
+    "test": "node scripts/test-materials.mjs && node scripts/test-import.mjs && node scripts/screenshots.mjs && node scripts/test-functional.mjs",
     "deploy": "./scripts/deploy-lh.sh",
     "verify-live": "./scripts/verify-live.sh",
     "materialy:check": "node scripts/materials-check.mjs",
-    "build:przyklad": "MATERIALY_DIR=content/przyklad vite build && node scripts/check-dist.mjs"
+    "build:przyklad": "MATERIALY_DIR=content/przyklad vite build && node scripts/check-dist.mjs",
+    "import": "node scripts/import-material.mjs"
   },
   "devDependencies": {
     "@fontsource-variable/montserrat": "^5.3.0",

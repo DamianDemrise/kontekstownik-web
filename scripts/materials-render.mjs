@@ -341,7 +341,7 @@ ${jsonLd(m, lang)}
       ${transcript?.length ? `<details class="mp-transcript"><summary><span>${t.transcript}</span><span class="mp-transcript__hint">${t.transcriptHint}</span></summary><div class="mp-transcript__body">${transcript.map((p) => `<p>${esc(p)}</p>`).join('')}</div></details>` : ''}
       ${m.as_of ? `<p class="mp-asof">${t.asOf} <time datetime="${m.as_of}">${fmtDate(m.as_of, lang)}</time></p>` : ''}
       ${m.sources?.length ? `<section class="mp-sources" aria-labelledby="zrodla"><h2 id="zrodla">${t.sources}</h2><ol>${m.sources.map((s) =>
-        `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer"${lang === 'en' ? ' lang="pl"' : ''}>${esc(s.title)}${sr(t.newTab)}</a> <span class="mp-host">${esc(host(s.url))}</span></li>`).join('')}</ol></section>` : ''}
+        `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer"${lang === 'en' ? ' lang="pl"' : ''}>${esc(s.title)}${sr(t.newTab)}</a> <span class="mp-host">${esc(s.publisher || host(s.url))}</span></li>`).join('')}</ol></section>` : ''}
       ${note ? `<p class="mp-note">${esc(note)}</p>` : ''}
       ${rating(m, lang, t)}
       <div class="mp-share">

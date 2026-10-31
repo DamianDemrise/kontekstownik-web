@@ -1,0 +1,39 @@
+{
+  "schema": "kontekstownik.material/1",
+  "approved": true,
+  "id": "2026-11-01-przyklad-paczki",
+  "slug": "przyklad-paczki",
+  "title": "Tytuł materiału jak na YouTube (do 120 znaków)",
+  "lead": "Jedno zdanie, które dopowiada coś do tytułu (do 200 znaków).",
+  "category": "polityka",
+  "date": "2026-11-01",
+  "as_of": "2026-11-01",
+  "youtube": "https://www.youtube.com/shorts/AAAAAAAAAAA",
+  "tiktok": "https://www.tiktok.com/@kontekstownik/video/7400000000000000001",
+  "primary": "youtube",
+  "format": "full",
+  "duration_seconds": 95,
+  "series": "trybunal-konstytucyjny",
+  "summary": [
+    "Opis z YouTube bez hasztagów i linków – akapit 1.",
+    "Akapit 2."
+  ],
+  "key_points": [
+    "Punkt 1 (do 160 znaków).",
+    "Punkt 2.",
+    "Punkt 3."
+  ],
+  "transcript": [
+    "Tekst lektora – scena 1.",
+    "Tekst lektora – scena 2."
+  ],
+  "sources": [
+    {
+      "title": "Konstytucja RP, art. 79, 122, 188 i 190",
+      "publisher": "Dziennik Ustaw / ELI",
+      "url": "https://eli.gov.pl/eli/DU/1997/483/ogl"
+    }
+  ],
+  "note": "Lektor i muzyka w filmie powstały przy użyciu AI.",
+  "cover_h": "okladka-pozioma-1920x1080.jpg"
+}
