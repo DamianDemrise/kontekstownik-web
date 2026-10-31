@@ -1,5 +1,91 @@
 [
   {
+    "id": "2026-10-31-czy-peka-banka-ai",
+    "status": "published",
+    "category": "gospodarka",
+    "slug": "czy-peka-banka-ai",
+    "title": "Czy pęka bańka AI? Dlaczego inwestorzy pytają, kiedy wrócą miliardy?",
+    "lead": "Czy pęka bańka A I? Inwestorzy pytają, kiedy wrócą miliardy wydane na sztuczną inteligencję.",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=cGnMVSVEVGY",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 94,
+    "summary": [
+      "Czy pęka bańka A I? Inwestorzy pytają, kiedy wrócą miliardy wydane na sztuczną inteligencję."
+    ],
+    "transcript": [
+      "Czy pęka bańka A I? Inwestorzy pytają, kiedy wrócą miliardy wydane na sztuczną inteligencję.",
+      "Pytanie wróciło pod koniec października, w tygodniu wyników wielkich spółek technologicznych. Microsoft podał wyniki za kwartał do końca września: przychody wyniosły dziewięćdziesiąt dwa przecinek trzy miliarda dolarów, o dziewiętnaście procent więcej niż rok wcześniej.",
+      "Przychody Microsoft Cloud wzrosły o trzydzieści procent, do sześćdziesięciu trzech przecinek dziewięć miliarda dolarów. Azure urósł o czterdzieści osiem procent, a zakontraktowane przyszłe przychody o siedemdziesiąt trzy procent.",
+      "To dowód popytu, a nie zwrotu z inwestycji. Trzeba rozdzielić cztery sprawy: wycenę akcji, użyteczność technologii, nakłady i przyszły zwrot. Spadek kursu mówi o oczekiwaniach inwestorów, nie o tym, czy technologia działa.",
+      "W dyskusji na Reddicie pojawia się teza, że w Chinach bańka już pękła. To opinie internautów, a danych pierwotnych na jej poparcie nie znaleziono. Dlatego nie traktujemy jej jako faktu.",
+      "Stanowiska są podzielone. Ray Dalio, założyciel funduszu Bridgewater, ocenia, że rynek jest blisko etapu przed pęknięciem. Microsoft, który sprzedaje usługi chmurowe, pokazuje rosnące przychody. Żaden z tych głosów nie rozstrzyga sprawy.",
+      "Pytanie zostaje więc otwarte. Wyniki jednej firmy nie mierzą zwrotu z całych nakładów na sztuczną inteligencję, a spadek na giełdzie nie przesądza o krachu. Warto obserwować, czy przychody dogonią koszty budowy centrów danych.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Press Releases",
+        "publisher": "microsoft.com",
+        "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast"
+      },
+      {
+        "title": "Reddit",
+        "publisher": "reddit.com",
+        "url": "https://www.reddit.com/r/technology/comments/1xfxo3a/in_china_the_ai_bubble_has_already_burst/"
+      },
+      {
+        "title": "Bańka AI 2025 - czy czeka nas krach na rynku sztucznej inteligencji ...",
+        "publisher": "cyfrowa.rp.pl",
+        "url": "https://cyfrowa.rp.pl/globalne-interesy/art43168451-pekin-przekluje-banke-ai-eksperci-zaniepokojeni-technologiczna-euforia"
+      },
+      {
+        "title": "Ludzie mogą stracić pieniądze. Inwestorzy ostrzegają: bańka pęka",
+        "publisher": "money.pl",
+        "url": "https://www.money.pl/gielda/banka-ai-moze-peknac-w-2027-r-inwestorzy-wskazuja-ryzyka-dla-gieldy-7338881908685248a.html"
+      },
+      {
+        "title": "Bańka AI grozi globalnym krachem. Eksperci ostrzegają przed skutkami",
+        "publisher": "businessinsider.com.pl",
+        "url": "https://businessinsider.com.pl/wiadomosci/banka-ai-grozi-globalnym-krachem-eksperci-ostrzegaja-przed-skutkami/79yf2sy"
+      },
+      {
+        "title": "Bańka AI pęknie szybciej, niż myślimy? Wystarczy jeden czynnik",
+        "publisher": "businessinsider.com.pl",
+        "url": "https://businessinsider.com.pl/gielda/banka-ai-peknie-szybciej-niz-myslimy-wystarczy-jeden-czynnik/5h427bz"
+      },
+      {
+        "title": "Biliony dolarów długu, zero dowodów na zysk. Czy bańka AI już pęka?",
+        "publisher": "espresso.com.pl",
+        "url": "https://espresso.com.pl/big-tech-wydatki-ai-inwestorzy-zwrot-biliony/"
+      },
+      {
+        "title": "Bańka AI może pęknąć. Eksperci ostrzegają przed falą bankructw ...",
+        "publisher": "wnp.pl",
+        "url": "https://www.wnp.pl/tech/banka-ai-moze-peknac-eksperci-ostrzegaja-przed-fala-bankructw-przetrwaja-najsilniejsi,1112048.html"
+      },
+      {
+        "title": "Czy Bańka AI pękła? Inwestorzy na Wall Street mają podzielone zdania ...",
+        "publisher": "biznesinfo.pl",
+        "url": "https://www.biznesinfo.pl/czy-banka-ai-pekla-inwestorzy-na-wall-street-maja-podzielone-zdania-mw-wmw-051225"
+      },
+      {
+        "title": "Bańka AI pęka? Pół biliona dolarów wyparowało z chińskiego rynku. Co ...",
+        "publisher": "itwiz.pl",
+        "url": "https://itwiz.pl/banka-ai-peka-pol-biliona-dolarow-wyparowalo-z-chinskiego-rynku-co-dalej/"
+      },
+      {
+        "title": "Czy bańka sztucznej inteligencji pęknie? Google i analitycy Goldman ...",
+        "publisher": "cyfrowa.rp.pl",
+        "url": "https://cyfrowa.rp.pl/globalne-interesy/art43355701-gigant-ostrzega-przed-peknieciem-banki-ai-ucierpi-kazda-z-firm-nawet-google"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-10-31-czy-peka-banka-ai.jpg"
+  },
+  {
     "id": "2026-10-31-oredzie-premiera-w-sprawie-tk",
     "status": "published",
     "category": "polityka",
