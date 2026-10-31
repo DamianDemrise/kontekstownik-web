@@ -1,0 +1,72 @@
+/* Stopka prawna i baner zgody. Oba przyciski zgody mają identyczną wagę wizualną (wymóg UODO/EROD). */
+.legal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: max(10px, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.legal a, .legal button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 6px 2px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgb(174 185 196 / 0.4);
+  text-underline-offset: 3px;
+}
+.legal a:hover, .legal button:hover { color: var(--white); }
+
+.consent {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 32px));
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgb(16 24 32 / 0.94);
+  border: 1px solid rgb(200 220 240 / 0.16);
+  border-top: 2px solid var(--orange);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--white);
+  font-size: 13.5px;
+  line-height: 1.55;
+  animation: rise-in 0.5s 0.3s var(--ease-out) both;
+}
+.consent[hidden] { display: none; }
+.consent__title { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+.consent__text { color: #d5dde5; }
+.consent__text a { color: var(--orange); text-underline-offset: 3px; }
+.consent__actions { display: flex; gap: 10px; margin-top: 14px; }
+.consent__btn {
+  flex: 1;
+  min-height: 46px;
+  border-radius: 10px;
+  border: 1px solid rgb(245 247 250 / 0.5);
+  background: transparent;
+  color: var(--white);
+  font: 700 14px/1 var(--font);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.consent__btn:hover { background: rgb(245 247 250 / 0.08); border-color: var(--white); }
+.consent__btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+@media (max-width: 640px) {
+  .hero { padding-bottom: max(64px, env(safe-area-inset-bottom)); }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { padding-bottom: 52px; }
+}

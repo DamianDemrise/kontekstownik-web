@@ -1,5 +1,6 @@
 #!/bin/sh
 # Kontrola publicznej strony po wdrożeniu: DNS, SSL, przekierowania, treść, zasoby, linki platform.
+# Działa dla GitHub Pages i dla hostingu LH.pl.
 set -u
 D=kontekstownik.pl; W=www.$D; FAIL=0
 ok() { echo "ok   $1"; }; bad() { echo "FAIL $1"; FAIL=1; }
@@ -22,5 +23,4 @@ for a in $(echo "$html" | grep -oE '(href|src)="/[^"]+"' | sed -E 's/^[a-z]+="//
   c=$(curl -s -o /dev/null -w '%{http_code}' -m 15 "https://$W$a"); [ "$c" = 200 ] && ok "zasób $a" || bad "zasób $a -> $c"
 done
 r=$(code https://$W/nie-istnieje); [ "${r%% *}" = 404 ] && ok "404 dla nieistniejącej strony" || bad "nieistniejąca strona -> $r"
-curl -sI -m 15 https://$W/ | grep -qi '^content-security-policy' && ok "nagłówki bezpieczeństwa (.htaccess działa)" || bad "brak CSP: .htaccess nie działa?"
 exit $FAIL

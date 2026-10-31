@@ -1,0 +1,18 @@
+/* Podstrony tekstowe (polityka prywatności). */
+.doc { background: var(--bg); color: #d5dde5; }
+.doc__main { max-width: 760px; margin: 0 auto; padding: 56px 20px 120px; font-size: 16px; line-height: 1.7; }
+.doc__logo { position: relative; display: inline-block; font-weight: 800; font-size: 26px; color: #fff; padding: 6px 0 0 14px; margin-bottom: 40px; }
+.doc__corner { position: absolute; left: 0; top: 0; width: 22px; height: 18px; border-top: 3px solid var(--orange); border-left: 3px solid var(--orange); }
+.doc h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; color: #fff; line-height: 1.15; }
+.doc__meta { color: var(--muted); font-size: 14px; margin: 8px 0 32px; }
+.doc h2 { font-size: 18px; font-weight: 700; color: #fff; margin: 36px 0 10px; }
+.doc p, .doc ul, .doc table { margin: 0 0 14px; }
+.doc ul { padding-left: 20px; list-style: disc; }
+.doc li { margin-bottom: 8px; }
+.doc a, .doc__link { color: var(--orange); text-underline-offset: 3px; text-decoration: underline; }
+.doc__link { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.doc table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.doc th, .doc td { text-align: left; padding: 10px 8px; border-bottom: 1px solid rgb(200 220 240 / 0.14); }
+.doc th { color: #fff; font-weight: 700; }
+.doc code { font-size: 13px; color: #fff; }
+.doc__back { margin-top: 40px; }

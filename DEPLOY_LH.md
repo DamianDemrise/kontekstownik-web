@@ -1,13 +1,46 @@
-# Wdrożenie na LH.pl
+# Wdrożenie: GitHub Pages + DNS w LH.pl
 
-## Stan na 31.10.2026
+## Jak to działa (od 31.10.2026, tak samo jak dobrolinski.pl)
 
-- Domena `kontekstownik.pl` zarejestrowana w LH.pl **31.10.2026 09:13**, serwery nazw `ns.lh.pl` / `ns2.lighthosting.net`.
-- **Brak rekordów A** dla `kontekstownik.pl` i `www.kontekstownik.pl` → domena nie jest jeszcze przypisana do żadnego serwera WWW.
-- Brak danych FTP/SFTP w pęku kluczy. Nie wiadomo, czy na koncie jest aktywny hosting (sama domena go nie oznacza).
+- **Pliki strony:** GitHub Pages, repo `DamianDemrise/kontekstownik-web` (publiczne), bez kosztów.
+  Każdy push na `main` uruchamia `.github/workflows/deploy.yml`: `npm ci` → `npm run build` → publikacja `dist/`.
+- **Domena i DNS:** LH.pl, konto `damiandobrolinski`, sposób zarządzania „Zaparkowana w LH.pl”.
+  Serwer WWW w LH.pl **nie jest potrzebny**.
+- **Adres główny:** `https://www.kontekstownik.pl/` (CNAME w Pages + `public/CNAME`). `kontekstownik.pl` → 301 na www robi GitHub.
+- **SSL:** certyfikat Let's Encrypt wystawia GitHub automatycznie, „Enforce HTTPS” włączone.
 
-Według pomocy LH.pl domenę trzeba dodać do serwera, inaczej nie powstaje strefa DNS ani kierowanie na katalog
-(https://www.lh.pl/pomoc/doc/jak-dodac-domene-do-dns/).
+### Rekordy DNS (Panel LH.pl → Domeny → kontekstownik.pl → Edytuj rekordy DNS)
+
+| Typ | Host | Wartość |
+|---|---|---|
+| A | kontekstownik.pl | 185.199.108.153 |
+| A | kontekstownik.pl | 185.199.109.153 |
+| A | kontekstownik.pl | 185.199.110.153 |
+| A | kontekstownik.pl | 185.199.111.153 |
+| CNAME | www.kontekstownik.pl | damiandemrise.github.io. |
+
+Pozostałe rekordy (autoconfig, SRV autodiscover, TXT SPF) to domyślne rekordy poczty LH.pl, zostawione bez zmian.
+
+### Publikacja zmian
+
+```bash
+npm run build && npm run preview   # lokalnie, w drugim terminalu: npm test
+git push                           # GitHub zbuduje i opublikuje w ~1 min
+./scripts/verify-live.sh           # kontrola publicznej strony
+```
+
+### Ograniczenia GitHub Pages
+
+- `public/.htaccess` jest ignorowany (to nie Apache). Przekierowania i HTTPS robi GitHub; własnych nagłówków
+  (CSP, cache) ustawić się nie da. Plik zostaje na wypadek przeniesienia na hosting LH.pl (sekcja niżej).
+- Repo musi być publiczne (darmowy plan). Nie trzymać w nim żadnych danych dostępowych.
+
+---
+
+# Wariant alternatywny: hosting WWW w LH.pl (FTP)
+
+Używać tylko, jeśli strona ma się przenieść na serwer LH.pl. Wtedy rekordy A/CNAME powyżej trzeba zastąpić
+przypisaniem domeny do serwera.
 
 ## Krok po kroku
 

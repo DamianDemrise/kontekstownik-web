@@ -2,7 +2,7 @@
 
 Jednoekranowa strona startowa kanału KONTEKSTOWNIK. Jedyny cel: przekierować na YouTube albo TikToka.
 Statyczny HTML + CSS + ~3 KB JS (globus i paralaksa doładowywane po renderze). Bez backendu, bazy, CMS i analityki.
-Działa na zwykłym hostingu współdzielonym LH.pl.
+Hosting: GitHub Pages (push na `main` publikuje), domena i DNS w LH.pl. Działa też na zwykłym hostingu LH.pl (FTP).
 
 ## Komendy
 
@@ -14,7 +14,8 @@ Działa na zwykłym hostingu współdzielonym LH.pl.
 | `npm run preview` | podgląd builda http://localhost:4188 |
 | `npm test` | zrzuty 11 rozdzielczości + testy funkcjonalne (wymaga `npm run preview`) |
 | `npm run zip` | `release/kontekstownik-dist-RRRR-MM-DD.zip` gotowe do wgrania |
-| `npm run deploy` | podgląd wdrożenia na LH.pl (kopia zdalna + różnice); `-- --wyslij` wysyła |
+| `git push` | publikacja na GitHub Pages (workflow `.github/workflows/deploy.yml`) |
+| `npm run deploy` | tylko wariant hostingu LH.pl: podgląd wdrożenia FTP; `-- --wyslij` wysyła |
 | `npm run verify-live` | kontrola publicznej strony: DNS, SSL, przekierowania, zasoby, linki |
 | `npm run assets` | regeneracja danych globusa (rzadko) |
 
@@ -37,7 +38,7 @@ docs/                      referencja, zrzuty ekranu, raporty Lighthouse
 | Plik | Kiedy czytać |
 |---|---|
 | `DESIGN_SYSTEM.md` | zmiana wyglądu: kolory, typografia, siatka, animacje |
-| `DEPLOY_LH.md` | publikacja na LH.pl, DNS, SSL, przekierowania |
+| `DEPLOY_LH.md` | publikacja (GitHub Pages), rekordy DNS w LH.pl, SSL, wariant FTP |
 | `QA_REPORT.md` | wyniki testów, Lighthouse, znane ograniczenia |
 | `CLAUDE.md` | zasady pracy agenta w tym repo |
 
