@@ -26,7 +26,17 @@
         "date": "2026",
         "text": "Przykładowe wydarzenie 3 (dane testowe)."
       }
-    ]
+    ],
+    "key_points": [
+      "Punkt pierwszy (dane testowe).",
+      "Punkt drugi (dane testowe).",
+      "Punkt trzeci (dane testowe)."
+    ],
+    "transcript": [
+      "Akapit pierwszy tekstu lektora (dane testowe).",
+      "Akapit drugi tekstu lektora (dane testowe)."
+    ],
+    "series": "przyklad"
   },
   {
     "id": "2026-10-30-ustawa",
@@ -40,7 +50,8 @@
     "cover_alt": "",
     "youtube": "https://www.youtube.com/watch?v=BBBBBBBBBBB",
     "tiktok": "https://www.tiktok.com/@kontekstownik/video/7400000000000000002",
-    "primary": "youtube"
+    "primary": "youtube",
+    "series": "przyklad"
   },
   {
     "id": "2026-10-27-szlaki-skrot",

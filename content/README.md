@@ -54,7 +54,10 @@ Strona **nie odtwarza** filmów. Każdy materiał ma kartę na stronie głównej
 | `as_of` | „Stan informacji” `RRRR-MM-DD` |
 | `note` | krótka nota, np. „Lektor i muzyka w filmie powstały przy użyciu AI.” |
 | `timeline` | oś czasu „Jak do tego doszło”: 2–15 pozycji `{ "date": "RRRR" / "RRRR-MM" / "RRRR-MM-DD", "text": "jedno zdanie", "source": "https://…" }`. **Tylko zweryfikowane fakty**, najlepiej każdy ze źródłem |
-| `en` | wersja angielska `{ slug, title, lead, summary, note, timeline }` (`timeline` = lista przetłumaczonych zdań w tej samej kolejności) – bez niej materiał nie pojawia się na `/en/`; `slug` po angielsku (adres `/en/materials/<slug>/`) |
+| `key_points` | „W skrócie”: 2–5 punktów do 160 znaków – najważniejsze w 30 sekund (ze scenariusza) |
+| `transcript` | tekst filmu: akapity lektora (1–60, każdy do 1500 znaków) – z **zatwierdzonego scenariusza**, nie z automatycznych napisów |
+| `series` | wątek/seria, np. `trybunal-konstytucyjny` – materiały z tej samej serii pokazują się jako powiązane |
+| `en` | wersja angielska `{ slug, title, lead, summary, note, timeline, key_points, transcript }` (`timeline` = lista przetłumaczonych zdań w tej samej kolejności) – bez niej materiał nie pojawia się na `/en/`; `slug` po angielsku (adres `/en/materials/<slug>/`) |
 
 Ten sam film na obu platformach = **jedna karta** z dwoma linkami. Skrót (TikTok) i pełny materiał (YouTube) = **dwie karty** z `related_id`.
 

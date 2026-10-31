@@ -10,7 +10,7 @@ const T = {
     locale: 'pl-PL', og: 'pl_PL', home: '/', privacy: '/polityka-prywatnosci/', base: '/materialy/',
     cats: CATEGORIES, cta: { youtube: 'Obejrzyj na YouTube', tiktok: 'Obejrzyj na TikToku' },
     newTab: ' (otwiera się w nowej karcie)', short: 'Skrót', full: 'Pełny materiał',
-    latest: 'Najnowsze materiały', latestSub: 'Oglądaj na YouTube lub TikToku', more: 'Więcej materiałów',
+    latest: 'Najnowsze materiały', latestSub: 'Oglądaj na YouTube lub TikToku', more: 'Więcej materiałów', related: 'Ten temat w innych materiałach',
     pillLabel: 'Nowy materiał', pillSr: '. Przewiń do najnowszych materiałów', pillClose: 'Ukryj powiadomienie o nowym materiale',
     crumbs: 'Okruszki', crumbHome: 'Strona główna', crumbList: 'Materiały', asOf: 'Stan informacji:', sources: 'Źródła',
     share: 'Udostępnij', shareDone: 'Link skopiowany', shareFallback: 'Skopiuj link:', watchOn: 'Obejrzyj na', inPolish: '',
@@ -26,12 +26,14 @@ const T = {
     topicShort: 'Napisz kilka słów więcej.', topicWait: 'Chwila – kolejny temat możesz wysłać za minutę.',
     topicPrivacy: 'Wysyłasz tylko treść tematu, bez danych o sobie.',
     timeline: 'Jak do tego doszło', source: 'źródło',
+    keyPoints: 'W skrócie', transcript: 'Tekst filmu', transcriptHint: 'Pełny tekst lektora',
+    rateQ: 'Czy ten materiał pomógł Ci zrozumieć temat?', rateYes: 'Tak', rateNo: 'Nie', rateThanks: 'Dziękujemy za ocenę!', rateDone: 'Już oceniłeś ten materiał – dziękujemy!', rateErr: 'Nie udało się wysłać oceny.',
   },
   en: {
     locale: 'en', og: 'en_GB', home: '/en/', privacy: '/en/privacy-policy/', base: '/en/materials/',
     cats: CATEGORIES_EN, cta: { youtube: 'Watch on YouTube', tiktok: 'Watch on TikTok' },
     newTab: ' (opens in a new tab)', short: 'Short', full: 'Full video',
-    latest: 'Latest videos', latestSub: 'In Polish · watch on YouTube or TikTok', more: 'More videos',
+    latest: 'Latest videos', latestSub: 'In Polish · watch on YouTube or TikTok', more: 'More videos', related: 'This topic in other videos',
     pillLabel: 'New video', pillSr: '. Scroll to the latest videos', pillClose: 'Hide the new video notice',
     crumbs: 'Breadcrumbs', crumbHome: 'Home', crumbList: 'Videos', asOf: 'Information as of', sources: 'Sources',
     share: 'Share', shareDone: 'Link copied', shareFallback: 'Copy the link:', watchOn: 'Watch on', inPolish: 'The video is in Polish.',
@@ -47,6 +49,8 @@ const T = {
     topicShort: 'Please write a few more words.', topicWait: 'One moment – you can send another topic in a minute.',
     topicPrivacy: 'You only send the topic text, no data about you.',
     timeline: 'How we got here', source: 'source',
+    keyPoints: 'In short', transcript: 'Video transcript', transcriptHint: 'Full narration text (translated)',
+    rateQ: 'Did this video help you understand the topic?', rateYes: 'Yes', rateNo: 'No', rateThanks: 'Thank you for your feedback!', rateDone: 'You have already rated this video – thank you!', rateErr: 'Could not send your rating.',
   },
 };
 const PLATFORM_LABEL = { youtube: 'YouTube', tiktok: 'TikTok' };
@@ -136,6 +140,21 @@ export const TOPIC_FORM = {
   action: 'https://docs.google.com/forms/d/e/1FAIpQLSeMKIKAJZ5t_sJ9wudG44AsxRcQr3T7KNfNol3f2KvbSqq5ig/formResponse',
   field: 'entry.1571487052',
 };
+// „Czy pomógł?”: 👍/👎 do osobnego Formularza Google (id materiału + ocena + język, nic o użytkowniku).
+export const RATING_FORM = {
+  action: 'https://docs.google.com/forms/d/e/1FAIpQLSf_u8rYiSqyrDxf18UhWLU_4c2SgY1NjL70UcAjJKED0CJydQ/formResponse',
+  material: 'entry.309489263',
+  rating: 'entry.176110606',
+};
+function rating(m, lang, t) {
+  const btn = (v, icon, label) => `<button type="button" class="rate__btn" data-rate="${v}" aria-label="${label}"><span aria-hidden="true">${icon}</span> ${label}</button>`;
+  return `<div class="rate" data-rating data-material="${esc(m.id)}" data-lang="${lang}" data-action="${RATING_FORM.action}" ` +
+    `data-f-material="${RATING_FORM.material}" data-f-rating="${RATING_FORM.rating}" data-thanks="${esc(t.rateThanks)}" data-done="${esc(t.rateDone)}" data-err="${esc(t.rateErr)}">` +
+    `<p class="rate__q" id="rate-${esc(m.id)}">${t.rateQ}</p>` +
+    `<div class="rate__btns" role="group" aria-labelledby="rate-${esc(m.id)}">${btn('tak', '👍', t.rateYes)}${btn('nie', '👎', t.rateNo)}</div>` +
+    `<p class="rate__status" role="status" aria-live="polite" data-rate-status></p></div>`;
+}
+
 export function topicCta(lang = 'pl') {
   const t = T[lang];
   const id = `topic-${lang}`;
@@ -152,6 +171,16 @@ export function topicCta(lang = 'pl') {
     `<div class="topic-form__hp" aria-hidden="true"><label>Strona www<input type="text" tabindex="-1" autocomplete="off" data-topic-hp></label></div>` +
     `<p class="topic-form__hint" id="${id}-hint">${t.topicPrivacy}</p>` +
     `<p class="topic-form__status" role="status" aria-live="polite" data-topic-status></p></form></aside>`;
+}
+
+// Powiązane: powiązanie wprost (related_id w dowolną stronę) > ta sama seria > ta sama kategoria > najnowsze.
+export function relatedFor(m, all, lang, limit = 3) {
+  const score = (x) => (x.related_id === m.id || m.related_id === x.id ? 100 : 0) + (m.series && x.series === m.series ? 50 : 0) + (x.category === m.category ? 10 : 0);
+  const list = forLang(all, lang).filter((x) => x.id !== m.id)
+    .map((x) => ({ x, s: score(x) }))
+    .sort((a, b) => b.s - a.s || b.x.date.localeCompare(a.x.date))
+    .slice(0, limit);
+  return { items: list.map((e) => e.x), related: list.some((e) => e.s > 0) };
 }
 
 export function renderSection(all, lang = 'pl') {
@@ -238,12 +267,14 @@ export function renderPage(m, all, lang = 'pl') {
   const title = txt(m, lang, 'title');
   const lead = txt(m, lang, 'lead');
   const summary = txt(m, lang, 'summary');
+  const keyPoints = txt(m, lang, 'key_points');
+  const transcript = txt(m, lang, 'transcript');
   const note = txt(m, lang, 'note');
   const fmt = formatLabel(m, t);
   const host = (u) => new URL(u).hostname.replace(/^www\./, '');
   const big = platforms(m).map((k) => platformLink(m, k, `cta cta--${k === 'youtube' ? 'yt' : 'tt'}`,
     `<span class="cta__label">${t.cta[k]}</span>${sr(t.newTab)}<svg class="cta__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>`, 'podstrona')).join('');
-  const more = forLang(all, lang).filter((x) => x.id !== m.id).slice(0, 3);
+  const { items: more, related } = relatedFor(m, all, lang);
   const meta = [`<span class="card__cat">${t.cats[m.category]}</span>`, `<time datetime="${m.date}">${fmtDate(m.date, lang)}</time>`]
     .concat(m.duration_seconds ? [`<span>${fmtDuration(m.duration_seconds)} ${t.min}</span>`] : [])
     .concat(fmt ? [`<span>${fmt}</span>`] : []).join('<span aria-hidden="true">·</span>');
@@ -297,6 +328,7 @@ ${jsonLd(m, lang)}
       <p class="mp-meta">${meta}</p>
       <h1 class="mp-title">${esc(title)}</h1>
       <p class="mp-lead">${esc(lead)}</p>
+      ${keyPoints?.length ? `<section class="mp-points" aria-labelledby="w-skrocie"><h2 id="w-skrocie">${t.keyPoints}</h2><ul>${keyPoints.map((p) => `<li>${esc(p)}</li>`).join('')}</ul></section>` : ''}
       <a class="mp-cover" href="${esc(m[m.primary])}" target="_blank" rel="noopener noreferrer" data-platform="${m.primary}" data-material="${esc(m.id)}" data-category="${esc(m.category)}" data-placement="podstrona">
         ${coverImg(m, '(max-width: 820px) calc(100vw - 40px), 780px', true)}
         <span class="mp-cover__badge" aria-hidden="true">${t.watchOn} ${PLATFORM_LABEL[m.primary]} ↗</span>
@@ -306,17 +338,19 @@ ${jsonLd(m, lang)}
       ${t.inPolish ? `<p class="mp-inpolish">${t.inPolish}</p>` : ''}
       ${summary?.length ? `<div class="mp-body">${summary.map((p) => `<p>${esc(p)}</p>`).join('')}</div>` : ''}
       ${timelineHtml(m, lang, t)}
+      ${transcript?.length ? `<details class="mp-transcript"><summary><span>${t.transcript}</span><span class="mp-transcript__hint">${t.transcriptHint}</span></summary><div class="mp-transcript__body">${transcript.map((p) => `<p>${esc(p)}</p>`).join('')}</div></details>` : ''}
       ${m.as_of ? `<p class="mp-asof">${t.asOf} <time datetime="${m.as_of}">${fmtDate(m.as_of, lang)}</time></p>` : ''}
       ${m.sources?.length ? `<section class="mp-sources" aria-labelledby="zrodla"><h2 id="zrodla">${t.sources}</h2><ol>${m.sources.map((s) =>
         `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer"${lang === 'en' ? ' lang="pl"' : ''}>${esc(s.title)}${sr(t.newTab)}</a> <span class="mp-host">${esc(host(s.url))}</span></li>`).join('')}</ol></section>` : ''}
       ${note ? `<p class="mp-note">${esc(note)}</p>` : ''}
+      ${rating(m, lang, t)}
       <div class="mp-share">
         <button type="button" class="mp-share__btn" data-share data-share-title="${esc(title)}" data-share-url="${url}" data-share-done="${t.shareDone}" data-share-fallback="${t.shareFallback}">${t.share}</button>
         <span class="mp-share__status" role="status" aria-live="polite"></span>
       </div>
       ${topicCta(lang)}
     </article>
-    ${more.length ? `<section class="materials mp-more" aria-labelledby="wiecej"><div class="materials__inner"><header class="materials__head"><h2 class="materials__title" id="wiecej">${t.more}</h2></header><ul class="materials__grid">${more.map((x) => card(x, lang)).join('')}</ul></div></section>` : ''}
+    ${more.length ? `<section class="materials mp-more" aria-labelledby="wiecej"><div class="materials__inner"><header class="materials__head"><h2 class="materials__title" id="wiecej">${related ? t.related : t.more}</h2></header><ul class="materials__grid">${more.map((x) => card(x, lang)).join('')}</ul></div></section>` : ''}
   </main>
 
   <footer class="legal legal--static">

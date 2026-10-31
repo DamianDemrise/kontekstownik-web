@@ -10,7 +10,9 @@ import '../styles/lang.css';
 import { initConsent } from './consent.js';
 import { initShare } from './share.js';
 import { initTopicForms } from './topic-form.js';
+import { initRatings } from './rating.js';
 
 initConsent();
 initShare();
 initTopicForms();
+initRatings();

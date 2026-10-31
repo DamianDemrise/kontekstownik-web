@@ -3,7 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, copyFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { loadMaterials, checkVideoUrl, renderCovers } from './materials.mjs';
-import { renderSection, renderPage, renderSitemap } from './materials-render.mjs';
+import { renderSection, renderPage, renderSitemap, relatedFor } from './materials-render.mjs';
 
 const results = [];
 const check = (name, ok, info = '') => results.push(`${ok ? 'ok  ' : 'FAIL'} ${name}${info ? ' – ' + info : ''}`);
@@ -125,6 +125,18 @@ await expectError('zła data stanu informacji', { as_of: '2026-13-01' }, /as_of/
   const sm = renderSitemap(r.items);
   check('sitemap zawiera podstronę materiału', sm.includes('/materialy/temat-x/'));
 }
+{
+  const mk = (id, extra) => ({ id, date: '2026-11-01', category: 'swiat', ...extra });
+  const all = [mk('a', { series: 's1' }), mk('b', { date: '2026-11-09', category: 'polityka' }), mk('c', { series: 's1', date: '2026-10-01' }), mk('d', { date: '2026-11-08' }), mk('e', { related_id: 'a', date: '2026-09-01', category: 'polityka' })];
+  const rel = relatedFor(all[0], all, 'pl');
+  check('powiązane: related_id > seria > kategoria > najnowsze', rel.items.map((x) => x.id).join() === 'e,c,d' && rel.related, rel.items.map((x) => x.id).join());
+  const none = relatedFor(mk('z', { category: 'gospodarka' }), [mk('z', { category: 'gospodarka' }), mk('y', { category: 'polityka' })], 'pl');
+  check('powiązane: bez wspólnych cech nagłówek „Więcej materiałów”', !none.related && none.items[0].id === 'y');
+}
+await expectError('W skrócie: 1 punkt to za mało', { key_points: ['jeden'] }, /key_points/);
+await expectError('tekst filmu: pusty akapit', { transcript: ['ok', ''] }, /transcript/);
+await expectError('EN: nieznane pole', { en: { title: 'T', lead: 'L', foo: 1 } }, /nieznane pola/);
+await expectError('zła seria', { series: 'Zła Seria' }, /series/);
 {
   const r = await run([]);
   const out = renderSection(r.items);

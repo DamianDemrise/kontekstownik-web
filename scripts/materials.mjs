@@ -99,6 +99,12 @@ export async function loadMaterials(dir = contentDir()) {
       });
     }
     if (m.as_of !== undefined && !isRealDate(m.as_of)) err('as_of: RRRR-MM-DD');
+    // „W skrócie” (2–5 punktów) i tekst filmu (akapity lektora) – tylko z zatwierdzonego scenariusza
+    const pts = (v) => Array.isArray(v) && v.length >= 2 && v.length <= 5 && v.every((x) => text(x, 160));
+    const paras = (v) => Array.isArray(v) && v.length >= 1 && v.length <= 60 && v.every((x) => text(x, 1500));
+    if (m.key_points !== undefined && !pts(m.key_points)) err('key_points: 2–5 punktów, każdy do 160 znaków');
+    if (m.transcript !== undefined && !paras(m.transcript)) err('transcript: 1–60 akapitów, każdy do 1500 znaków');
+    if (m.series !== undefined && (typeof m.series !== 'string' || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(m.series))) err('series: identyfikator serii/wątku, np. trybunal-konstytucyjny');
     if (m.note !== undefined && !text(m.note, 300)) err('note: niepusty tekst do 300 znaków');
     // Oś czasu „Jak do tego doszło”: tylko zweryfikowane wydarzenia, każde może wskazać źródło
     if (m.timeline !== undefined) {
@@ -119,8 +125,10 @@ export async function loadMaterials(dir = contentDir()) {
         if (en.summary !== undefined && !(Array.isArray(en.summary) && en.summary.length >= 1 && en.summary.length <= 8 && en.summary.every((t) => text(t, 1200)))) err('en.summary: 1–8 akapitów do 1200 znaków');
         if (en.note !== undefined && !text(en.note, 300)) err('en.note: niepusty tekst do 300 znaków');
         if (en.timeline !== undefined && !(Array.isArray(en.timeline) && Array.isArray(m.timeline) && en.timeline.length === m.timeline.length && en.timeline.every((t) => text(t, 220)))) err('en.timeline: lista tekstów tej samej długości co timeline');
+        if (en.key_points !== undefined && !(Array.isArray(en.key_points) && en.key_points.length >= 2 && en.key_points.length <= 5 && en.key_points.every((x) => text(x, 160)))) err('en.key_points: 2–5 punktów do 160 znaków');
+        if (en.transcript !== undefined && !(Array.isArray(en.transcript) && en.transcript.length >= 1 && en.transcript.length <= 60 && en.transcript.every((x) => text(x, 1500)))) err('en.transcript: 1–60 akapitów do 1500 znaków');
         if (en.slug !== undefined && (typeof en.slug !== 'string' || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(en.slug) || en.slug.length > 80)) err('en.slug: małe litery, cyfry i myślniki, max 80 znaków');
-        const extra = Object.keys(en).filter((k) => !['title', 'lead', 'summary', 'note', 'slug', 'timeline'].includes(k));
+        const extra = Object.keys(en).filter((k) => !['title', 'lead', 'summary', 'note', 'slug', 'timeline', 'key_points', 'transcript'].includes(k));
         if (extra.length) err(`en: nieznane pola ${extra.join(', ')}`);
       }
     }

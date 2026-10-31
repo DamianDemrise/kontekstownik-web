@@ -273,6 +273,24 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
       await sp.click('[data-share]');
       await sp.waitForTimeout(400);
       check('podstrona: Udostępnij kopiuje link', (await sp.textContent('.mp-share__status')).includes('skopiowany'));
+      // Ocena „Czy pomógł?” – wysyłka przechwycona
+      const ratePosts = [];
+      await sp.route(/docs\.google\.com\/forms\/.*\/formResponse/, (r) => { ratePosts.push(r.request().postData()); r.fulfill({ status: 200, body: 'ok' }); });
+      await sp.click('[data-rate="tak"]');
+      await sp.waitForTimeout(700);
+      const rb = new URLSearchParams(ratePosts[0] || '');
+      const vals = [...rb.values()];
+      check('ocena: wysyła tylko id materiału i „tak (pl)”, podziękowanie', ratePosts.length === 1 && [...rb.keys()].length === 2 && vals.includes('tak (pl)') && (await sp.textContent('[data-rate-status]')).includes('Dziękujemy'), vals.join(' | '));
+      await sp.reload({ waitUntil: 'networkidle' });
+      check('ocena: po przeładowaniu zablokowana, bez ponownej wysyłki', ratePosts.length === 1 && (await sp.$eval('[data-rate="tak"]', (b) => b.disabled && b.getAttribute('aria-pressed') === 'true')));
+      const extras = await sp.evaluate(() => ({
+        points: document.querySelectorAll('.mp-points li').length,
+        transcript: document.querySelectorAll('.mp-transcript__body p').length,
+        transcriptClosed: document.querySelector('.mp-transcript') ? !document.querySelector('.mp-transcript').open : true,
+        moreTitle: document.querySelector('.mp-more .materials__title')?.textContent || '',
+      }));
+      check('podstrona: „W skrócie” 2–5 punktów i tekst filmu zwinięty (jeśli w danych)', (extras.points === 0 || (extras.points >= 2 && extras.points <= 5)) && extras.transcriptClosed, `punkty ${extras.points}, akapity ${extras.transcript}`);
+      check('podstrona: sekcja powiązanych (jeśli są inne materiały)', !extras.moreTitle || /Ten temat w innych|Więcej materiałów/.test(extras.moreTitle), extras.moreTitle);
       const tl = await sp.$$eval('.mp-timeline li', (l) => l.length);
       const hasTl = await sp.evaluate(() => !!document.querySelector('.mp-timeline'));
       check('podstrona: oś czasu (jeśli w danych) + pole „Masz temat?”', (!hasTl || tl >= 2) && !!(await sp.$('[data-topic-form]')), `wydarzeń: ${tl}`);
