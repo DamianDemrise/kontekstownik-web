@@ -36,7 +36,7 @@ export function startAnalytics() {
     // placement: hero (główne przyciski) albo karta materiału; material_id/category tylko przy kartach
     gtag('event', 'platform_click', {
       platform: link.dataset.platform,
-      placement: link.closest('.card') ? 'material' : 'hero',
+      placement: link.dataset.placement || (link.closest('.card') ? 'material' : 'hero'),
       material_id: link.dataset.material,
       category: link.dataset.category,
       link_url: link.href,

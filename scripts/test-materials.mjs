@@ -2,7 +2,8 @@
 import { mkdtempSync, mkdirSync, writeFileSync, copyFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { loadMaterials, checkVideoUrl, renderSection, renderCovers } from './materials.mjs';
+import { loadMaterials, checkVideoUrl, renderCovers } from './materials.mjs';
+import { renderSection, renderPage, renderSitemap } from './materials-render.mjs';
 
 const results = [];
 const check = (name, ok, info = '') => results.push(`${ok ? 'ok  ' : 'FAIL'} ${name}${info ? ' – ' + info : ''}`);
@@ -82,7 +83,7 @@ await expectError('złe id', { id: 'Zły ID' }, /id:/);
   await renderCovers(r.items, r.dir);
   const { section } = renderSection(r.items);
   check('etykiety Skrót i Pełny materiał', section.includes('>Skrót<') && section.includes('>Pełny materiał<'));
-  check('etykiety na okładce ukryte przed czytnikiem (aria-hidden)', /card__badge" aria-hidden="true"/.test(section));
+  check('etykiety na okładce ukryte przed czytnikiem (aria-hidden)', /card__format" aria-hidden="true"/.test(section));
 }
 {
   const r = await run([base, { ...base }]);
@@ -99,6 +100,26 @@ await expectError('złe id', { id: 'Zły ID' }, /id:/);
   check('szkic nie trafia na stronę', r.items.length === 1 && !section.includes('szkic'));
   check('HTML z danych jest escapowany', section.includes('&lt;img') && !section.includes('<img src=x'));
   check('brak iframe/embed w sekcji', !/<iframe|<embed|<video/.test(section));
+}
+await expectError('zły slug', { slug: 'Zły Slug' }, /slug/);
+await expectError('źródło przez http', { sources: [{ title: 'X', url: 'http://example.com' }] }, /sources\[0\]\.url/);
+await expectError('źródło bez tytułu', { sources: [{ title: '', url: 'https://example.com' }] }, /sources\[0\]\.title/);
+await expectError('pusty akapit opisu', { summary: ['ok', ' '] }, /summary/);
+await expectError('zła data stanu informacji', { as_of: '2026-13-01' }, /as_of/);
+{
+  const r = await run([{ ...base, id: '2026-11-01-a', slug: 'to-samo' }, { ...base, id: '2026-11-02-b', slug: 'to-samo' }]);
+  check('zajęty slug wykryty', r.error && /zajęty/.test(r.error));
+}
+{
+  const r = await run([{ ...base, id: '2026-11-01-temat-x' }]);
+  check('domyślny slug bez daty', r.items[0].slug === 'temat-x', r.items[0].slug);
+  await renderCovers(r.items, r.dir);
+  const evil = { ...r.items[0], title: '</script><script>alert(1)</script>', sources: [{ title: '<b>x</b>', url: 'https://example.com/?a="b"' }], summary: ['<img src=x>'] };
+  const html = renderPage(evil, [evil]);
+  check('podstrona: teksty escapowane, JSON-LD nie zamyka <script>', !html.includes('<script>alert') && !html.includes('<img src=x>') && !html.includes('<b>x</b>'));
+  check('podstrona: zero odtwarzaczy w HTML', !/<iframe|<video|<embed/.test(html));
+  const sm = renderSitemap(r.items);
+  check('sitemap zawiera podstronę materiału', sm.includes('/materialy/temat-x/'));
 }
 {
   const r = await run([]);

@@ -1,6 +1,5 @@
-// Sekcja „Najnowsze materiały”: wczytanie i walidacja content/materialy.json, okładki WebP, generowanie HTML kart.
-// Używane przez plugin w vite.config.js (build i dev) oraz przez `npm run materialy:check`.
-// Na stronie nie ma odtwarzaczy: karty to wyłącznie linki do YouTube / TikToka.
+// Materiały wideo: wczytanie i walidacja content/materialy.json oraz okładki (WebP + grafika OG).
+// HTML (karty, pasek, podstrony, sitemap) generuje materials-render.mjs. Na stronie nie ma odtwarzaczy.
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, basename } from 'node:path';
@@ -10,7 +9,7 @@ export const CATEGORIES = { polityka: 'Polityka', gospodarka: 'Gospodarka', spol
 export const COVER_WIDTHS = [480, 960, 1440];
 const COVER_SIZE = { width: 1920, height: 1080 };
 const FORMATS = new Set(['full', 'short']);
-const PLATFORM = {
+export const PLATFORM = {
   youtube: { label: 'YouTube', cta: 'Obejrzyj na YouTube' },
   tiktok: { label: 'TikTok', cta: 'Obejrzyj na TikToku' },
 };
@@ -42,6 +41,15 @@ export function checkVideoUrl(platform, raw) {
     return 'to nie jest adres konkretnego filmu TikTok (/@konto/video/…)';
   }
   return 'nieznana platforma';
+}
+
+// Źródła: dowolna strona https, bez loginu/hasła/portu.
+export function checkSourceUrl(raw) {
+  let u;
+  try { u = new URL(raw); } catch { return 'nieprawidłowy URL'; }
+  if (u.protocol !== 'https:') return 'wymagany https';
+  if (u.username || u.password || u.port) return 'adres nie może zawierać loginu, hasła ani portu';
+  return null;
 }
 
 function isRealDate(s) {
@@ -78,6 +86,19 @@ export async function loadMaterials(dir = contentDir()) {
     if (m.duration_seconds !== undefined && !(Number.isInteger(m.duration_seconds) && m.duration_seconds > 0)) err('duration_seconds: dodatnia liczba całkowita');
     if (m.cover_alt !== undefined && typeof m.cover_alt !== 'string') err('cover_alt: tekst (może być pusty)');
     if (m.related_id !== undefined && (typeof m.related_id !== 'string' || m.related_id === m.id)) err('related_id: id innego materiału');
+    // Podstrona materiału: adres, opis, źródła, stan informacji, nota (np. o użyciu AI)
+    if (m.slug !== undefined && (typeof m.slug !== 'string' || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(m.slug) || m.slug.length > 80)) err('slug: małe litery, cyfry i myślniki, max 80 znaków');
+    if (m.summary !== undefined && !(Array.isArray(m.summary) && m.summary.length >= 1 && m.summary.length <= 8 && m.summary.every((t) => text(t, 1200)))) err('summary: 1–8 akapitów, każdy niepusty tekst do 1200 znaków');
+    if (m.sources !== undefined) {
+      if (!Array.isArray(m.sources) || m.sources.length > 20) err('sources: lista do 20 pozycji');
+      else m.sources.forEach((src, k) => {
+        if (!src || !text(src.title, 200)) err(`sources[${k}].title: niepusty tekst do 200 znaków`);
+        const e = checkSourceUrl(src?.url);
+        if (e) err(`sources[${k}].url: ${e}`);
+      });
+    }
+    if (m.as_of !== undefined && !isRealDate(m.as_of)) err('as_of: RRRR-MM-DD');
+    if (m.note !== undefined && !text(m.note, 300)) err('note: niepusty tekst do 300 znaków');
     const platforms = Object.keys(PLATFORM).filter((p) => m[p] !== undefined);
     if (!platforms.length) err('wymagany co najmniej jeden link: youtube albo tiktok');
     for (const p of platforms) { const e = typeof m[p] === 'string' ? checkVideoUrl(p, m[p]) : 'oczekiwany tekst'; if (e) err(`${p}: ${e}`); }
@@ -93,6 +114,13 @@ export async function loadMaterials(dir = contentDir()) {
       if (meta.hasAlpha) err('cover: obraz ma kanał przezroczystości, wymagany bez');
       if (meta.space && meta.space !== 'srgb') err(`cover: przestrzeń barw ${meta.space}, wymagana sRGB`);
     } catch (e) { err(`cover: nie da się odczytać obrazu (${e.message})`); }
+  }
+  const slugs = new Map();
+  for (const m of items) {
+    if (!m || typeof m !== 'object' || typeof m.id !== 'string') continue;
+    m.slug ??= m.id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+    if (slugs.has(m.slug)) errors.push(`materiał ${m.id}: slug „${m.slug}” zajęty przez ${slugs.get(m.slug)}`);
+    slugs.set(m.slug, m.id);
   }
   for (const m of items) if (m && typeof m.related_id === 'string' && m.related_id !== m.id && !ids.has(m.related_id)) errors.push(`materiał ${m.id}: related_id wskazuje nieistniejący materiał`);
   if (errors.length) throw new Error(`Błędy w ${file}:\n- ${errors.join('\n- ')}`);
@@ -114,54 +142,10 @@ export async function renderCovers(items, dir = contentDir()) {
       m._cover[w] = `/${fileName}`;
       files.push({ fileName, render: () => sharp(src).resize(w).webp({ quality: 80 }).toBuffer() });
     }
+    // Grafika podglądu linku podstrony (Open Graph): 1200×630, kadr ze środka okładki
+    const og = `okladki/${m.id}-${hash}-og.jpg`;
+    m._cover.og = `/${og}`;
+    files.push({ fileName: og, render: () => sharp(src).resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 86, mozjpeg: true }).toBuffer() });
   }
   return files;
-}
-
-const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const dateFmt = new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-
-function link(m, platform, cls, inner) {
-  return `<a class="${cls}" href="${esc(m[platform])}" target="_blank" rel="noopener noreferrer" data-platform="${platform}" data-material="${esc(m.id)}" data-category="${esc(m.category)}">${inner}</a>`;
-}
-
-function card(m) {
-  const p = PLATFORM[m.primary];
-  const fmt = m.format === 'short' ? 'Skrót' : m.related_id ? 'Pełny materiał' : null;
-  const srcset = COVER_WIDTHS.map((w) => `${m._cover[w]} ${w}w`).join(', ');
-  const newTab = '<span class="visually-hidden"> (otwiera się w nowej karcie)</span>';
-  const actions = Object.keys(PLATFORM).filter((k) => m[k]).map((k) =>
-    link(m, k, `watch-link watch-link--${k === 'youtube' ? 'yt' : 'tt'}`,
-      `${PLATFORM[k].cta}<span class="visually-hidden">: ${esc(m.title)}</span>${newTab}<span aria-hidden="true">↗</span>`)).join('');
-  const main = link(m, m.primary, 'card__main',
-    `<span class="card__cover"><img src="${m._cover[960]}" srcset="${srcset}" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1000px) calc(50vw - 30px), (max-width: 1272px) calc(33vw - 30px), 395px" alt="${esc(m.cover_alt || '')}" width="1920" height="1080" loading="lazy" decoding="async">` +
-    `<span class="card__badge" aria-hidden="true">${p.label} ↗</span>${fmt ? `<span class="card__format" aria-hidden="true">${fmt}</span>` : ''}</span>` +
-    `<h3 class="card__title">${esc(m.title)}<span class="visually-hidden"> – ${p.label}${fmt ? `, ${fmt.toLowerCase()}` : ''}</span>${newTab}</h3>`);
-  return `<li><article class="card">${main}` +
-    `<p class="card__meta"><span class="card__cat">${CATEGORIES[m.category]}</span><span aria-hidden="true">·</span><time datetime="${m.date}">${dateFmt.format(new Date(`${m.date}T12:00:00Z`))}</time></p>` +
-    `<p class="card__lead">${esc(m.lead)}</p><div class="card__actions">${actions}</div></article></li>`;
-}
-
-function newPill(m, count) {
-  const more = count > 1 ? ` <span class="new-pill__more">+${count - 1}</span>` : '';
-  return `<div class="new-pill" data-new-pill hidden>` +
-    `<a class="new-pill__link" href="#materialy" data-new-pill-link>` +
-    `<img class="new-pill__thumb" src="${m._cover[480]}" alt="" width="1920" height="1080" decoding="async">` +
-    `<span class="new-pill__text"><span class="new-pill__label">Nowy materiał${more}</span>` +
-    `<span class="new-pill__title">${esc(m.title)}</span></span>` +
-    `<span class="new-pill__go" aria-hidden="true">↓</span>` +
-    `<span class="visually-hidden">. Przewiń do najnowszych materiałów</span></a>` +
-    `<button type="button" class="new-pill__close" data-new-pill-close aria-label="Ukryj powiadomienie o nowym materiale">×</button></div>`;
-}
-
-export function renderSection(items) {
-  if (!items.length) return { hint: '', section: '' };
-  return {
-    // Przyklejony pasek o najnowszym materiale (pokazuje go new-pill.js; bez JS zostaje ukryty).
-    hint: newPill(items[0], items.length),
-    section: `<section class="materials" id="materialy" aria-labelledby="materialy-title"><div class="materials__inner">` +
-      `<header class="materials__head"><h2 class="materials__title" id="materialy-title">Najnowsze materiały</h2>` +
-      `<p class="materials__sub">Oglądaj na YouTube lub TikToku</p></header>` +
-      `<ul class="materials__grid">${items.map(card).join('')}</ul></div></section>`,
-  };
 }

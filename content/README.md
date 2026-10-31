@@ -1,6 +1,7 @@
 # Materiały wideo: jak dodać nowy (dla Codexa i Stefana)
 
-Strona **nie odtwarza** filmów. Karta materiału to okładka + tytuł + opis + linki do YouTube / TikToka.
+Strona **nie odtwarza** filmów. Każdy materiał ma kartę na stronie głównej i własną podstronę `/materialy/<slug>/`
+(opis, źródła, stan informacji, przyciski YouTube / TikTok, własny podgląd linku). Build generuje też `sitemap.xml`.
 
 ## Co przekazuje Codex
 
@@ -47,6 +48,11 @@ Strona **nie odtwarza** filmów. Karta materiału to okładka + tytuł + opis + 
 | `youtube` / `tiktok` | adres **konkretnego filmu** (https): `youtube.com/watch?v=…`, `youtube.com/shorts/…`, `youtu.be/…`, `www.tiktok.com/@konto/video/…`; min. jeden |
 | `primary` | platforma, na którą prowadzi klik w okładkę/tytuł |
 | `related_id` | opcjonalnie: skrót ↔ pełna wersja (osobne karty) |
+| `slug` | adres podstrony `kontekstownik.pl/materialy/<slug>/`; domyślnie `id` bez daty. **Nie zmieniać po publikacji** (linki i Google) |
+| `summary` | 1–8 akapitów opisu na podstronę (np. opis z YouTube bez hasztagów i linków) |
+| `sources` | lista źródeł `{ "title": "…", "url": "https://…" }` – pokazywane na podstronie, wzmacniają wiarygodność |
+| `as_of` | „Stan informacji” `RRRR-MM-DD` |
+| `note` | krótka nota, np. „Lektor i muzyka w filmie powstały przy użyciu AI.” |
 
 Ten sam film na obu platformach = **jedna karta** z dwoma linkami. Skrót (TikTok) i pełny materiał (YouTube) = **dwie karty** z `related_id`.
 

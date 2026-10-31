@@ -11,6 +11,40 @@
     "cover_alt": "",
     "youtube": "https://www.youtube.com/shorts/GRwIW7j92E8",
     "tiktok": "https://www.tiktok.com/@kontekstownik/video/7702768457774927126",
-    "primary": "youtube"
+    "primary": "youtube",
+    "slug": "spor-o-trybunal-konstytucyjny",
+    "duration_seconds": 95,
+    "summary": [
+      "Jeden Trybunał. Dekada sporu. O co właściwie chodzi?",
+      "Cofamy się do 2015 roku. Wyjaśniamy, co zrobiły PO i PSL, jak odpowiedział PiS i co rozstrzygnęły sądy. Pokazujemy też stanowiska obecnego rządu i prezydenta. Na końcu tłumaczymy, co ten spór oznacza dla obywateli."
+    ],
+    "as_of": "2026-10-31",
+    "sources": [
+      {
+        "title": "Konstytucja RP, art. 79, 122, 188 i 190",
+        "url": "https://eli.gov.pl/eli/DU/1997/483/ogl"
+      },
+      {
+        "title": "Wyrok TK z 3 grudnia 2015 r., K 34/15",
+        "url": "https://eli.gov.pl/eli/DU/2015/2129/ogl"
+      },
+      {
+        "title": "ETPC, Xero Flor przeciwko Polsce, 4907/18",
+        "url": "https://hudoc.echr.coe.int/eng?i=001-210065"
+      },
+      {
+        "title": "KPRM, priorytet P9",
+        "url": "https://www.gov.pl/web/priorytety/p9"
+      },
+      {
+        "title": "Oświadczenie Prezydenta RP z 31 października 2026 r.",
+        "url": "https://k.prezydent.pl/aktualnosci/wypowiedzi-prezydenta-rp/wystapienia/oswiadczenie-prezydenta-rzeczypospolitej-polskiej-karola-nawrockiego,129314"
+      },
+      {
+        "title": "Komunikat Komendy Stołecznej Policji z 30 października 2026 r.",
+        "url": "https://ksp.policja.gov.pl/pl/dzialania/aktualnosci/69987,Komunikat-dotyczacy-dzialan-Policji.html"
+      }
+    ],
+    "note": "Lektor i muzyka w filmie powstały przy użyciu AI."
   }
 ]

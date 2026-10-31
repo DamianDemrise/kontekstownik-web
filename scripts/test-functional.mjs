@@ -162,12 +162,14 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   } else {
     const info = await page.evaluate(() => ({
       embeds: document.querySelectorAll('iframe, video, embed, object').length,
-      bad: [...document.querySelectorAll('.materials a[href]')].filter((a) => a.target !== '_blank' || a.rel !== 'noopener noreferrer' || !/^https:\/\/(www\.youtube\.com|youtu\.be|youtube\.com|www\.tiktok\.com)\//.test(a.href)).length,
+      bad: [...document.querySelectorAll('.materials a[data-platform]')].filter((a) => a.target !== '_blank' || a.rel !== 'noopener noreferrer' || !/^https:\/\/(www\.youtube\.com|youtu\.be|youtube\.com|www\.tiktok\.com)\//.test(a.href)).length,
+      pages: [...document.querySelectorAll('.card__main')].map((a) => new URL(a.href).pathname),
       imgs: [...document.querySelectorAll('.card__cover img')].map((i) => [i.getAttribute('width'), i.getAttribute('loading'), i.srcset.split(',').length]),
       names: [...document.querySelectorAll('.materials a')].map((a) => a.textContent.replace(/\s+/g, ' ').trim()),
     }));
     check(`materiały: ${n} kart, zero odtwarzaczy na stronie`, info.embeds === 0);
-    check('materiały: wszystkie linki do konkretnych platform, nowa karta, noopener', info.bad === 0);
+    check('materiały: przyciski prowadzą do konkretnych filmów, nowa karta, noopener', info.bad === 0);
+    check('materiały: okładka i tytuł karty prowadzą do podstrony', info.pages.every((x) => /^\/materialy\/[a-z0-9-]+\/$/.test(x)));
     check('materiały: okładki lazy, wymiary, srcset 3 szer.', info.imgs.every(([w, l, s]) => w === '1920' && l === 'lazy' && s === 3));
     check('materiały: linki mają nazwę z tytułem lub platformą', info.names.every((t) => t.length > 12));
     // Pasek „Nowy materiał”: czeka na decyzję o cookies, potem pojawia się; klik przewija do sekcji i znika
@@ -187,6 +189,48 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     await page.click('[data-consent="accept"]');
     await page.waitForTimeout(2500);
     ctx.on('page', (p) => p.close().catch(() => {}));
+    // Podstrona materiału
+    {
+      const sub = new URL(info.pages[0], URL_).href;
+      const spCtx = await browser.newContext({ viewport: { width: 1366, height: 768 } });
+      await spCtx.addInitScript(REJECTED);
+      const sp = await spCtx.newPage();
+      const errs = [];
+      sp.on('pageerror', (e) => errs.push(e.message));
+      sp.on('console', (m) => m.type() === 'error' && errs.push(m.text()));
+      const resp = await sp.goto(sub, { waitUntil: 'networkidle' });
+      const d = await sp.evaluate(() => {
+        const meta = (n) => document.querySelector(`meta[property="${n}"], meta[name="${n}"]`)?.content;
+        let ld = null;
+        try { ld = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent); } catch { /* błąd = test nie przejdzie */ }
+        return {
+          canonical: document.querySelector('link[rel=canonical]')?.href, title: document.title, h1: document.querySelectorAll('h1').length,
+          og: meta('og:image'), ogType: meta('og:type'), desc: meta('description'),
+          ld: ld?.['@graph']?.map((x) => x['@type']).join(','),
+          embeds: document.querySelectorAll('iframe, video, embed, object').length,
+          ctas: [...document.querySelectorAll('.mp-watch a[data-platform]')].map((a) => [a.dataset.platform, a.target, a.rel, a.dataset.placement]),
+          sources: [...document.querySelectorAll('.mp-sources a')].every((a) => a.target === '_blank' && a.rel === 'noopener noreferrer' && a.href.startsWith('https://')),
+          hscroll: document.documentElement.scrollWidth > innerWidth,
+          coverEager: document.querySelector('.mp-cover img')?.getAttribute('fetchpriority') === 'high',
+        };
+      });
+      check('podstrona: 200, jeden h1, opis, brak błędów JS', resp.status() === 200 && d.h1 === 1 && !!d.desc && errs.length === 0, errs.join('|'));
+      check('podstrona: canonical na adres podstrony', d.canonical === `https://www.kontekstownik.pl${new URL(sub).pathname}`, d.canonical);
+      check('podstrona: Open Graph article z własną grafiką', d.ogType === 'article' && /\/okladki\/.+-og\.jpg$/.test(d.og || ''), d.og);
+      check('podstrona: dane strukturalne Article + BreadcrumbList', d.ld === 'Article,BreadcrumbList', d.ld);
+      check('podstrona: zero odtwarzaczy, przyciski platform w nowej karcie', d.embeds === 0 && d.ctas.length >= 1 && d.ctas.every(([, t, r, pl]) => t === '_blank' && r === 'noopener noreferrer' && pl === 'podstrona'));
+      check('podstrona: źródła jako bezpieczne linki https', d.sources);
+      check('podstrona: okładka ładowana priorytetowo, bez poziomego przewijania', d.coverEager && !d.hscroll);
+      const og = await sp.request.get(new URL(new URL(d.og).pathname, URL_).href);
+      const ogBuf = await og.body();
+      check('podstrona: grafika OG istnieje (JPEG)', og.status() === 200 && ogBuf[0] === 0xff && ogBuf[1] === 0xd8);
+      await spCtx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(URL_).origin });
+      await sp.evaluate(() => { delete Navigator.prototype.share; });
+      await sp.click('[data-share]');
+      await sp.waitForTimeout(400);
+      check('podstrona: Udostępnij kopiuje link', (await sp.textContent('.mp-share__status')).includes('skopiowany'));
+      await spCtx.close();
+    }
     const first = await page.$eval('.card .watch-link--tt', (a) => a.dataset.material);
     await page.click('.card .watch-link--tt');
     await page.waitForTimeout(7000);
