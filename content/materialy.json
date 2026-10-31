@@ -1,5 +1,48 @@
 [
   {
+    "id": "2026-10-31-oredzie-premiera-w-sprawie-tk",
+    "status": "published",
+    "category": "polityka",
+    "slug": "oredzie-premiera-w-sprawie-tk",
+    "title": "Orędzie premiera w sprawie TK. Co zapowiedział Donald Tusk?",
+    "lead": "Orędzie Tuska o Trybunale.",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=qYpxfKlF38A",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 25,
+    "summary": [
+      "Orędzie Tuska o Trybunale. Co zapowiedział premier?"
+    ],
+    "transcript": [
+      "Orędzie Tuska o Trybunale. Co zapowiedział premier?",
+      "Donald Tusk zadeklarował, że rząd zapewni Trybunałowi bezpieczeństwo i warunki do pracy.",
+      "Bronił działań policji. PiS oraz prezydentom Dudzie i Nawrockiemu zarzucił niszczenie rządów prawa.",
+      "To stanowisko premiera, a nie prawne rozstrzygnięcie sporu o kierowanie Trybunałem.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "W Polsce prawo wygra z przemocą. Orędzie 31.10.2026",
+        "publisher": "Donald Tusk, kanał oficjalny",
+        "url": "https://www.youtube.com/watch?v=FsjUo39jplY"
+      },
+      {
+        "title": "Orędzie premiera Donalda Tuska | 31.10",
+        "publisher": "Onet, transmisja",
+        "url": "https://www.youtube.com/watch?v=Ei5GoKDFcao"
+      },
+      {
+        "title": "Chaos w Trybunale Konstytucyjnym. Wyjaśniamy sytuację w dziesięciu punktach",
+        "publisher": "Rzeczpospolita",
+        "url": "https://www.rp.pl/polityka/art45424911-co-sie-dzieje-w-trybunale-konstytucyjnym-wyjasniamy"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-10-31-oredzie-premiera-w-sprawie-tk.jpg"
+  },
+  {
     "id": "2026-10-31-katastrofa-pod-urda",
     "status": "published",
     "category": "katastrofy",
