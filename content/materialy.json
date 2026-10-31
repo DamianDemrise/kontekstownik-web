@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-10-31-francja-znow-protestuje",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "francja-znow-protestuje",
+    "title": "Francja znów protestuje. Jak szkolny bunt przerodził się w spór o całe państwo?",
+    "lead": "Zaczęło się od szkół.",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=MVjiZBhcrBs",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 66,
+    "summary": [
+      "Zaczęło się od szkół. Dlaczego protest we Francji stał się sporem o całe państwo?"
+    ],
+    "transcript": [
+      "Zaczęło się od szkół. Dlaczego protest we Francji stał się sporem o całe państwo?",
+      "Na trzydziestego pierwszego października zmobilizowano około siedemdziesięciu tysięcy policjantów i żandarmów. Tak podaje Euronews. To skala zabezpieczenia, a nie liczba demonstrantów.",
+      "We wrześniu uczniowie z przedmieść Paryża protestowali przeciw warunkom w szkołach. Później dołączyły związki zawodowe i inne grupy.",
+      "Do szkolnych problemów doszły koszty życia i ceny paliw. Wspólny marsz nie oznacza jednak, że wszyscy uczestnicy mają identyczne żądania.",
+      "Siedemnastego października pokojowe manifestacje przyćmiły przemoc i grabieże części osób. Władze zwiększyły zabezpieczenie i ograniczyły protesty w centrach miast.",
+      "Władze wskazują na ryzyko zamieszek. Związki uznają ograniczenia za nieproporcjonalne. To spór o bezpieczeństwo, ale też o prawo do pokojowej demonstracji.",
+      "Nie znamy jeszcze zweryfikowanego bilansu wieczoru. Nie należy utożsamiać całego ruchu z osobami dopuszczającymi się przemocy.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Curfews, 70,000 police and Halloween fears: France braces for fresh protests",
+        "publisher": "Euronews",
+        "url": "https://www.euronews.com/2026/10/31/france-to-deploy-70000-security-personnel-as-it-prepares-for-halloween-protests"
+      },
+      {
+        "title": "Dwa tygodnie rozruchów w francuskich liceach. Prawie 500 rannych ...",
+        "publisher": "rp.pl",
+        "url": "https://www.rp.pl/polityka/art45249601-bunt-licealistow-z-creteil-rozlal-sie-na-caly-kraj-melenchon-walczy-z-philippe-em-o-druga-ture-wyborow"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-10-31-francja-znow-protestuje.jpg"
+  },
+  {
     "id": "2026-10-31-reddit-chce-logowania",
     "status": "published",
     "category": "technologia",
