@@ -32,6 +32,18 @@ check('odrzuca profil TikTok', checkVideoUrl('tiktok', 'https://www.tiktok.com/@
 check('odrzuca skracacz vm.tiktok', checkVideoUrl('tiktok', 'https://vm.tiktok.com/ZMabc/') !== null);
 
 await expectError('zła kategoria', { category: 'sport' }, /category/);
+await expectError('kategoria z prototypu (constructor)', { category: 'constructor' }, /category/);
+await expectError('format z prototypu (constructor)', { format: 'constructor' }, /format/);
+await expectError('tytuł nie-tekst', { title: 42 }, /title/);
+await expectError('pusty tytuł (same spacje)', { title: '   ' }, /title/);
+await expectError('okładka ze ścieżką ../', { cover: '../c.jpg' }, /bez ścieżki/);
+await expectError('URL z loginem i portem', { youtube: 'https://u:p@www.youtube.com:8443/watch?v=AAAAAAAAAAA' }, /loginu/);
+await expectError('related_id do siebie', { related_id: 'test-1' }, /related_id/);
+await expectError('zła długość filmu', { duration_seconds: -5 }, /duration_seconds/);
+{
+  const r = await run([null]);
+  check('pusty element listy daje komunikat, nie wyjątek', r.error && /oczekiwany obiekt/.test(r.error));
+}
 await expectError('nieistniejąca data', { date: '2026-02-30' }, /date/);
 await expectError('brak okładki', { cover: 'brak.jpg' }, /cover: brak pliku/);
 await expectError('primary bez linku', { primary: 'tiktok' }, /primary/);
@@ -49,6 +61,28 @@ await expectError('złe id', { id: 'Zły ID' }, /id:/);
   let msg = '';
   try { await loadMaterials(dir); } catch (e) { msg = e.message; }
   check('okładka 1200×630 odrzucona (wymagane 1920×1080)', /1200×630/.test(msg));
+}
+{
+  const dir = mkdtempSync(join(tmpdir(), 'kx-'));
+  mkdirSync(join(dir, 'okladki'));
+  const sharp = (await import('sharp')).default;
+  await sharp({ create: { width: 1920, height: 1080, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0.5 } } }).png().toFile(join(dir, 'okladki', 'c.png'));
+  writeFileSync(join(dir, 'materialy.json'), JSON.stringify([{ ...base, cover: 'c.png' }]));
+  let msg = '';
+  try { await loadMaterials(dir); } catch (e) { msg = e.message; }
+  check('okładka z przezroczystością odrzucona', /przezroczystości/.test(msg));
+  writeFileSync(join(dir, 'okladki', 'z.jpg'), 'to nie jest obraz');
+  writeFileSync(join(dir, 'materialy.json'), JSON.stringify([{ ...base, cover: 'z.jpg' }]));
+  msg = '';
+  try { await loadMaterials(dir); } catch (e) { msg = e.message; }
+  check('uszkodzony plik okładki = komunikat walidacji', /nie da się odczytać/.test(msg));
+}
+{
+  const r = await run([{ ...base, id: 'pelny', related_id: 'skrot' }, { ...base, id: 'skrot', format: 'short', related_id: 'pelny', primary: 'youtube' }]);
+  await renderCovers(r.items, r.dir);
+  const { section } = renderSection(r.items);
+  check('etykiety Skrót i Pełny materiał', section.includes('>Skrót<') && section.includes('>Pełny materiał<'));
+  check('etykiety na okładce ukryte przed czytnikiem (aria-hidden)', /card__badge" aria-hidden="true"/.test(section));
 }
 {
   const r = await run([base, { ...base }]);

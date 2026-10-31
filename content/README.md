@@ -8,7 +8,8 @@ Strona **nie odtwarza** filmów. Karta materiału to okładka + tytuł + opis + 
    - dokładnie **1920×1080 px**, 16:9, sRGB, bez przezroczystości;
    - margines bezpieczeństwa 10%: ważne elementy w prostokącie 192–1728 × 108–972 px;
    - krótki nagłówek 3–6 słów (max 2 linie), Montserrat 800, kolory marki (#080D12, #FF8A00, biel);
-   - bez daty, logo platform, przycisków i ikony play (to robi strona);
+   - bez daty, logo platform, przycisków i ikony play (strona nie odtwarza filmów, platformę pokazuje etykieta HTML);
+   - zostaw wolne rogi: prawy górny ok. 300×130 px zasłania etykieta platformy („YouTube ↗”), lewy górny ok. 300×130 px etykieta „Skrót”/„Pełny materiał”;
    - tylko własne/licencjonowane grafiki; bez wizerunków polityków, flag, symboli partyjnych;
      ilustracja AI nie może udawać zdjęcia dokumentalnego, a wykres nie może udawać prawdziwych danych.
 2. **Wpis** (obiekt JSON) do `content/materialy.json`:
@@ -38,7 +39,9 @@ Strona **nie odtwarza** filmów. Karta materiału to okładka + tytuł + opis + 
 | `lead` | jedno zdanie, max 200 znaków, dopowiada coś do tytułu |
 | `category` | `polityka`, `gospodarka`, `spoleczenstwo`, `swiat` |
 | `date` | data publikacji filmu (nie dodania karty), `RRRR-MM-DD` |
-| `format` | `full` (domyślnie) albo `short` – karta dostaje etykietę „Skrót” |
+| `format` | `full` (domyślnie) albo `short` – etykieta „Skrót”; pełna wersja z `related_id` dostaje „Pełny materiał” |
+| `duration_seconds` | opcjonalnie, długość filmu w sekundach (liczba całkowita); dziś tylko informacyjnie |
+| `cover` | sama nazwa pliku z `content/okladki/` (bez ścieżki), JPEG albo PNG, sRGB, bez przezroczystości |
 | `cover_alt` | zwykle `""` (tytuł jest obok); opis tylko, gdy obraz niesie informację |
 | `youtube` / `tiktok` | adres **konkretnego filmu** (https): `youtube.com/watch?v=…`, `youtube.com/shorts/…`, `youtu.be/…`, `www.tiktok.com/@konto/video/…`; min. jeden |
 | `primary` | platforma, na którą prowadzi klik w okładkę/tytuł |

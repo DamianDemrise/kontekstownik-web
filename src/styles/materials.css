@@ -106,7 +106,7 @@
 .watch-link--yt:hover { box-shadow: 0 0 16px rgb(255 0 0 / 0.45); }
 .watch-link--tt:hover { box-shadow: 0 0 16px rgb(37 244 238 / 0.35), 0 0 22px rgb(254 44 85 / 0.25); }
 
-/* Stopka pod materiałami zamiast na dole pierwszego ekranu */
-.materials ~ .legal { position: static; padding: 8px 16px 28px; }
+/* Stopka pod materiałami zamiast na dole pierwszego ekranu (klasę dodaje plugin w vite.config.js) */
+.legal--static { position: static; padding: 8px 16px 28px; }
 
 @media (prefers-reduced-motion: reduce) { .scroll-hint span { animation: none; } .card, .card:hover { transform: none; } }

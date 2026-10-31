@@ -15,7 +15,9 @@ function materials() {
       if (!ctx.filename.endsWith('/index.html') || ctx.filename.includes('polityka-prywatnosci')) return html;
       if (ctx.server) await load(); // dev: świeże dane przy każdym odświeżeniu
       const { hint, section } = renderSection(items);
-      return html.replace('<!--materialy:hint-->', hint).replace('<!--materialy:section-->', section);
+      // Ze stopką pod materiałami stopka płynie w dokumencie; bez nich siedzi na dole pierwszego ekranu.
+      return html.replace('<!--materialy:hint-->', hint).replace('<!--materialy:section-->', section)
+        .replace('<footer class="legal">', section ? '<footer class="legal legal--static">' : '<footer class="legal">');
     },
     async generateBundle() {
       for (const c of covers) this.emitFile({ type: 'asset', fileName: c.fileName, source: await c.render() });

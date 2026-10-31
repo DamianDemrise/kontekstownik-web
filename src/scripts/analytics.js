@@ -25,7 +25,9 @@ export function startAnalytics() {
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
   document.head.appendChild(s);
 
-  document.addEventListener('click', (e) => {
+  // click + auxclick (środkowy przycisk = otwarcie w nowej karcie). Mierzymy przejście, nie obejrzenie.
+  const onClick = (e) => {
+    if (e.type === 'auxclick' && e.button !== 1) return;
     const link = e.target.closest?.('a[data-platform]');
     if (!link) return;
     // placement: hero (główne przyciski) albo karta materiału; material_id/category tylko przy kartach
@@ -36,7 +38,9 @@ export function startAnalytics() {
       category: link.dataset.category,
       link_url: link.href,
     });
-  });
+  };
+  document.addEventListener('click', onClick);
+  document.addEventListener('auxclick', onClick);
 }
 
 // Wycofanie zgody: kasujemy ciasteczka GA i przeładowujemy stronę bez gtag.js.

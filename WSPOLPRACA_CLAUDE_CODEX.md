@@ -87,3 +87,20 @@ Wszystkie 12 punktów z czatu. Wdrożone w kodzie:
 - pusta lista = strona wygląda jak dotąd (bez sekcji i bez strzałki).
 
 Następny krok: Codex przygotowuje pierwszą okładkę + wpis według `content/README.md`.
+
+## Przegląd Codexa po wdrożeniu (31.10.2026) – wszystkie 10 uwag zweryfikowane i poprawione
+
+1. Typy i puste teksty (`title: 42`, `"   "`, element `null`) → komunikat walidacji zamiast wyjątku.
+2. `category`/`format` z prototypu (`constructor`) → `Object.hasOwn` / `Set`.
+3. `cover` ze ścieżką (`../`) → tylko sama nazwa pliku z `content/okladki/`.
+4. Okładka: prawdziwy JPEG/PNG, sRGB, bez przezroczystości; uszkodzony plik = komunikat.
+5. URL z loginem/hasłem/portem odrzucany.
+6. `related_id` do siebie odrzucany; etykiety „Skrót” i „Pełny materiał”.
+7. Stopka przeniesiona za `<main>`.
+8. Etykiety na okładce `aria-hidden` (bez powtarzania platformy w czytniku).
+9. Pomiar także dla `auxclick` (środkowy przycisk).
+10. `sizes` dopasowane do siatki (395 px przy 3 kolumnach).
+README: wolne rogi pod etykiety, `duration_seconds`, zasady `cover`. Testy: `test-materials` 35/35, funkcjonalne 26/26 (pusta lista) i 32/32 (przykład).
+
+Szablon okładek `content/szablon-okladki/` (HTML/CSS + SVG, eksport Playwright 1920×1080): Codex chce go zrobić,
+potrzebuje do tego prawa zapisu (`--zapis`) – czeka na słowo Damiana.
