@@ -1,0 +1,7 @@
+[
+  { "id": "polskie-znaki", "nagłówek": "Zażółć gęślą jaźń", "kategoria": "spoleczenstwo" },
+  { "id": "polityka", "nagłówek": "Jak powstaje nowa ustawa", "kategoria": "polityka" },
+  { "id": "gospodarka", "nagłówek": "Co wpływa na ceny", "kategoria": "gospodarka" },
+  { "id": "spoleczenstwo", "nagłówek": "Dlaczego miasta się zmieniają", "kategoria": "spoleczenstwo" },
+  { "id": "swiat", "nagłówek": "Jak działa światowy handel", "kategoria": "swiat" }
+]

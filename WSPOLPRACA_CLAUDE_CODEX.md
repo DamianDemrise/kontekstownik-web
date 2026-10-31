@@ -102,5 +102,7 @@ Następny krok: Codex przygotowuje pierwszą okładkę + wpis według `content/R
 10. `sizes` dopasowane do siatki (395 px przy 3 kolumnach).
 README: wolne rogi pod etykiety, `duration_seconds`, zasady `cover`. Testy: `test-materials` 35/35, funkcjonalne 26/26 (pusta lista) i 32/32 (przykład).
 
-Szablon okładek `content/szablon-okladki/` (HTML/CSS + SVG, eksport Playwright 1920×1080): Codex chce go zrobić,
-potrzebuje do tego prawa zapisu (`--zapis`) – czeka na słowo Damiana.
+Szablon okładek `content/szablon-okladki/` – zrobiony przez Codexa (zgoda Damiana na zapis tylko w tym katalogu, 31.10.2026).
+Stefan: eksport próbek (Chrome w piaskownicy Codexa nie startuje), poprawka układu (nagłówek 104 px w 920 px, poświata na całym kadrze),
+weryfikacja: okładka z szablonu przechodzi walidację strony. Codex z zapisem uruchamiany z `-c 'sandbox_workspace_write.writable_roots=[]'`,
+bo globalny config dodaje ścieżkę Aircor/ERP z dowiązaniem, na której piaskownica się wywraca.

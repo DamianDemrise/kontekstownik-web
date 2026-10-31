@@ -1,0 +1,129 @@
+@font-face {
+  font-family: Montserrat;
+  src: url('../../public/fonts/montserrat-latin-v2.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  unicode-range: U+0000-00FF, U+2013-2014, U+2019, U+201C-201E, U+2026, U+2190-2192, U+2197;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url('../../public/fonts/montserrat-latin-ext-v2.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  unicode-range: U+0104-0107, U+0118-0119, U+0141-0144, U+015A-015B, U+0179-017C;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+body { background: #080D12; color: #fff; font-family: Montserrat, sans-serif; }
+.okladka {
+  position: relative;
+  isolation: isolate;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: #080D12;
+}
+/* Dekoracje pozostają wewnątrz marginesu 10%; rogi 300×130 są wolne. */
+.scena {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  /* Poświata na całym kadrze (przycięcie do marginesów dawało widoczną prostokątną krawędź) */
+  background: radial-gradient(ellipse 680px 540px at 75% 50%, #1b2a3a, #080D12 100%);
+}
+.siatka {
+  position: absolute;
+  left: 58%;
+  right: 192px;
+  top: 58%;
+  bottom: 108px;
+  perspective: 480px;
+  perspective-origin: 50% 0;
+  mask-image: radial-gradient(ellipse at 60% 20%, #000, transparent 72%);
+}
+.siatka::before {
+  content: '';
+  position: absolute;
+  inset: 0 -60% -100%;
+  transform: rotateX(62deg);
+  transform-origin: 50% 0;
+  background-image:
+    linear-gradient(rgb(150 175 200 / 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(150 175 200 / 0.12) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.swiatlo {
+  position: absolute;
+  right: 246px;
+  top: 72%;
+  width: 360px;
+  height: 2px;
+  transform: rotate(-5deg);
+  background: linear-gradient(90deg, transparent, #FF8A00 65%, #ffd09a);
+  box-shadow: 0 0 16px rgb(255 138 0 / 0.45), 0 0 40px rgb(255 138 0 / 0.2);
+}
+.tytul {
+  position: absolute;
+  left: 192px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 920px; /* kończy się ~70 px przed ilustracją */
+}
+.etykieta { display: flex; align-items: center; gap: 28px; margin-bottom: 52px; }
+.naroznik {
+  flex: 0 0 64px;
+  height: 64px;
+  border-top: 15px solid #FF8A00;
+  border-left: 15px solid #FF8A00;
+}
+.kategoria {
+  margin: 0;
+  color: #FF8A00;
+  font-size: 34px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: 104px;
+  line-height: 1.16;
+  font-weight: 800;
+  letter-spacing: -3.6px;
+  text-wrap: balance;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+.ilustracja {
+  position: absolute;
+  right: 192px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 560px;
+  height: 560px;
+  fill: none;
+  stroke: #e2eaf2;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 3px 12px rgb(0 0 0 / 0.4));
+}
+.ilustracja .pomarancz { stroke: #FF8A00; filter: drop-shadow(0 0 5px rgb(255 138 0 / 0.35)); }
+.ilustracja .punkt { fill: #FF8A00; stroke: #080D12; stroke-width: 9; }
+.marka {
+  position: absolute;
+  left: 192px;
+  bottom: 144px;
+  margin: 0;
+  color: rgb(255 255 255 / 0.7);
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.motyw { display: none; }
+[data-motyw="instytucje"] #instytucje,
+[data-motyw="obieg"] #obieg,
+[data-motyw="relacje"] #relacje,
+[data-motyw="globus"] #globus { display: inline; }

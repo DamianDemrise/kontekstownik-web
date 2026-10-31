@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920">
+  <title>Szablon okładki — Kontekstownik</title>
+  <link rel="stylesheet" href="styl.css">
+</head>
+<body>
+  <main class="okladka" data-motyw="instytucje">
+    <div class="scena" aria-hidden="true">
+      <div class="siatka"></div>
+      <div class="swiatlo"></div>
+    </div>
+    <header class="tytul">
+      <div class="etykieta">
+        <span class="naroznik" aria-hidden="true"></span>
+        <p class="kategoria">Polityka</p>
+      </div>
+      <h1>Jak powstaje nowa ustawa</h1>
+    </header>
+    <!-- Własne, schematyczne ilustracje. Bez danych i symboli partyjnych. -->
+    <svg class="ilustracja" viewBox="0 0 448 448" aria-hidden="true">
+      <g class="motyw" id="instytucje">
+        <path class="pomarancz" d="M64 148 224 70 384 148Z"/>
+        <path d="M80 174H368M64 354H384M82 378H366M108 196V326M185 196V326M263 196V326M340 196V326"/>
+        <path class="pomarancz" d="M214 119H234"/>
+      </g>
+      <g class="motyw" id="obieg">
+        <rect x="142" y="142" width="164" height="164" rx="28"/>
+        <path d="M179 197H269M179 224H250M179 251H232"/>
+        <path class="pomarancz" d="M86 205A145 145 0 0 1 349 141M349 106V141H314M362 243A145 145 0 0 1 99 307M99 342V307H134"/>
+      </g>
+      <g class="motyw" id="relacje">
+        <path d="M110 154 224 102 338 154 338 294 224 346 110 294ZM110 154 224 224 338 154M224 224V346M110 294 224 224 338 294M224 102V224"/>
+        <circle class="punkt" cx="110" cy="154" r="18"/>
+        <circle class="punkt" cx="338" cy="154" r="18"/>
+        <circle class="punkt" cx="224" cy="224" r="24"/>
+        <circle class="punkt" cx="224" cy="346" r="18"/>
+        <circle cx="224" cy="102" r="12" fill="#080D12"/>
+        <circle cx="110" cy="294" r="12" fill="#080D12"/>
+        <circle cx="338" cy="294" r="12" fill="#080D12"/>
+      </g>
+      <g class="motyw" id="globus">
+        <circle cx="224" cy="224" r="152"/>
+        <ellipse cx="224" cy="224" rx="72" ry="152"/>
+        <path d="M72 224H376M100 138Q224 180 348 138M100 310Q224 268 348 310"/>
+        <path class="pomarancz" d="M93 352 355 90M315 90H355V130"/>
+      </g>
+    </svg>
+    <p class="marka">KONTEKSTOWNIK</p>
+  </main>
+</body>
+</html>

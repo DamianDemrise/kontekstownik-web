@@ -4,7 +4,8 @@ Strona **nie odtwarza** filmów. Karta materiału to okładka + tytuł + opis + 
 
 ## Co przekazuje Codex
 
-1. **Okładkę**: `content/okladki/<id>.jpg` (albo `.png`)
+1. **Okładkę**: `content/okladki/<id>.jpg` (albo `.png`) – najprościej z szablonu `content/szablon-okladki/` (instrukcja w jego README):
+   `node content/szablon-okladki/eksport.mjs --id <id> --naglowek "3–6 słów" --kategoria polityka`
    - dokładnie **1920×1080 px**, 16:9, sRGB, bez przezroczystości;
    - margines bezpieczeństwa 10%: ważne elementy w prostokącie 192–1728 × 108–972 px;
    - krótki nagłówek 3–6 słów (max 2 linie), Montserrat 800, kolory marki (#080D12, #FF8A00, biel);
