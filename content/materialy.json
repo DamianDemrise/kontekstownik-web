@@ -1,5 +1,51 @@
 [
   {
+    "id": "2026-10-31-katastrofa-pod-urda",
+    "status": "published",
+    "category": "katastrofy",
+    "slug": "katastrofa-pod-urda",
+    "title": "Katastrofa pod Urdą: dlaczego zawiodły zabezpieczenia?",
+    "lead": "Jak dwa pociągi znalazły się na jednym odcinku, skoro linia ma systemy bezpieczeństwa?",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=SDVwpPm0600",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 91,
+    "summary": [
+      "Jak dwa pociągi znalazły się na jednym odcinku, skoro linia ma systemy bezpieczeństwa?"
+    ],
+    "transcript": [
+      "Jak dwa pociągi znalazły się na jednym odcinku, skoro linia ma systemy bezpieczeństwa?",
+      "Dwudziestego ósmego października dwa tysiące dwadzieścia sześć w Urdzie, w Toledo, pociąg AVE wjechał w stojące Iryo. Była ósma pięćdziesiąt trzy, przy sto osiemnastym kilometrze linii z Madrytu do Sewilli. To nie jest styczniowe wykolejenie pod Adamuz.",
+      "Iryo stało na torze. AVE jechało tym samym szlakiem i weszło na ten odcinek. Śledczy sprawdzają, czemu nie zatrzymały tego zabezpieczenia.",
+      "Około ósmej trzydzieści awaria wyłączyła system el zet be na odcinku około sześćdziesięciu trzech kilometrów. Pociągi stanęły albo zwolniły. Według ministerstwa, o ósmej trzydzieści sześć centrum Adif pozwoliło AVE jechać dalej. Do zderzenia zostało około siedemnastu minut.",
+      "Sama awaria nie tłumaczy zderzenia. Nie ma ostatecznego wniosku. Śledztwo obejmuje system el zet be i procedury po awarii, w tym decyzję centrum kontroli. Odpowiedzialność osób nie jest rozstrzygnięta. Minister Oskar Puente mówił o wstępnym tropie polecenia. To jego ocena.",
+      "Euronews i ABC News podają co najmniej sześćdziesiąt dziewięć osób, które zginęły. ABC opisuje, że wcześniejszą liczbę obniżono. To relacja redakcji, nie zamknięty bilans śledztwa.",
+      "Źródła tej relacji to Euronews, ABC News i wystąpienie rządu Hiszpanii.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "La Moncloa. Pedro Sánchez: \"Hay una confianza quebrada en la alta velocidad y la labor del Gobierno no es solamente conocer las causas, sino ofrecer soluciones para que una tragedia de esta magnitud n",
+        "publisher": "lamoncloa.gob.es",
+        "url": "https://www.lamoncloa.gob.es/presidente/actividades/Paginas/2026/301026-sanchez-declaraciones-cecopi.aspx"
+      },
+      {
+        "title": "Spain train crash: What happened in the 17 minutes before the collision?",
+        "publisher": "euronews.com",
+        "url": "https://www.euronews.com/2026/10/29/spain-train-crash-what-happened-in-the-17-minutes-before-the-collision"
+      },
+      {
+        "title": "'Inexplicable' order probed as cause of train crash that killed at least 69: Official",
+        "publisher": "abcnews.com",
+        "url": "https://abcnews.com/International/10-killed-train-collision-high-speed-line-spain/story?id=137633323"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-10-31-katastrofa-pod-urda.jpg"
+  },
+  {
     "id": "2026-10-31-binance-jak-wyprowadzono-miliardy-i-dlaczego-nie-wszystko-da-sie",
     "status": "published",
     "category": "gospodarka",
