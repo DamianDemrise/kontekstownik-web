@@ -84,3 +84,16 @@ materiału `https://www.kontekstownik.pl/materialy/<slug>/` (sekcja „Źródła
 ## 7. Commity
 - `Branding kanałów: baner YouTube…, okładka Facebook…, okładki „Noc w Trybunale” (bez publikacji materiału)` – sam branding.
 - `Importer materiałów ze Studio…` – narzędzie, testy, kontrakt, ten plik. Bez publikacji materiału.
+
+## 8. Wynik (31.10, 15:30)
+- **„Noc w Trybunale” jest na stronie**: https://www.kontekstownik.pl/materialy/noc-w-trybunale/ (import paczki
+  `brand/materialy/noc-w-trybunale/paczka.json`, commit 4b9314b, kontrola produkcji 37/37). Martwe źródło
+  prezydent.pl …128936 pominięte, bez notatek wewnętrznych.
+- **Most automatyczny Studio → strona** w repo Studio (`/Users/apple/Projekty-lokalne/ai-video-factory`), commity
+  `3b98c1f`, `368cc9b`, **niewdrożone** – przegląd i wdrożenie Codex. Opis: `docs/WEBSITE_BRIDGE.md` tamże.
+  - serwer `src/server/websiteJobs.ts` (stan `website:<id>`, komendy `website-claim/finish/fail` przez `workerRpc.ts`),
+  - Mac `src/worker/website.ts` (`--check`, `--once`, pętla): źródła bez 404, okładka `cover_h` lub szablon strony,
+    importer `--dry-run` → `--publish`, weryfikacja publicznego adresu, film już na stronie → `existing` bez importu,
+  - niepewny wynik → `needs-review`, bez automatycznego ponawiania; kategorie poza polityka/gospodarka → `blocked`.
+  - Testy: typecheck czysty, vitest 60/60 (8 nowych); `--check` na Macu OK (tylko ping).
+- Status bieżący: `coordination/STATUS_CLAUDE.md` w repo Studio.
