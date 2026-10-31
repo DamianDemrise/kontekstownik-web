@@ -1,0 +1,42 @@
+name: Kontrola linków (co tydzień)
+
+# W poniedziałki rano sprawdza filmy i źródła z content/materialy.json.
+# Gdy coś nie działa: zakłada (albo aktualizuje) zgłoszenie „Martwe linki na stronie” – GitHub wysyła o nim maila.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sprawdź linki
+        id: check
+        continue-on-error: true
+        run: node scripts/check-links.mjs --json report.json
+      - name: Zgłoszenie przy problemach
+        if: steps.check.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const r = JSON.parse(require('fs').readFileSync('report.json', 'utf8'));
+            const title = 'Martwe linki na stronie kontekstownik.pl';
+            const body = [
+              `Kontrola z ${r.date.slice(0, 10)} znalazła problemy (${r.problems.length}):`, '',
+              ...r.problems.map((p) => `- ${p}`), '',
+              ...(r.warnings.length ? ['Ostrzeżenia (serwer mógł zablokować automat, sprawdź ręcznie):', ...r.warnings.map((w) => `- ${w}`), ''] : []),
+              'Popraw link w `content/materialy.json` albo ukryj materiał (`"status": "draft"`).',
+            ].join('\n');
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', per_page: 100 });
+            const existing = open.find((i) => i.title === title);
+            if (existing) await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number, body });
+            else await github.rest.issues.create({ ...context.repo, title, body });
