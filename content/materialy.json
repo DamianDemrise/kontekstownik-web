@@ -1,5 +1,67 @@
 [
   {
+    "id": "2026-10-31-noc-w-trybunale",
+    "status": "published",
+    "category": "polityka",
+    "slug": "noc-w-trybunale",
+    "title": "Noc w Trybunale. Dlaczego Nawrocki przerwał lot do Senegalu?",
+    "lead": "Spór o kierowanie Trybunałem Konstytucyjnym, reakcja prezydenta i komunikat policji – co wiadomo, a co pozostaje sporne.",
+    "date": "2026-10-31",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=2ouyRQDkwK0",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7702833900200004866",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 84,
+    "summary": [
+      "Prezydent przerwał lot do Senegalu i wrócił do Polski. Powodem były wydarzenia w Trybunale Konstytucyjnym. Co się zmieniło?"
+    ],
+    "key_points": [
+      "30 października sędzia Anna Korwin-Piotrowska ogłosiła miesięczną przerwę w czynnościach prezesa i wiceprezesa TK.",
+      "Prezydent przerwał lot do Senegalu i ocenił te działania jako niekonstytucyjne – to jego stanowisko, nie wyrok sądu.",
+      "Według Komendy Stołecznej Policji funkcjonariusze byli na zewnątrz, nie w siedzibie. Spór o kierowanie TK pozostaje nierozstrzygnięty."
+    ],
+    "transcript": [
+      "Prezydent przerwał lot do Senegalu i wrócił do Polski. Powodem były wydarzenia w Trybunale Konstytucyjnym. Co się zmieniło?",
+      "Trzydziestego października sędzia Anna Korwin-Piotrowska ogłosiła miesięczną przerwę w czynnościach prezesa Bogdana Święczkowskiego i wiceprezesa Bartłomieja Sochańskiego. Prezydent uznał, że w takim momencie powinien być w Polsce.",
+      "Korwin-Piotrowska powołuje się na przepisy o zastępowaniu prezesa przez sędziego z najdłuższym stażem. Prezydent kwestionuje jej prawo do odsunięcia kierownictwa.",
+      "Sędzia zarzuca prezesowi niedopuszczanie do orzekania sędziów wybranych przez Sejm. Nawrocki ocenił działania jako niekonstytucyjne. To jego stanowisko, nie wyrok sądu.",
+      "Policja podała, że działała po informacji sędzi o możliwym zagrożeniu i ryzyku zakłóceń porządku. Według Komendy Stołecznej funkcjonariusze byli na zewnątrz, nie w siedzibie.",
+      "W oświadczeniu z trzydziestego pierwszego października Nawrocki poinformował o konsultacjach z Pierwszym Prezesem Sądu Najwyższego Zbigniewem Kapińskim. Przekazał też, że umożliwił Sochańskiemu wejście do Trybunału, i zapowiedział pilne konsultacje parlamentarne.",
+      "Z tych relacji nie rozstrzygniemy, kto ma rację prawnie. Komunikat policji opisuje stan z trzydziestego października. Spór o kierowanie Trybunałem pozostaje nierozwiązany."
+    ],
+    "sources": [
+      {
+        "title": "Prezydent wrócił do Warszawy; spotkał się z I Prezesem SN",
+        "publisher": "Kancelaria Prezydenta RP",
+        "url": "https://www.prezydent.pl/aktualnosci/wydarzenia/prezydent-przerywa-lot-do-senegalu-i-wraca-do-polski,129297"
+      },
+      {
+        "title": "Oświadczenie Prezydenta Rzeczypospolitej Polskiej Karola Nawrockiego",
+        "publisher": "Kancelaria Prezydenta RP",
+        "url": "https://www.prezydent.pl/aktualnosci/wypowiedzi-prezydenta-rp/wystapienia/oswiadczenie-prezydenta-rzeczypospolitej-polskiej-karola-nawrockiego,129314"
+      },
+      {
+        "title": "Komunikat dotyczący działań Policji (30.10.2026)",
+        "publisher": "Komenda Stołeczna Policji",
+        "url": "https://ksp.policja.gov.pl/pl/dzialania/aktualnosci/69987,Komunikat-dotyczacy-dzialan-Policji.html"
+      },
+      {
+        "title": "Chaos w TK. Tak sędzia tłumaczy zawieszenie Święczkowskiego",
+        "publisher": "Wirtualna Polska",
+        "url": "https://wiadomosci.wp.pl/chaos-w-tk-tak-sedzia-tlumaczy-zawieszenie-swieczkowskiego-7345705575385536a"
+      },
+      {
+        "title": "Prezydent przerwał lot do Senegalu w związku z wydarzeniami przed Trybunałem Konstytucyjnym",
+        "publisher": "Portal Samorządowy",
+        "url": "https://www.portalsamorzadowy.pl/polityka-i-spoleczenstwo/prezydent-przerwal-lot-do-senegalu-w-zwiazku-z-wydarzeniami-przed-trybunalem-konstytucyjnym-aktualizacja,682379.html"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje w filmie powstały przy użyciu AI.",
+    "series": "trybunal-konstytucyjny",
+    "cover": "2026-10-31-noc-w-trybunale.jpg"
+  },
+  {
     "id": "2026-10-31-spor-o-trybunal",
     "status": "published",
     "title": "Dlaczego trwa spór o Trybunał Konstytucyjny?",
