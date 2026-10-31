@@ -13,10 +13,12 @@ import '../styles/materials.css';
 import { initConsent } from './consent.js';
 import { initNewPill } from './new-pill.js';
 import { initMaterialsTools } from './materials-tools.js';
+import { initTopicForms } from './topic-form.js';
 
 initConsent();
 initNewPill();
 initMaterialsTools();
+initTopicForms();
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 

@@ -9,6 +9,8 @@ import '../styles/material-page.css';
 import '../styles/lang.css';
 import { initConsent } from './consent.js';
 import { initShare } from './share.js';
+import { initTopicForms } from './topic-form.js';
 
 initConsent();
 initShare();
+initTopicForms();

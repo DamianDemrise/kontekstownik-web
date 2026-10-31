@@ -210,8 +210,28 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
       const after = await page.$$eval('[data-mgrid] > li', (l) => l.map((x) => x.dataset.date));
       check('sortowanie: Najstarsze odwraca kolejność, Najnowsze przywraca', after.join() === [...before].sort().join());
       await page.click('[data-sort="newest"]');
-      const mail = await page.$eval('.topic-cta__btn', (a) => a.href);
-      check('„Zaproponuj temat”: mailto z gotowym tematem', mail.startsWith('mailto:kontekstownik@gmail.com?subject=') && decodeURIComponent(mail).includes('Propozycja tematu'));
+      // „Masz temat?”: wysyłka do Formularza Google przechwycona (nic nie trafia do arkusza)
+      const posts = [];
+      await page.route(/docs\.google\.com\/forms\/.*\/formResponse/, (r) => { posts.push(r.request().postData()); r.fulfill({ status: 200, body: 'ok' }); });
+      const form = '.materials [data-topic-form]';
+      await page.fill(`${form} input[name^="entry."]`, 'ab');
+      await page.click(`${form} button[type="submit"]`);
+      const short = await page.textContent(`${form} [data-topic-status]`);
+      await page.fill(`${form} input[name^="entry."]`, 'Skąd biorą się ceny prądu?');
+      const counter = await page.textContent(`${form} [data-topic-count]`);
+      await page.click(`${form} button[type="submit"]`);
+      await page.waitForTimeout(800);
+      const ok = await page.$eval(`${form} [data-topic-status]`, (e) => [e.textContent, e.dataset.state]);
+      const body = new URLSearchParams(posts[0] || '');
+      check('temat: za krótki tekst nie jest wysyłany', /więcej|more/.test(short) && posts.length === 1);
+      check('temat: wysyła tylko treść (jedno pole entry.*), licznik znaków', [...body.keys()].length === 1 && /^entry\.\d+$/.test([...body.keys()][0]) && body.get([...body.keys()][0]) === 'Skąd biorą się ceny prądu?' && counter === '26/100');
+      check('temat: komunikat podziękowania, pole wyczyszczone', ok[1] === 'ok' && (await page.inputValue(`${form} input[name^="entry."]`)) === '');
+      await page.fill(`${form} input[name^="entry."]`, 'Drugi temat od razu');
+      await page.click(`${form} button[type="submit"]`);
+      await page.waitForTimeout(400);
+      check('temat: limit – drugi temat w ciągu minuty zablokowany', posts.length === 1 && (await page.$eval(`${form} [data-topic-status]`, (e) => e.dataset.state)) === 'err');
+      check('temat: maxlength 100, brak pola e-mail', (await page.$eval(`${form} input[name^="entry."]`, (i) => i.maxLength)) === 100 && !(await page.$(`${form} input[type="email"]`)));
+      await page.unroute(/docs\.google\.com/);
     }
     // Podstrona materiału
     {
@@ -255,7 +275,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
       check('podstrona: Udostępnij kopiuje link', (await sp.textContent('.mp-share__status')).includes('skopiowany'));
       const tl = await sp.$$eval('.mp-timeline li', (l) => l.length);
       const hasTl = await sp.evaluate(() => !!document.querySelector('.mp-timeline'));
-      check('podstrona: oś czasu (jeśli w danych) + „Zaproponuj temat”', (!hasTl || tl >= 2) && !!(await sp.$('.topic-cta__btn')), `wydarzeń: ${tl}`);
+      check('podstrona: oś czasu (jeśli w danych) + pole „Masz temat?”', (!hasTl || tl >= 2) && !!(await sp.$('[data-topic-form]')), `wydarzeń: ${tl}`);
       await spCtx.close();
     }
     const first = await page.$eval('.card .watch-link--tt', (a) => a.dataset.material);

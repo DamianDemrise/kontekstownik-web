@@ -21,7 +21,10 @@ const T = {
     filterLabel: 'Filtruj materiały według kategorii', all: 'Wszystkie', sortLabel: 'Kolejność', newest: 'Najnowsze', oldest: 'Najstarsze',
     shown: (n) => `Widoczne materiały: ${n}`,
     topicTitle: 'Masz temat, który warto wyjaśnić?', topicText: 'Napisz, co mamy rozłożyć na czynniki pierwsze w kolejnym materiale.',
-    topicBtn: 'Zaproponuj temat', topicSubject: 'Propozycja tematu – KONTEKSTOWNIK', topicBody: 'Temat:\n\nCo chcesz zrozumieć:\n',
+    topicBtn: 'Wyślij', topicLabel: 'Temat do wyjaśnienia', topicPlaceholder: 'np. Skąd biorą się ceny prądu?',
+    topicOk: 'Dziękujemy! Temat trafił do redakcji.', topicErr: 'Nie udało się wysłać. Spróbuj ponownie za chwilę.',
+    topicShort: 'Napisz kilka słów więcej.', topicWait: 'Chwila – kolejny temat możesz wysłać za minutę.',
+    topicPrivacy: 'Wysyłasz tylko treść tematu, bez danych o sobie.',
     timeline: 'Jak do tego doszło', source: 'źródło',
   },
   en: {
@@ -39,7 +42,10 @@ const T = {
     filterLabel: 'Filter videos by category', all: 'All', sortLabel: 'Order', newest: 'Newest', oldest: 'Oldest',
     shown: (n) => `Videos shown: ${n}`,
     topicTitle: 'Got a topic worth explaining?', topicText: 'Tell us which issue we should break down in an upcoming video.',
-    topicBtn: 'Suggest a topic', topicSubject: 'Topic suggestion – KONTEKSTOWNIK', topicBody: 'Topic:\n\nWhat would you like to understand:\n',
+    topicBtn: 'Send', topicLabel: 'Topic to explain', topicPlaceholder: 'e.g. Why are energy prices rising?',
+    topicOk: 'Thank you! Your topic has reached our team.', topicErr: 'Could not send. Please try again in a moment.',
+    topicShort: 'Please write a few more words.', topicWait: 'One moment – you can send another topic in a minute.',
+    topicPrivacy: 'You only send the topic text, no data about you.',
     timeline: 'How we got here', source: 'source',
   },
 };
@@ -124,13 +130,28 @@ function toolbar(items, t) {
     `<p class="visually-hidden" role="status" aria-live="polite" data-mtools-status data-template="${esc(t.shown('{n}'))}"></p></div>`;
 }
 
-// „Zaproponuj temat”: mailto z gotowym tematem (bez formularza i backendu).
+// „Masz temat?”: pole do 100 znaków wysyłane do Formularza Google (tylko tekst, bez danych użytkownika).
+// Z JS wysyła topic-form.js (fetch no-cors); bez JS formularz otwiera potwierdzenie Google w nowej karcie.
+export const TOPIC_FORM = {
+  action: 'https://docs.google.com/forms/d/e/1FAIpQLSeMKIKAJZ5t_sJ9wudG44AsxRcQr3T7KNfNol3f2KvbSqq5ig/formResponse',
+  field: 'entry.1571487052',
+};
 export function topicCta(lang = 'pl') {
   const t = T[lang];
-  const href = `mailto:kontekstownik@gmail.com?subject=${encodeURIComponent(t.topicSubject)}&body=${encodeURIComponent(t.topicBody)}`;
-  return `<aside class="topic-cta" aria-labelledby="topic-cta-${lang}"><div class="topic-cta__text">` +
-    `<h2 class="topic-cta__title" id="topic-cta-${lang}">${t.topicTitle}</h2><p>${t.topicText}</p></div>` +
-    `<a class="topic-cta__btn" href="${esc(href)}" data-social="topic">${t.topicBtn}<span aria-hidden="true"> →</span></a></aside>`;
+  const id = `topic-${lang}`;
+  return `<aside class="topic-cta" aria-labelledby="${id}-title"><div class="topic-cta__text">` +
+    `<h2 class="topic-cta__title" id="${id}-title">${t.topicTitle}</h2><p>${t.topicText}</p></div>` +
+    `<form class="topic-form" action="${TOPIC_FORM.action}" method="POST" target="_blank" data-topic-form ` +
+    `data-ok="${esc(t.topicOk)}" data-err="${esc(t.topicErr)}" data-short="${esc(t.topicShort)}" data-wait="${esc(t.topicWait)}">` +
+    `<label class="visually-hidden" for="${id}-input">${t.topicLabel}</label>` +
+    `<div class="topic-form__row"><span class="topic-form__field"><input class="topic-form__input" id="${id}-input" name="${TOPIC_FORM.field}" type="text" maxlength="100" required ` +
+    `autocomplete="off" placeholder="${esc(t.topicPlaceholder)}" aria-describedby="${id}-hint">` +
+    `<span class="topic-form__count" aria-hidden="true" data-topic-count>0/100</span></span>` +
+    `<button class="topic-cta__btn" type="submit">${t.topicBtn}<span aria-hidden="true">→</span></button></div>` +
+    // pułapka na boty: pole niewidoczne dla ludzi, niewysyłane do Google
+    `<div class="topic-form__hp" aria-hidden="true"><label>Strona www<input type="text" tabindex="-1" autocomplete="off" data-topic-hp></label></div>` +
+    `<p class="topic-form__hint" id="${id}-hint">${t.topicPrivacy}</p>` +
+    `<p class="topic-form__status" role="status" aria-live="polite" data-topic-status></p></form></aside>`;
 }
 
 export function renderSection(all, lang = 'pl') {
