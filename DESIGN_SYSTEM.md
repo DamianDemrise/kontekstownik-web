@@ -20,7 +20,8 @@ Kontrast: biel na tle 18:1, pomarańcz na tle 8,2:1 (dekoracja, nie tekst).
 ## Typografia
 
 Jedna rodzina: **Montserrat Variable** (SIL OFL, użycie komercyjne dozwolone), podzbiór łacina + polskie znaki,
-wagi 400–800, jeden plik `public/fonts/montserrat-pl-v1.woff2` (7 KB), `font-display: swap`, preload.
+wagi 400–800, dwa pliki z `unicode-range`: `montserrat-latin-v2.woff2` (22 KB) i `montserrat-latin-ext-v2.woff2`
+(7 KB, polskie znaki), `font-display: swap`, preload obu. Generuje `scripts/subset-font.sh`.
 Montserrat zamiast Inter: logotyp w referencji ma geometryczne, szerokie litery (K, O, W), których Inter nie oddaje.
 
 | Element | Waga | Rozmiar (desktop) | Uwagi |

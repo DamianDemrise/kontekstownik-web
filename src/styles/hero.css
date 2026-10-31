@@ -19,7 +19,7 @@
 
 .brand__logo {
   position: relative;
-  font-size: max(30px, calc(var(--u) * 6.7));
+  font-size: max(30px, calc(var(--u) * 6.1));
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.005em;

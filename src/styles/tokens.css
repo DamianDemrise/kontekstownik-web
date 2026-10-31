@@ -1,10 +1,19 @@
 /* Tokeny marki. Kolory platform (YouTube, TikTok) żyją wyłącznie w cta.css. */
 @font-face {
   font-family: "Montserrat";
-  src: url("/fonts/montserrat-pl-v1.woff2") format("woff2");
+  src: url("/fonts/montserrat-latin-v2.woff2") format("woff2");
   font-weight: 400 800;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+2013-2014, U+2019, U+201C-201E, U+2026, U+2190-2192, U+2197;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-ext-v2.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0104-0107, U+0118-0119, U+0141-0144, U+015A-015B, U+0179-017C;
 }
 
 :root {
