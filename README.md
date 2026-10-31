@@ -17,6 +17,8 @@ Hosting: GitHub Pages (push na `main` publikuje), domena i DNS w LH.pl. Działa 
 | `git push` | publikacja na GitHub Pages (workflow `.github/workflows/deploy.yml`) |
 | `npm run deploy` | tylko wariant hostingu LH.pl: podgląd wdrożenia FTP; `-- --wyslij` wysyła |
 | `npm run verify-live` | kontrola publicznej strony: DNS, SSL, przekierowania, zasoby, linki |
+| `npm run materialy:check` | walidacja `content/materialy.json` i okładek |
+| `npm run build:przyklad` | build z przykładowymi materiałami (`content/przyklad/`) – tylko do podglądu |
 | `npm run assets` | regeneracja danych globusa (rzadko) |
 
 Ikony i `og-image.jpg`: `node scripts/build-icons.mjs` (przy działającym `npm run preview`). Font: `scripts/subset-font.sh`.
@@ -28,6 +30,7 @@ index.html                 cała treść strony, meta SEO, JSON-LD
 src/styles/                tokens · base · scene (tło, panele, globus) · hero · cta · motion · responsive
 src/scripts/               main.js (wejście) · globe.js (canvas) · globe-data.js (generowane) · parallax.js
 src/assets/panels/         4 ilustracje SVG paneli informacyjnych
+content/                   materialy.json + okladki/ (sekcja materiałów), przyklad/ do testów
 public/                    font, ikony, og-image, robots, sitemap, manifest, .htaccess, 404
 scripts/                   build/test/deploy
 docs/                      referencja, zrzuty ekranu, raporty Lighthouse
@@ -40,6 +43,8 @@ docs/                      referencja, zrzuty ekranu, raporty Lighthouse
 | `DESIGN_SYSTEM.md` | zmiana wyglądu: kolory, typografia, siatka, animacje |
 | `DEPLOY_LH.md` | publikacja (GitHub Pages), rekordy DNS w LH.pl, SSL, wariant FTP |
 | `QA_REPORT.md` | wyniki testów, Lighthouse, znane ograniczenia |
+| `content/README.md` | jak dodać materiał wideo (okładka + wpis), zasady dla Codexa |
+| `WSPOLPRACA_CLAUDE_CODEX.md` | ustalenia z Codexem |
 | `CLAUDE.md` | zasady pracy agenta w tym repo |
 
 ## Analityka i zgoda (od 31.10.2026)

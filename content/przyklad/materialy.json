@@ -1,0 +1,54 @@
+[
+  {
+    "id": "2026-11-03-inflacja",
+    "status": "published",
+    "title": "Inflacja w październiku. Co naprawdę podrożało?",
+    "lead": "Skąd wzrost cen i których wydatków dotyczy najbardziej.",
+    "category": "gospodarka",
+    "date": "2026-11-03",
+    "format": "full",
+    "cover": "2026-11-03-inflacja.jpg",
+    "cover_alt": "",
+    "youtube": "https://www.youtube.com/watch?v=AAAAAAAAAAA",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7400000000000000001",
+    "primary": "youtube"
+  },
+  {
+    "id": "2026-10-30-ustawa",
+    "status": "published",
+    "title": "Jak powstaje ustawa? Droga od projektu do podpisu",
+    "lead": "Kto może zgłosić projekt i gdzie najczęściej się zatrzymuje.",
+    "category": "polityka",
+    "date": "2026-10-30",
+    "format": "full",
+    "cover": "2026-10-30-ustawa.jpg",
+    "cover_alt": "",
+    "youtube": "https://www.youtube.com/watch?v=BBBBBBBBBBB",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7400000000000000002",
+    "primary": "youtube"
+  },
+  {
+    "id": "2026-10-27-szlaki-skrot",
+    "status": "published",
+    "title": "Szlaki handlowe pod presją",
+    "lead": "Minuta o tym, dlaczego ceny transportu morskiego rosną.",
+    "category": "swiat",
+    "date": "2026-10-27",
+    "format": "short",
+    "cover": "2026-10-27-szlaki-skrot.jpg",
+    "cover_alt": "",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7400000000000000003",
+    "primary": "tiktok"
+  },
+  {
+    "id": "2026-11-05-szkic",
+    "status": "draft",
+    "title": "Szkic: nie powinien pojawić się na stronie",
+    "lead": "Test filtra szkiców.",
+    "category": "spoleczenstwo",
+    "date": "2026-11-05",
+    "cover": "2026-11-03-inflacja.jpg",
+    "youtube": "https://youtu.be/CCCCCCCCCCC",
+    "primary": "youtube"
+  }
+]

@@ -7,4 +7,5 @@ Statyczna strona startowa kontekstownik.pl (Vite → `dist/`, GitHub Pages, DNS 
 - Weryfikacja po zmianie: `npm run build` → `npm run preview` → `npm test`. Zrzuty w `docs/screenshots/`.
 - Nie dodawać: menu, sekcji, formularzy, analityki, cookies, zewnętrznych skryptów i fontów (CSP w `public/.htaccess` to zablokuje).
 - Push na `main` = publikacja na produkcję. Pushuj tylko po akceptacji Damiana. Repo publiczne: zero sekretów.
+- Materiały wideo: tylko przez `content/` wg `content/README.md`; nigdy odtwarzacz/iframe na stronie. Nowy materiał publikujemy po akceptacji Damiana.
 - Kolory platform tylko w `cta.css`. Pomarańcz marki `#FF8A00` bez zmian.

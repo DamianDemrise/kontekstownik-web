@@ -1,6 +1,8 @@
 /* Stopka prawna i baner zgody. Oba przyciski zgody mają identyczną wagę wizualną (wymóg UODO/EROD). */
+main { position: relative; z-index: 1; }
 .legal {
   position: absolute;
+  z-index: 2;
   left: 0;
   right: 0;
   bottom: max(10px, env(safe-area-inset-bottom));

@@ -78,5 +78,12 @@ Build (Vite) generuje karty do statycznego HTML (SEO, działa bez JS), sortuje p
 - Analityka: dalej jedno zdarzenie `platform_click`, rozszerzone o `material_id`, `category`, `placement` (hero/karta).
 - Prawa: tylko własne/licencjonowane grafiki, bez wizerunków polityków i symboli partyjnych; ilustracja AI nie udaje zdjęcia dokumentalnego.
 
-## Ustalenia
-(czeka na akceptację Damiana – 12 punktów w czacie 31.10.2026)
+## Ustalenia (zaakceptowane przez Damiana 31.10.2026: „Tak, buduj”)
+
+Wszystkie 12 punktów z czatu. Wdrożone w kodzie:
+- dane: `content/materialy.json` + okładki `content/okladki/`, instrukcja przekazania: **`content/README.md`**;
+- generowanie i walidacja: `scripts/materials.mjs` (plugin w `vite.config.js`), testy `scripts/test-materials.mjs`;
+- wygląd: `src/styles/materials.css`; pomiar `platform_click` z `placement`, `material_id`, `category` (wymiary w GA4 dodane);
+- pusta lista = strona wygląda jak dotąd (bez sekcji i bez strzałki).
+
+Następny krok: Codex przygotowuje pierwszą okładkę + wpis według `content/README.md`.

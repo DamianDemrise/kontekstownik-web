@@ -131,6 +131,42 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   await page.screenshot({ path: 'docs/screenshots/polityka-390.png', fullPage: true });
   await ctx.close();
 }
+// --- Sekcja materiałów (tylko gdy build ma opublikowane materiały, np. `npm run build:przyklad`)
+{
+  const { ctx, log } = await consentContext({ width: 1366, height: 768 });
+  const page = await ctx.newPage();
+  await page.goto(URL_, { waitUntil: 'networkidle' });
+  const n = await page.$$eval('.materials .card', (c) => c.length);
+  if (!n) {
+    check('materiały: brak opublikowanych -> brak sekcji i strzałki', !(await page.$('#materialy')) && !(await page.$('.scroll-hint')));
+  } else {
+    const info = await page.evaluate(() => ({
+      embeds: document.querySelectorAll('iframe, video, embed, object').length,
+      bad: [...document.querySelectorAll('.materials a[href]')].filter((a) => a.target !== '_blank' || a.rel !== 'noopener noreferrer' || !/^https:\/\/(www\.youtube\.com|youtu\.be|youtube\.com|www\.tiktok\.com)\//.test(a.href)).length,
+      imgs: [...document.querySelectorAll('.card__cover img')].map((i) => [i.getAttribute('width'), i.getAttribute('loading'), i.srcset.split(',').length]),
+      names: [...document.querySelectorAll('.materials a')].map((a) => a.textContent.replace(/\s+/g, ' ').trim()),
+    }));
+    check(`materiały: ${n} kart, zero odtwarzaczy na stronie`, info.embeds === 0);
+    check('materiały: wszystkie linki do konkretnych platform, nowa karta, noopener', info.bad === 0);
+    check('materiały: okładki lazy, wymiary, srcset 3 szer.', info.imgs.every(([w, l, s]) => w === '1920' && l === 'lazy' && s === 3));
+    check('materiały: linki mają nazwę z tytułem lub platformą', info.names.every((t) => t.length > 12));
+    await page.click('.scroll-hint');
+    await page.waitForTimeout(800);
+    check('strzałka „Najnowsze materiały” przewija do sekcji', await page.evaluate(() => Math.abs(document.getElementById('materialy').getBoundingClientRect().top) < 40));
+    const broken = await page.$$eval('.card__cover img', (is) => is.filter((i) => !i.complete || !i.naturalWidth).length);
+    check('materiały: okładki się wczytują', broken === 0);
+    await page.click('[data-consent="accept"]');
+    await page.waitForTimeout(2500);
+    ctx.on('page', (p) => p.close().catch(() => {}));
+    const first = await page.$eval('.card .watch-link--tt', (a) => a.dataset.material);
+    await page.click('.card .watch-link--tt');
+    await page.waitForTimeout(7000);
+    const beacons = await page.evaluate(() => window.__beacons || []);
+    const hit = [...log.hits, ...beacons].find((h) => /en=platform_click/.test(h) && h.includes('placement=material'));
+    check('klik w karcie -> platform_click z material_id i kategorią', !!hit && hit.includes(`ep.material_id=${first}`) && /ep\.category=/.test(hit));
+  }
+  await ctx.close();
+}
 await browser.close();
 console.log(results.join('\n'));
 process.exit(results.some((r) => r.startsWith('FAIL')) ? 1 : 0);

@@ -1,5 +1,5 @@
 // GA4 w trybie podstawowym Consent Mode v2: gtag.js ładuje się dopiero po zgodzie na analitykę.
-// Reklamowe sygnały zawsze wyłączone. Kliknięcia w platformy -> zdarzenie kluczowe `platform_click`.
+// Reklamowe sygnały zawsze wyłączone. Kliknięcia w platformy (hero i karty materiałów) -> zdarzenie kluczowe `platform_click`.
 import { GA_MEASUREMENT_ID } from './config.js';
 
 let loaded = false;
@@ -28,8 +28,12 @@ export function startAnalytics() {
   document.addEventListener('click', (e) => {
     const link = e.target.closest?.('a[data-platform]');
     if (!link) return;
+    // placement: hero (główne przyciski) albo karta materiału; material_id/category tylko przy kartach
     gtag('event', 'platform_click', {
       platform: link.dataset.platform,
+      placement: link.closest('.card') ? 'material' : 'hero',
+      material_id: link.dataset.material,
+      category: link.dataset.category,
       link_url: link.href,
     });
   });
