@@ -28,6 +28,9 @@ export function startAnalytics() {
   // click + auxclick (środkowy przycisk = otwarcie w nowej karcie). Mierzymy przejście, nie obejrzenie.
   const onClick = (e) => {
     if (e.type === 'auxclick' && e.button !== 1) return;
+    // Facebook / Instagram / e-mail: osobne zdarzenie, żeby nie zawyżać konwersji platform wideo
+    const social = e.target.closest?.('a[data-social]');
+    if (social) { gtag('event', 'social_click', { network: social.dataset.social }); return; }
     const link = e.target.closest?.('a[data-platform]');
     if (!link) return;
     // placement: hero (główne przyciski) albo karta materiału; material_id/category tylko przy kartach

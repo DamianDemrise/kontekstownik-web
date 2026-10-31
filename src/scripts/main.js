@@ -4,6 +4,7 @@ import '../styles/base.css';
 import '../styles/scene.css';
 import '../styles/hero.css';
 import '../styles/cta.css';
+import '../styles/social.css';
 import '../styles/motion.css';
 import '../styles/responsive.css';
 import '../styles/consent.css';

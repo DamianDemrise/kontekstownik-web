@@ -131,6 +131,26 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   await page.screenshot({ path: 'docs/screenshots/polityka-390.png', fullPage: true });
   await ctx.close();
 }
+// --- Kanały dodatkowe: Facebook, Instagram, e-mail
+{
+  const { ctx, log } = await consentContext({ width: 1366, height: 768 });
+  const page = await ctx.newPage();
+  await page.goto(URL_, { waitUntil: 'networkidle' });
+  const soc = await page.$$eval('a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
+  check('kanały: Facebook, Instagram, e-mail', soc.map((x) => x.n).join() === 'facebook,instagram,email', soc.map((x) => x.href).join(' '));
+  check('kanały: FB/IG w nowej karcie z noopener, mailto do kontekstownik@gmail.com',
+    soc.filter((x) => x.n !== 'email').every((x) => x.t === '_blank' && x.rel === 'noopener noreferrer') && soc.find((x) => x.n === 'email').href === 'mailto:kontekstownik@gmail.com');
+  check('kanały: nazwy dostępne i cel dotykowy ≥ 44 px', soc.every((x) => x.name && x.h >= 44));
+  await page.click('[data-consent="accept"]');
+  await page.waitForTimeout(2500);
+  ctx.on('page', (p) => p.close().catch(() => {}));
+  await page.click('a[data-social="instagram"]');
+  await page.waitForTimeout(7000);
+  const beacons = await page.evaluate(() => window.__beacons || []);
+  const all = [...log.hits, ...beacons];
+  check('klik Instagram -> social_click (nie platform_click)', all.some((h) => /en=social_click/.test(h) && /ep\.network=instagram/.test(h)) && !all.some((h) => /en=platform_click/.test(h)));
+  await ctx.close();
+}
 // --- Sekcja materiałów (tylko gdy build ma opublikowane materiały, np. `npm run build:przyklad`)
 {
   const { ctx, log } = await consentContext({ width: 1366, height: 768 });

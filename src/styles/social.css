@@ -1,0 +1,19 @@
+/* Drugorzędne kanały (Facebook, Instagram, e-mail): małe ikony pod przyciskami YouTube/TikTok, bez konkurowania z nimi. */
+.social { display: flex; justify-content: center; gap: max(12px, calc(var(--u) * 1.2)); margin-top: max(4px, calc(var(--u) * 2.4)); } /* poniżej odbić przycisków */
+.social__link {
+  display: grid;
+  place-items: center;
+  width: max(44px, calc(var(--u) * 3.6));
+  height: max(44px, calc(var(--u) * 3.6));
+  border-radius: 50%;
+  color: var(--muted);
+  border: 1px solid rgb(200 220 240 / 0.18);
+  background: rgb(16 24 32 / 0.6);
+  transition: color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease-out);
+}
+.social__link svg { width: 46%; height: 46%; }
+@media (hover: hover) {
+  .social__link:hover { color: var(--white); border-color: var(--orange); box-shadow: 0 0 14px rgb(255 138 0 / 0.35); transform: translateY(-2px); }
+}
+.social__link:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+@media (max-width: 640px) { .social { gap: 14px; margin-top: 2px; } }
