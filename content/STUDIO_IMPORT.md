@@ -23,7 +23,7 @@ Wzór: `content/przyklad/paczka-studio.json`. Pola:
 | `id` | tak | Studio | stałe, `RRRR-MM-DD-temat` (małe litery, cyfry, myślniki) |
 | `slug` | nie | Studio | adres podstrony; po pierwszym imporcie **nie zmienia się** (importer zachowuje stary) |
 | `title`, `lead` | tak | pakiet publikacji | do 120 / 200 znaków |
-| `category` | tak | Studio | `polityka`, `gospodarka`, `spoleczenstwo`, `swiat` (akceptowane też: Polityka, Społeczeństwo, Świat, economy, politics, society, world) |
+| `category` | tak | Studio | 7 kategorii Studio 1:1: `polityka`, `gospodarka`, `wydarzenia`, `medycyna`, `katastrofy`, `motoryzacja`, `technologia` (wielkość liter bez znaczenia; aliasy EN: politics, economy, events, health, disasters, automotive, technology). `spoleczenstwo`/`swiat` przyjmowane dla zgodności starszych wpisów; Polska/Świat będzie osobnym podziałem geograficznym |
 | `date` | tak | data publikacji filmu | `RRRR-MM-DD` |
 | `as_of` | zalecane | data stanu informacji | `RRRR-MM-DD` |
 | `youtube` | tak* | URL zwrócony przez API YouTube | adres konkretnego filmu (`watch?v=`, `shorts/`, `youtu.be/`) |

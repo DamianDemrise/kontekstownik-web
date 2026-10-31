@@ -22,7 +22,7 @@ git('add', '-A'); git('commit', '-qm', 'baza');
 const work = mkdtempSync(join(tmpdir(), 'kx-pkg-'));
 copyFileSync('content/przyklad/okladki/2026-10-30-ustawa.jpg', join(work, 'okladka.jpg'));
 const base = {
-  schema: 'kontekstownik.material/1', approved: true, id: '2026-11-01-noc-w-trybunale', slug: 'noc-w-trybunale',
+  schema: 'kontekstownik.material/1', approved: true, id: '2026-11-01-testowy-material', slug: 'testowy-material',
   title: 'Noc w Trybunale. Dlaczego Nawrocki przerwał lot do Senegalu?', lead: 'Co wydarzyło się w nocy i dlaczego (dane testowe).',
   category: 'Polityka', date: '2026-11-01', as_of: '2026-11-01', youtube: 'https://www.youtube.com/shorts/AAAAAAAAAAA',
   summary: ['Akapit testowy.'], transcript: ['Scena 1 (test).', 'Scena 2 (test).'],
@@ -40,17 +40,22 @@ r = await importMaterial(pkg(), { dryRun: true });
 check('dry-run: nic nie zapisuje', r.status === 'created' && data().length === existing.length);
 r = await importMaterial(pkg(), { commit: true });
 check('import: dodaje wpis i okładkę, osobny commit', r.status === 'created' && data().length === existing.length + 1 && /Materiał: Noc w Trybunale/.test(git('log', '-1', '--pretty=%s')) && git('status', '--porcelain') === '', r.url);
-check('import: kategoria „Polityka” zmapowana, slug zachowany', data()[0].category === 'polityka' && r.url.endsWith('/materialy/noc-w-trybunale/'));
+check('import: kategoria „Polityka” zmapowana, slug zachowany', data()[0].category === 'polityka' && r.url.endsWith('/materialy/testowy-material/'));
 const head = git('rev-parse', 'HEAD');
 r = await importMaterial(pkg(), { commit: true });
 check('ponowienie: bez zmian, bez duplikatu i bez commita', r.status === 'unchanged' && data().length === existing.length + 1 && git('rev-parse', 'HEAD') === head);
 r = await importMaterial(pkg({ lead: 'Nowy lead (dane testowe).' }), { commit: true });
 check('aktualizacja: ten sam wpis uzupełniony', r.status === 'updated' && data().filter((m) => m.id === base.id).length === 1 && data()[0].lead.startsWith('Nowy'));
 r = await importMaterial(pkg({ id: '2026-11-01-inne-id', slug: 'inny-slug' }), { commit: true });
-check('ten sam film YouTube pod innym id: aktualizacja istniejącego, adres bez zmian', r.status !== 'created' && data().length === existing.length + 1 && r.url.endsWith('/noc-w-trybunale/'));
+check('ten sam film YouTube pod innym id: aktualizacja istniejącego, adres bez zmian', r.status !== 'created' && data().length === existing.length + 1 && r.url.endsWith('/testowy-material/'));
 await expectFail('niezaakceptowany: odmowa', pkg({ approved: false }), /nie jest zaakceptowany/);
 await expectFail('zły schemat: odmowa', pkg({ schema: 'x' }), /schema/);
 await expectFail('nieznana kategoria: odmowa bez zmian w pliku', pkg({ category: 'Sport' }), /category/);
+await expectFail('kategoria z prototypu (constructor): odmowa', pkg({ category: 'constructor' }), /category/);
+for (const [cat, yt] of [['katastrofy', 'BBBBBBBBBBB'], ['Gospodarka', 'CCCCCCCCCCC'], ['technologia', 'DDDDDDDDDDD'], ['Medycyna', 'EEEEEEEEEEE'], ['wydarzenia', 'FFFFFFFFFFF'], ['motoryzacja', 'GGGGGGGGGGG']]) {
+  r = await importMaterial(pkg({ id: `2026-11-02-${yt.toLowerCase()}`, slug: `test-${yt.toLowerCase()}`, category: cat, youtube: `https://www.youtube.com/watch?v=${yt}` }), { dryRun: true });
+  check(`kategoria Studio „${cat}” przechodzi 1:1 (dry-run)`, r.status === 'created');
+}
 await expectFail('błąd walidacji (link do profilu) – nic nie zapisano', pkg({ youtube: 'https://www.youtube.com/@kontekstowniktv' }), /Walidacja nie przeszła/);
 // Cudze niezacommitowane zmiany
 const f = join(root, 'content/materialy.json');

@@ -9,6 +9,11 @@ const root = path.resolve(here, '../..');
 const categories = {
   polityka: ['Polityka', 'instytucje'],
   gospodarka: ['Gospodarka', 'obieg'],
+  wydarzenia: ['Wydarzenia', 'globus'],
+  medycyna: ['Medycyna', 'relacje'],
+  katastrofy: ['Katastrofy', 'globus'],
+  motoryzacja: ['Motoryzacja', 'obieg'],
+  technologia: ['Technologia', 'obieg'],
   spoleczenstwo: ['Społeczeństwo', 'relacje'],
   swiat: ['Świat', 'globus'],
 };

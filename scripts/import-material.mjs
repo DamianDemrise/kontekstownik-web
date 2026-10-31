@@ -22,12 +22,12 @@ const CONTENT = join(ROOT, 'content');
 const DATA = join(CONTENT, 'materialy.json');
 const SCHEMA = 'kontekstownik.material/1';
 
-// Minimalne mapowanie kategorii Studio -> strona (kategorii strony nie zmieniamy bez uzgodnienia).
+// Kategorie Studio przechodzą 1:1 (te same klucze co strona). Aliasy tylko dla pisowni/angielskich nazw tej samej kategorii.
 const CATEGORY_MAP = {
-  polityka: 'polityka', politics: 'polityka',
-  gospodarka: 'gospodarka', ekonomia: 'gospodarka', economy: 'gospodarka',
-  spoleczenstwo: 'spoleczenstwo', 'społeczeństwo': 'spoleczenstwo', society: 'spoleczenstwo',
-  swiat: 'swiat', 'świat': 'swiat', world: 'swiat',
+  ...Object.fromEntries(Object.keys(CATEGORIES).map((c) => [c, c])),
+  politics: 'polityka', ekonomia: 'gospodarka', economy: 'gospodarka', events: 'wydarzenia', health: 'medycyna',
+  medicine: 'medycyna', disasters: 'katastrofy', automotive: 'motoryzacja', technology: 'technologia',
+  'społeczeństwo': 'spoleczenstwo', society: 'spoleczenstwo', 'świat': 'swiat', world: 'swiat',
 };
 // Pola paczki przepisywane 1:1 do wpisu (pozostałe ignorujemy, żeby Studio nie nadpisało np. wersji EN).
 const COPY = ['title', 'lead', 'date', 'as_of', 'youtube', 'tiktok', 'primary', 'format', 'duration_seconds',
@@ -57,7 +57,8 @@ export function toEntry(pkg) {
   if (pkg.schema !== SCHEMA) fail(`schema: oczekiwano "${SCHEMA}"`);
   if (pkg.approved !== true) fail('Materiał nie jest zaakceptowany (approved: true) – nie importuję');
   if (typeof pkg.id !== 'string') fail('id: wymagany');
-  const category = CATEGORY_MAP[String(pkg.category || '').toLowerCase().trim()];
+  const key = String(pkg.category || '').toLowerCase().trim();
+  const category = Object.hasOwn(CATEGORY_MAP, key) ? CATEGORY_MAP[key] : undefined;
   if (!category) fail(`category: „${pkg.category}” – dozwolone: ${Object.keys(CATEGORIES).join(', ')}`);
   const entry = { id: pkg.id, status: 'published', category };
   if (pkg.slug !== undefined) entry.slug = pkg.slug;

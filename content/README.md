@@ -39,7 +39,7 @@ Strona **nie odtwarza** filmów. Każdy materiał ma kartę na stronie głównej
 | `status` | `published` (na stronie) albo `draft` (pomijany) |
 | `title` | pełny tytuł, max 120 znaków |
 | `lead` | jedno zdanie, max 200 znaków, dopowiada coś do tytułu |
-| `category` | `polityka`, `gospodarka`, `spoleczenstwo`, `swiat` |
+| `category` | `polityka`, `gospodarka`, `wydarzenia`, `medycyna`, `katastrofy`, `motoryzacja`, `technologia` (= kategorie Studio); `spoleczenstwo`, `swiat` tylko dla starszych wpisów |
 | `date` | data publikacji filmu (nie dodania karty), `RRRR-MM-DD` |
 | `format` | `full` (domyślnie) albo `short` – etykieta „Skrót”; pełna wersja z `related_id` dostaje „Pełny materiał” |
 | `duration_seconds` | opcjonalnie, długość filmu w sekundach (liczba całkowita); dziś tylko informacyjnie |

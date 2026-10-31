@@ -5,8 +5,19 @@ import { createHash } from 'node:crypto';
 import { join, basename } from 'node:path';
 import sharp from 'sharp';
 
-export const CATEGORIES = { polityka: 'Polityka', gospodarka: 'Gospodarka', spoleczenstwo: 'Społeczeństwo', swiat: 'Świat' };
-export const CATEGORIES_EN = { polityka: 'Politics', gospodarka: 'Economy', spoleczenstwo: 'Society', swiat: 'World' };
+// Kategorie tematyczne = 7 kategorii Studio (te same klucze, bez mapowania). `spoleczenstwo` i `swiat` zostają
+// tylko dla zgodności starszych wpisów; Polska/Świat będzie osobnym podziałem geograficznym, nie kategorią.
+export const CATEGORIES = {
+  polityka: 'Polityka', gospodarka: 'Gospodarka', wydarzenia: 'Wydarzenia', medycyna: 'Medycyna',
+  katastrofy: 'Katastrofy', motoryzacja: 'Motoryzacja', technologia: 'Technologia',
+  spoleczenstwo: 'Społeczeństwo', swiat: 'Świat',
+};
+export const CATEGORIES_EN = {
+  polityka: 'Politics', gospodarka: 'Economy', wydarzenia: 'Events', medycyna: 'Health',
+  katastrofy: 'Disasters', motoryzacja: 'Automotive', technologia: 'Technology',
+  spoleczenstwo: 'Society', swiat: 'World',
+};
+export const LEGACY_CATEGORIES = ['spoleczenstwo', 'swiat'];
 export const COVER_WIDTHS = [480, 960, 1440];
 const COVER_SIZE = { width: 1920, height: 1080 };
 const FORMATS = new Set(['full', 'short']);

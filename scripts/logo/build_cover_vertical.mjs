@@ -7,9 +7,19 @@ import { readFileSync } from 'node:fs';
 
 const arg = (k) => { const i = process.argv.indexOf(`--${k}`); return i > -1 ? process.argv[i + 1] : undefined; };
 const head = arg('naglowek'), question = arg('pytanie') || '', out = arg('out');
-const CATS = { polityka: ['Polityka', 'instytucje'], gospodarka: ['Gospodarka', 'obieg'], spoleczenstwo: ['Społeczeństwo', 'relacje'], swiat: ['Świat', 'globus'] };
+const CATS = {
+  polityka: ['Polityka', 'instytucje'],
+  gospodarka: ['Gospodarka', 'obieg'],
+  wydarzenia: ['Wydarzenia', 'globus'],
+  medycyna: ['Medycyna', 'relacje'],
+  katastrofy: ['Katastrofy', 'globus'],
+  motoryzacja: ['Motoryzacja', 'obieg'],
+  technologia: ['Technologia', 'obieg'],
+  spoleczenstwo: ['Społeczeństwo', 'relacje'],
+  swiat: ['Świat', 'globus'],
+};
 const cat = CATS[arg('kategoria')];
-if (!head || !cat || !out) { console.error('Wymagane: --naglowek, --kategoria (polityka|gospodarka|spoleczenstwo|swiat), --out'); process.exit(2); }
+if (!head || !cat || !out) { console.error(`Wymagane: --naglowek, --kategoria (${Object.keys(CATS).join('|')}), --out`); process.exit(2); }
 if (head.trim().split(/\s+/).length > 6) { console.error('Nagłówek: max 6 słów'); process.exit(2); }
 
 const font = (n) => 'data:font/woff2;base64,' + readFileSync('public/fonts/' + n).toString('base64');
