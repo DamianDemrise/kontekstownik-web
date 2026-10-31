@@ -1,0 +1,27 @@
+/* Tokeny marki. Kolory platform (YouTube, TikTok) żyją wyłącznie w cta.css. */
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-pl-v1.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #080d12;
+  --surface: #101820;
+  --white: #f5f7fa;
+  --muted: #aeb9c4;
+  --orange: #ff8a00;
+  --orange-soft: rgb(255 138 0 / 0.55);
+
+  --font: "Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Jednostka kompozycji: 1% szerokości, ale nie więcej niż pozwala wysokość (proporcja 16:9). */
+  --u: min(1vw, 1.78vh);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (orientation: portrait) and (min-width: 641px) {
+  :root { --u: min(1.45vw, 1.05vh); }
+}

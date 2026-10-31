@@ -1,0 +1,67 @@
+/* Przyciski platform. Równa hierarchia: te same wymiary, typografia i siła poświaty. */
+.cta {
+  --edge: rgb(255 255 255 / 0.3);
+  --glow-a: transparent;
+  --glow-b: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 1.6);
+  width: calc(var(--u) * 24.2);
+  height: calc(var(--u) * 6.7);
+  min-height: 56px;
+  min-width: 220px;
+  padding: 0 calc(var(--u) * 2.4);
+  border: max(2px, calc(var(--u) * 0.18)) solid transparent;
+  border-radius: calc(var(--u) * 1.9);
+  background:
+    linear-gradient(180deg, rgb(18 22 28 / 0.96), rgb(8 10 14 / 0.96)) padding-box,
+    var(--edge) border-box;
+  color: #fff;
+  font-size: max(20px, calc(var(--u) * 2.75));
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow:
+    0 0 calc(var(--u) * 1.2) var(--glow-a),
+    0 0 calc(var(--u) * 3) var(--glow-b),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+  transition: box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-out), background 0.35s var(--ease-out);
+  -webkit-box-reflect: below calc(var(--u) * 1.4) linear-gradient(transparent 62%, rgb(255 255 255 / 0.16));
+}
+.cta__logo { height: 1.55em; width: auto; flex: none; }
+.cta--yt .cta__logo { height: 1.5em; width: 2.1em; }
+.cta__label { line-height: 1; }
+.cta__arrow {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.cta--yt {
+  --edge: linear-gradient(90deg, #ff2a2a, #ff0000 50%, #ff3b3b);
+  --glow-a: rgb(255 0 0 / 0.45);
+  --glow-b: rgb(255 0 0 / 0.16);
+}
+.cta--yt .cta__arrow { color: #ff3333; }
+
+.cta--tt {
+  --edge: linear-gradient(90deg, #25f4ee, #8fd3ff 45%, #fe2c55);
+  --glow-a: rgb(37 244 238 / 0.3);
+  --glow-b: rgb(254 44 85 / 0.2);
+}
+
+@media (hover: hover) {
+  .cta--yt:hover { --glow-a: rgb(255 0 0 / 0.75); --glow-b: rgb(255 0 0 / 0.32); }
+  .cta--tt:hover { --glow-a: rgb(37 244 238 / 0.6); --glow-b: rgb(254 44 85 / 0.42); }
+  .cta:hover { transform: translateY(-2px); }
+  .cta:hover .cta__arrow { transform: translateX(4px); }
+}
+.cta:active { transform: translateY(0) scale(0.975); transition-duration: 0.08s; }
+.cta:focus-visible { outline: 3px solid var(--orange); outline-offset: 6px; }
