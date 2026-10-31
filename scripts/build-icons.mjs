@@ -1,5 +1,5 @@
 // Generuje favicon PNG, apple-touch-icon, ikony manifestu (z public/favicon.svg)
-// oraz og-image.jpg 1200×630 (zrzut zbudowanej strony). Wymaga działającego `npm run preview`.
+// Wymaga działającego `npm run preview`. Grafika do udostępniania: scripts/build-og.mjs.
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
 
@@ -19,10 +19,5 @@ for (const [out, size, rounded] of icons) {
   await page.close();
 }
 
-const og = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
-await og.emulateMedia({ reducedMotion: 'reduce' });
-await og.goto(PREVIEW, { waitUntil: 'networkidle' });
-await og.waitForTimeout(800);
-await og.screenshot({ path: 'public/og-image.jpg', type: 'jpeg', quality: 86 });
 await browser.close();
-console.log('ikony i og-image gotowe');
+console.log('ikony gotowe');

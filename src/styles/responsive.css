@@ -64,3 +64,11 @@
   .topic { font-size: 12px; letter-spacing: 0.02em; }
   .cta { height: 58px; font-size: 20px; }
 }
+
+/* Okno prawie kwadratowe (np. 930×840): mniej miejsca po bokach, panele nie mogą wchodzić na kategorie */
+@media (orientation: landscape) and (max-aspect-ratio: 3/2) and (min-width: 641px) {
+  .panel--line { left: calc(var(--u) * 10); top: 48%; }
+  .panel--building { left: calc(var(--u) * 5.5); }
+  .panel--crowd { left: calc(var(--u) * -3); }
+  .panel--bars { left: calc(var(--u) * -4); }
+}
