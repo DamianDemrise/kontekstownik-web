@@ -117,11 +117,10 @@ h1 {
   left: 192px;
   bottom: 144px;
   margin: 0;
-  color: rgb(255 255 255 / 0.7);
-  font-size: 30px;
-  line-height: 1.2;
-  font-weight: 800;
+  width: 330px;
+  opacity: 0.85;
 }
+.marka svg { display: block; width: 100%; height: auto; }
 .motyw { display: none; }
 [data-motyw="instytucje"] #instytucje,
 [data-motyw="obieg"] #obieg,

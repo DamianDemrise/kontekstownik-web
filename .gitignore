@@ -6,5 +6,5 @@ backups/
 .DS_Store
 *.log
 deploy.env
-materialy/
-en/materials/
+/materialy/
+/en/materials/
