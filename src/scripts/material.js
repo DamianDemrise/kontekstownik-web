@@ -6,6 +6,7 @@ import '../styles/consent.css';
 import '../styles/materials.css';
 import '../styles/legal.css';
 import '../styles/material-page.css';
+import '../styles/lang.css';
 import { initConsent } from './consent.js';
 import { initShare } from './share.js';
 

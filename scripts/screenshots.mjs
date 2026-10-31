@@ -7,6 +7,7 @@ const URL_ = process.argv[2] || 'http://localhost:4188/';
 const OUT = process.argv[3] || 'docs/screenshots';
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const SIZES = [
+  [390, 844, 'en-mobile-390x844', true, 'en/'], [1366, 768, 'en-laptop-1366x768', false, 'en/'],
   [320, 568, 'mobile-320x568', true], [375, 812, 'mobile-375x812', true], [390, 844, 'mobile-390x844', true],
   [430, 932, 'mobile-430x932', true], [844, 390, 'mobile-landscape-844x390', true], [768, 1024, 'tablet-768x1024', true],
   [1024, 768, 'tablet-landscape-1024x768', false], [1366, 768, 'laptop-1366x768', false], [1920, 1080, 'desktop-1920x1080', false],
@@ -16,7 +17,7 @@ const SIZES = [
 mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch({ executablePath: CHROME, args: process.env.CHROME_ARGS ? [process.env.CHROME_ARGS] : [] });
 let failed = 0;
-for (const [w, h, name, mobile] of SIZES) {
+for (const [w, h, name, mobile, path = ''] of SIZES) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: w > 1920 ? 1 : 2, isMobile: mobile, hasTouch: mobile });
   // Zrzuty kompozycji bez banera zgody (baner ma osobne zrzuty w test-functional.mjs)
   await ctx.addInitScript(`localStorage.setItem('kontekstownik-consent', JSON.stringify({ v: 1, analytics: false }))`);
@@ -25,7 +26,7 @@ for (const [w, h, name, mobile] of SIZES) {
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
   page.on('requestfailed', (r) => errors.push(`request failed: ${r.url()}`));
-  await page.goto(URL_, { waitUntil: 'networkidle' });
+  await page.goto(new URL(path, URL_).href, { waitUntil: 'networkidle' });
   await page.waitForTimeout(1800);
   const r = await page.evaluate(() => {
     const rect = (s) => document.querySelector(s).getBoundingClientRect();

@@ -7,3 +7,4 @@ backups/
 *.log
 deploy.env
 materialy/
+en/materials/

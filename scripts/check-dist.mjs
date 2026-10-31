@@ -3,8 +3,8 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const DIST = new URL('../dist/', import.meta.url).pathname;
-const required = ['index.html', 'polityka-prywatnosci/index.html', '404.html', '.htaccess', 'robots.txt', 'sitemap.xml', 'favicon.svg', 'favicon-32.png',
-  'apple-touch-icon.png', 'og-image.jpg', 'og-image-v3.jpg', 'site.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'fonts/montserrat-latin-v2.woff2', 'fonts/montserrat-latin-ext-v2.woff2', 'CNAME'];
+const required = ['index.html', 'polityka-prywatnosci/index.html', 'en/index.html', 'en/privacy-policy/index.html', '404.html', '.htaccess', 'robots.txt', 'sitemap.xml', 'favicon.svg', 'favicon-32.png',
+  'apple-touch-icon.png', 'og-image.jpg', 'og-image-v3.jpg', 'og-image-en-v1.jpg', 'site.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'fonts/montserrat-latin-v2.woff2', 'fonts/montserrat-latin-ext-v2.woff2', 'CNAME'];
 const errors = [];
 for (const f of required) if (!existsSync(join(DIST, f))) errors.push(`brak pliku: ${f}`);
 

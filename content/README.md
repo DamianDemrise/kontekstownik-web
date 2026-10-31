@@ -53,6 +53,7 @@ Strona **nie odtwarza** filmów. Każdy materiał ma kartę na stronie głównej
 | `sources` | lista źródeł `{ "title": "…", "url": "https://…" }` – pokazywane na podstronie, wzmacniają wiarygodność |
 | `as_of` | „Stan informacji” `RRRR-MM-DD` |
 | `note` | krótka nota, np. „Lektor i muzyka w filmie powstały przy użyciu AI.” |
+| `en` | wersja angielska `{ slug, title, lead, summary, note }` – bez niej materiał nie pojawia się na `/en/`; `slug` po angielsku (adres `/en/materials/<slug>/`) |
 
 Ten sam film na obu platformach = **jedna karta** z dwoma linkami. Skrót (TikTok) i pełny materiał (YouTube) = **dwie karty** z `related_id`.
 

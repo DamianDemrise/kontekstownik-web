@@ -22,11 +22,13 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   check('nazwy dostępne', links.every((l) => l.name && l.name.length > 10));
   check('dokładnie 2 przyciski platform', (await page.$$('a.cta')).length === 2);
 
-  await page.keyboard.press('Tab');
+  // Kolejność: przełącznik PL, EN, potem YouTube, TikTok
+  const langLinks = await page.$$eval('.lang a', (as) => as.length);
+  for (let i = 0; i <= langLinks; i++) await page.keyboard.press('Tab');
   const f1 = await page.evaluate(() => [document.activeElement.dataset.platform, getComputedStyle(document.activeElement).outlineStyle]);
   await page.keyboard.press('Tab');
   const f2 = await page.evaluate(() => document.activeElement.dataset.platform);
-  check('Tab: YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
+  check('Tab: przełącznik języka → YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
   await page.screenshot({ path: 'docs/screenshots/focus-keyboard-1366.png' });
 
   const before = await page.$eval('.cta--yt', (e) => getComputedStyle(e).boxShadow);
@@ -250,6 +252,54 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     check('zamknięty pasek nie wraca w tej samej wizycie', !(await p2.isVisible('[data-new-pill]')));
     await ctx2.close();
   }
+  await ctx.close();
+}
+// --- Wersja angielska: język, hreflang, przełącznik, zgodność struktury z PL, brak polskich resztek
+{
+  const ctx = await browser.newContext({ viewport: { width: 1366, height: 768 } });
+  const page = await ctx.newPage();
+  const errs = [];
+  page.on('pageerror', (e) => errs.push(e.message));
+  const scan = () => page.evaluate(() => ({
+    lang: document.documentElement.lang,
+    canonical: document.querySelector('link[rel=canonical]')?.href,
+    alt: Object.fromEntries([...document.querySelectorAll('link[rel=alternate][hreflang]')].map((l) => [l.hreflang, l.href])),
+    current: document.querySelector('.lang a[aria-current="page"]')?.textContent,
+    other: [...document.querySelectorAll('.lang a:not([aria-current])')].map((a) => new URL(a.href).pathname),
+    platforms: document.querySelectorAll('a.cta[data-platform]').length,
+    socials: document.querySelectorAll('a[data-social]').length,
+    topics: [...document.querySelectorAll('.topic span')].map((x) => x.textContent),
+    cards: [...document.querySelectorAll('.card__main')].map((a) => new URL(a.href).pathname),
+    privacy: document.querySelector('.legal a') ? new URL(document.querySelector('.legal a').href).pathname : null,
+    consent: document.querySelector('.consent__title')?.textContent,
+    text: document.body.innerText,
+  }));
+  await page.goto(URL_, { waitUntil: 'networkidle' });
+  const pl = await scan();
+  await page.goto(new URL('en/', URL_).href, { waitUntil: 'networkidle' });
+  const en = await scan();
+  const S = 'https://www.kontekstownik.pl';
+  check('EN: lang="en", canonical /en/', en.lang === 'en' && en.canonical === `${S}/en/`, en.canonical);
+  check('hreflang PL↔EN wzajemne + x-default', pl.alt.en === `${S}/en/` && en.alt.pl === `${S}/` && pl.alt['x-default'] === `${S}/` && en.alt['x-default'] === `${S}/`);
+  check('przełącznik: PL→/en/, EN→/', pl.current === 'PL' && pl.other.join() === '/en/' && en.current === 'EN' && en.other.join() === '/');
+  check('EN ma tę samą strukturę co PL (przyciski, kanały, tematy)', en.platforms === pl.platforms && en.socials === pl.socials && en.topics.length === pl.topics.length);
+  check('EN: tematy po angielsku, baner i polityka po angielsku', en.topics.join() === 'Politics,Economy,Society,World' && en.consent === 'Your privacy' && en.privacy === '/en/privacy-policy/');
+  const leftovers = ['Oglądaj', 'Wyjaśniamy', 'Polityka prywatności', 'Ustawienia cookies', 'Najnowsze', 'Obejrzyj', 'Odrzucam', 'Akceptuję'].filter((w) => en.text.includes(w));
+  check('EN: brak polskich tekstów interfejsu', leftovers.length === 0, leftovers.join(','));
+  check('EN: informacja, że filmy są po polsku', /Videos in Polish/i.test(en.text));
+  if (pl.cards.length) {
+    check('EN: karty prowadzą do /en/materials/…', en.cards.length > 0 && en.cards.every((x) => x.startsWith('/en/materials/')), en.cards.join(' '));
+    await page.goto(new URL(en.cards[0], URL_).href, { waitUntil: 'networkidle' });
+    const sub = await scan();
+    const og = await page.$eval('meta[property="og:locale"]', (m) => m.content);
+    check('EN podstrona: lang en, hreflang do PL, og:locale en_GB', sub.lang === 'en' && sub.alt.pl === `${S}${pl.cards[0]}` && sub.alt.en === `${S}${en.cards[0]}` && og === 'en_GB');
+    check('EN podstrona: przełącznik prowadzi do polskiej podstrony', sub.other.join() === pl.cards[0]);
+    check('EN podstrona: dopisek, że film jest po polsku, przyciski Watch on', /The video is in Polish/.test(sub.text) && /Watch on YouTube/.test(sub.text));
+  }
+  await page.goto(new URL('en/privacy-policy/', URL_).href, { waitUntil: 'networkidle' });
+  const pp = await scan();
+  check('EN polityka: lang en, hreflang do polskiej, odesłanie do wersji PL jako wiążącej', pp.lang === 'en' && pp.alt.pl === `${S}/polityka-prywatnosci/` && /Polish version prevails/.test(pp.text));
+  check('EN: brak błędów JS', errs.length === 0, errs.join('|'));
   await ctx.close();
 }
 await browser.close();

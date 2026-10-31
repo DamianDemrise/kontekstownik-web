@@ -2,22 +2,25 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { loadMaterials, renderCovers, contentDir } from './scripts/materials.mjs';
-import { renderSection, renderPage, renderSitemap } from './scripts/materials-render.mjs';
+import { renderSection, renderPage, renderSitemap, forLang } from './scripts/materials-render.mjs';
 
 const root = import.meta.dirname;
 
-// Podstrony materiałów: źródłowe HTML generowane do materialy/<slug>/index.html (katalog w .gitignore),
+// Podstrony materiałów: źródłowe HTML generowane do materialy/<slug>/ i en/materials/<slug>/ (oba w .gitignore),
 // żeby Vite przetworzył je jak zwykłe strony. Okładki WebP/OG i sitemap.xml emituje plugin.
 async function prepareMaterials() {
   const items = await loadMaterials();
   const covers = await renderCovers(items);
-  const dir = resolve(root, 'materialy');
-  rmSync(dir, { recursive: true, force: true });
   const inputs = {};
-  for (const m of items) {
-    mkdirSync(resolve(dir, m.slug), { recursive: true });
-    writeFileSync(resolve(dir, m.slug, 'index.html'), renderPage(m, items));
-    inputs[`material-${m.slug}`] = resolve(dir, m.slug, 'index.html');
+  for (const [lang, rel] of [['pl', 'materialy'], ['en', 'en/materials']]) {
+    const dir = resolve(root, rel);
+    rmSync(dir, { recursive: true, force: true });
+    for (const m of forLang(items, lang)) {
+      const slug = lang === 'en' ? m.en.slug || m.slug : m.slug;
+      mkdirSync(resolve(dir, slug), { recursive: true });
+      writeFileSync(resolve(dir, slug, 'index.html'), renderPage(m, items, lang));
+      inputs[`material-${lang}-${slug}`] = resolve(dir, slug, 'index.html');
+    }
   }
   return { items, covers, inputs };
 }
@@ -26,8 +29,9 @@ function materials(data) {
   return {
     name: 'kontekstownik-materialy',
     transformIndexHtml(html, ctx) {
-      if (ctx.filename !== resolve(root, 'index.html')) return html;
-      const { hint, section } = renderSection(data.items);
+      const lang = { [resolve(root, 'index.html')]: 'pl', [resolve(root, 'en/index.html')]: 'en' }[ctx.filename];
+      if (!lang) return html;
+      const { hint, section } = renderSection(data.items, lang);
       // Ze stopką pod materiałami stopka płynie w dokumencie; bez nich siedzi na dole pierwszego ekranu.
       return html.replace('<!--materialy:hint-->', hint).replace('<!--materialy:section-->', section)
         .replace('<footer class="legal">', section ? '<footer class="legal legal--static">' : '<footer class="legal">');
@@ -62,6 +66,8 @@ export default defineConfig(async () => {
         input: {
           main: resolve(root, 'index.html'),
           privacy: resolve(root, 'polityka-prywatnosci/index.html'),
+          en: resolve(root, 'en/index.html'),
+          enPrivacy: resolve(root, 'en/privacy-policy/index.html'),
           ...data.inputs,
         },
       },

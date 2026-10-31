@@ -6,6 +6,7 @@ import { join, basename } from 'node:path';
 import sharp from 'sharp';
 
 export const CATEGORIES = { polityka: 'Polityka', gospodarka: 'Gospodarka', spoleczenstwo: 'Społeczeństwo', swiat: 'Świat' };
+export const CATEGORIES_EN = { polityka: 'Politics', gospodarka: 'Economy', spoleczenstwo: 'Society', swiat: 'World' };
 export const COVER_WIDTHS = [480, 960, 1440];
 const COVER_SIZE = { width: 1920, height: 1080 };
 const FORMATS = new Set(['full', 'short']);
@@ -99,6 +100,20 @@ export async function loadMaterials(dir = contentDir()) {
     }
     if (m.as_of !== undefined && !isRealDate(m.as_of)) err('as_of: RRRR-MM-DD');
     if (m.note !== undefined && !text(m.note, 300)) err('note: niepusty tekst do 300 znaków');
+    // Wersja angielska (opcjonalna): bez niej materiał nie pojawia się na /en/
+    if (m.en !== undefined) {
+      const en = m.en;
+      if (!en || typeof en !== 'object' || Array.isArray(en)) err('en: obiekt z tłumaczeniem');
+      else {
+        if (!text(en.title, 120)) err('en.title: niepusty tekst, max 120 znaków');
+        if (!text(en.lead, 200)) err('en.lead: niepusty tekst, max 200 znaków');
+        if (en.summary !== undefined && !(Array.isArray(en.summary) && en.summary.length >= 1 && en.summary.length <= 8 && en.summary.every((t) => text(t, 1200)))) err('en.summary: 1–8 akapitów do 1200 znaków');
+        if (en.note !== undefined && !text(en.note, 300)) err('en.note: niepusty tekst do 300 znaków');
+        if (en.slug !== undefined && (typeof en.slug !== 'string' || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(en.slug) || en.slug.length > 80)) err('en.slug: małe litery, cyfry i myślniki, max 80 znaków');
+        const extra = Object.keys(en).filter((k) => !['title', 'lead', 'summary', 'note', 'slug'].includes(k));
+        if (extra.length) err(`en: nieznane pola ${extra.join(', ')}`);
+      }
+    }
     const platforms = Object.keys(PLATFORM).filter((p) => m[p] !== undefined);
     if (!platforms.length) err('wymagany co najmniej jeden link: youtube albo tiktok');
     for (const p of platforms) { const e = typeof m[p] === 'string' ? checkVideoUrl(p, m[p]) : 'oczekiwany tekst'; if (e) err(`${p}: ${e}`); }

@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/consent.css';
 import '../styles/legal.css';
+import '../styles/lang.css';
 import { initConsent } from './consent.js';
 
 initConsent();
