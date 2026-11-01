@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-11-01-ai-odpowiedziala-z-orbity",
+    "status": "published",
+    "category": "technologia",
+    "slug": "ai-odpowiedziala-z-orbity",
+    "title": "AI odpowiedziała z orbity. Co pokazał test Google?",
+    "lead": "Ta sztuczna inteligencja napisała wiersz, krążąc nad Ziemią.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=_Q_v6GZypgw",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 46,
+    "summary": [
+      "Ta sztuczna inteligencja napisała wiersz, krążąc nad Ziemią. Po co wysłano ją w kosmos?"
+    ],
+    "transcript": [
+      "Ta sztuczna inteligencja napisała wiersz, krążąc nad Ziemią. Po co wysłano ją w kosmos?",
+      "Google podał, że prototyp projektu Suncatcher uruchomił model Gemma cztery na procesorze TPU. Polecenie poleciało z Ziemi, odpowiedź wróciła z orbity.",
+      "Satelitę wystrzelono pierwszego października. Test sprawdza, czy taki sprzęt potrafi wykonywać obliczenia w warunkach kosmicznych. To ważny krok badawczy, ale kolejne próby dopiero pokażą niezawodność całego rozwiązania.",
+      "Teraz badacze mają sprawdzić wpływ temperatury i promieniowania. To demonstracja technologii, a nie gotowe orbitalne centrum danych ani dowód jego opłacalności.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Google Research • 30.10.2026",
+        "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/project-suncatcher-satellite-response/"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-ai-odpowiedziala-z-orbity.jpg"
+  },
+  {
     "id": "2026-11-01-macbook-z-dotykiem",
     "status": "published",
     "category": "technologia",
