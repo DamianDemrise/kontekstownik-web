@@ -50,7 +50,7 @@ function validate(item) {
   if (typeof headline !== 'string' || /[\r\n\p{Cc}\p{Cf}]/u.test(headline)) throw Error(`${item.id}: nieprawidłowy nagłówek.`);
   const title = headline.trim().replace(/\s+/gu, ' ');
   const count = title.split(' ').length;
-  if (count < 3 || count > 6) throw Error(`${item.id}: nagłówek musi mieć 3–6 słów.`);
+  if (count < 2 || count > 6) throw Error(`${item.id}: nagłówek musi mieć 2–6 słów.`);
   if (!Object.hasOwn(categories, item.kategoria)) throw Error(`${item.id}: nieznana kategoria.`);
   const [label, defaultMotif] = categories[item.kategoria];
   const motif = item.motyw ?? defaultMotif;
