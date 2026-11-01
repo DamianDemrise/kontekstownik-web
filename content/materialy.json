@@ -1,5 +1,49 @@
 [
   {
+    "id": "2026-11-01-dlaczego-ciagle-po-i-pis",
+    "status": "published",
+    "category": "polityka",
+    "slug": "dlaczego-ciagle-po-i-pis",
+    "title": "Dlaczego ciągle PO i PiS? Skąd wziął się POPiS?",
+    "lead": "Dlaczego polska polityka od lat kręci się wokół PO i PiS?",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=2wEyd5n4dlw",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7703104724416875798",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 45,
+    "summary": [
+      "Dlaczego polska polityka od lat kręci się wokół PO i PiS?"
+    ],
+    "transcript": [
+      "Dlaczego polska polityka od lat kręci się wokół PO i PiS?",
+      "W dwa tysiące piątym roku planowali wspólny rząd, nazywany POPiS. Koalicja nie powstała.",
+      "Zamiast współpracy utrwaliła się rywalizacja.",
+      "W tamtych wyborach zdobyli łącznie około pięćdziesięciu jeden procent głosów. Dwa lata później niemal siedemdziesiąt cztery.",
+      "Badacze wskazują różnice poglądów, przekaz mediów i narastającą niechęć do drugiej strony.",
+      "Ale Polska nie ma tylko dwóch partii. Mniejsze ugrupowania również współtworzyły rządy i parlamentarne większości.",
+      "POPiS to polityczny skrót. Nie oznacza, że obie partie są takie same.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Wybory do Sejmu 2005",
+        "url": "https://wybory2005.pkw.gov.pl/SJM/PL/WYN/W/index.htm"
+      },
+      {
+        "title": "Wybory do Sejmu 2007",
+        "url": "https://wybory2007.pkw.gov.pl/SJM/PL/WYN/W/index.htm"
+      },
+      {
+        "title": "Zbigniew Zagała: Partie polityczne i ich elektoraty. Od sympatii do antagonizmu (2020)",
+        "url": "https://pressto.amu.edu.pl/index.php/pp/article/download/24252/22582/49821"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-dlaczego-ciagle-po-i-pis.jpg"
+  },
+  {
     "id": "2026-10-31-francja-znow-protestuje",
     "status": "published",
     "category": "wydarzenia",
