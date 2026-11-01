@@ -40,7 +40,7 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
 
   const globeDrawn = await page.$eval('.globe__dots', (c) => c.width > 100);
   check('globus narysowany (canvas)', globeDrawn);
-  const missingImgs = await page.$$eval('img', (is) => is.filter((i) => !i.complete || i.naturalWidth === 0).length);
+  const missingImgs = await page.$$eval('img', (is) => is.filter((i) => i.getClientRects().length && (!i.complete || i.naturalWidth === 0)).length); // karty na dalszych stronach są ukryte (lazy nie ruszy)
   check('brak brakujących grafik', missingImgs === 0);
   check('brak błędów JS/konsoli', errors.length === 0, errors.join(' | '));
   await ctx0.close();
@@ -185,7 +185,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     await page.waitForTimeout(1200);
     const after = await page.evaluate(() => ({ top: document.getElementById('materialy').getBoundingClientRect().top, hidden: document.querySelector('[data-new-pill]').hidden }));
     check('klik paska przewija do materiałów i chowa pasek', Math.abs(after.top) < 40 && after.hidden);
-    const broken = await page.$$eval('.card__cover img', (is) => is.filter((i) => !i.complete || !i.naturalWidth).length);
+    const broken = await page.$$eval('.card__cover img', (is) => is.filter((i) => i.getClientRects().length && (!i.complete || !i.naturalWidth)).length);
     check('materiały: okładki się wczytują', broken === 0);
     await page.click('[data-consent-open]');
     await page.click('[data-consent="accept"]');

@@ -20,6 +20,7 @@ const T = {
     reject: 'Odrzucam', accept: 'Akceptuję', langNav: 'Język',
     filterLabel: 'Filtruj materiały według kategorii', all: 'Wszystkie', sortLabel: 'Kolejność', newest: 'Najnowsze', oldest: 'Najstarsze',
     shown: (n) => `Widoczne materiały: ${n}`,
+    pagerLabel: 'Stronicowanie materiałów', prev: 'Poprzednia', next: 'Następna', pageOf: (n, total) => `Strona ${n} z ${total}`,
     topicTitle: 'Masz temat, który warto wyjaśnić?', topicText: 'Napisz, co mamy rozłożyć na czynniki pierwsze w kolejnym materiale.',
     topicBtn: 'Wyślij', topicLabel: 'Temat do wyjaśnienia', topicPlaceholder: 'np. Skąd biorą się ceny prądu?',
     topicOk: 'Dziękujemy! Temat trafił do redakcji.', topicErr: 'Nie udało się wysłać. Spróbuj ponownie za chwilę.',
@@ -43,6 +44,7 @@ const T = {
     reject: 'Reject', accept: 'Accept', langNav: 'Language',
     filterLabel: 'Filter videos by category', all: 'All', sortLabel: 'Order', newest: 'Newest', oldest: 'Oldest',
     shown: (n) => `Videos shown: ${n}`,
+    pagerLabel: 'Video pagination', prev: 'Previous', next: 'Next', pageOf: (n, total) => `Page ${n} of ${total}`,
     topicTitle: 'Got a topic worth explaining?', topicText: 'Tell us which issue we should break down in an upcoming video.',
     topicBtn: 'Send', topicLabel: 'Topic to explain', topicPlaceholder: 'e.g. Why are energy prices rising?',
     topicOk: 'Thank you! Your topic has reached our team.', topicErr: 'Could not send. Please try again in a moment.',
@@ -183,6 +185,14 @@ export function relatedFor(m, all, lang, limit = 3) {
   return { items: list.map((e) => e.x), related: list.some((e) => e.s > 0) };
 }
 
+// Stronicowanie (po 9 kart) obsługuje materials-tools.js. Bez JS pasek jest ukryty, a wszystkie karty widać w HTML.
+function pager(t) {
+  return `<nav class="mpager" data-mpager hidden aria-label="${t.pagerLabel}">` +
+    `<button type="button" class="mpager__btn" data-page-prev><span aria-hidden="true">←</span> ${t.prev}</button>` +
+    `<p class="mpager__state" data-page-state tabindex="-1" data-template="${esc(t.pageOf('{n}', '{total}'))}"></p>` +
+    `<button type="button" class="mpager__btn" data-page-next>${t.next} <span aria-hidden="true">→</span></button></nav>`;
+}
+
 export function renderSection(all, lang = 'pl') {
   const items = forLang(all, lang);
   if (!items.length) return { hint: '', section: '' };
@@ -194,7 +204,7 @@ export function renderSection(all, lang = 'pl') {
       `<header class="materials__head"><h2 class="materials__title" id="materialy-title">${t.latest}</h2>` +
       `<p class="materials__sub">${t.latestSub}</p></header>` +
       toolbar(items, t) +
-      `<ul class="materials__grid" data-mgrid>${items.map((m) => card(m, lang)).join('')}</ul>${topicCta(lang)}</div></section>`,
+      `<ul class="materials__grid" data-mgrid>${items.map((m) => card(m, lang)).join('')}</ul>${pager(t)}${topicCta(lang)}</div></section>`,
   };
 }
 

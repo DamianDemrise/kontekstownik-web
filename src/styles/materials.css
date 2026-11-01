@@ -190,6 +190,23 @@
 .chip:focus-visible, .sortbtn:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
 .materials__grid > li[hidden] { display: none; }
 
+/* Stronicowanie (po 9 kart): Poprzednia / Strona X z Y / Następna */
+.mpager { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 32px; }
+.mpager[hidden] { display: none; }
+.mpager__state { margin: 0; min-width: 7.5em; text-align: center; font: 700 14px/1.2 var(--font); letter-spacing: 0.03em; color: #f5f7fa; }
+.mpager__state:focus { outline: none; }
+.mpager__btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; min-width: 48px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid rgb(200 220 240 / 0.18); background: rgb(16 24 32 / 0.6); color: #d5dde5;
+  font: 600 14px/1 var(--font); letter-spacing: 0.03em; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.mpager__btn:hover:not(:disabled) { border-color: rgb(255 138 0 / 0.6); color: #fff; }
+.mpager__btn:disabled { opacity: 0.4; cursor: default; }
+.mpager__btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+@media (max-width: 480px) { .mpager { gap: 8px; } .mpager__btn { flex: 1 1 0; padding: 0 10px; } .mpager__state { flex: 0 0 auto; min-width: 5.5em; } }
+
 /* „Masz temat, który warto wyjaśnić?” */
 .topic-cta {
   display: flex;
