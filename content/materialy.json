@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-11-01-listopadowe-obligacje",
+    "status": "published",
+    "category": "gospodarka",
+    "slug": "listopadowe-obligacje",
+    "title": "Listopadowe obligacje. Co mówi sam procent?",
+    "lead": "Widzisz oprocentowanie obligacji i już znasz przyszły zysk?",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=6X4qrx-wj18",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 49,
+    "summary": [
+      "Widzisz oprocentowanie obligacji i już znasz przyszły zysk? Nie zawsze. Ważne jest, jak długo obowiązuje ta liczba."
+    ],
+    "transcript": [
+      "Widzisz oprocentowanie obligacji i już znasz przyszły zysk? Nie zawsze. Ważne jest, jak długo obowiązuje ta liczba.",
+      "Ministerstwo Finansów pozostawiło listopadowe oprocentowanie bez zmian. W ofercie są obligacje o stałej stopie, powiązane ze stopą NBP oraz później indeksowane inflacją.",
+      "Przykładowo czterolatki mają ustaloną stawkę w pierwszym roku. W kolejnych latach działa formuła: inflacja plus marża. Dla innych terminów oszczędzania zasady naliczania odsetek mogą wyglądać zupełnie inaczej.",
+      "Dlatego sprawdzaj konkretny okres odsetkowy i zasady produktu. Sama początkowa liczba nie opisuje całej inwestycji. To wyjaśnienie mechanizmu, nie rekomendacja zakupu.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Ministerstwo Finansów • 26.10.2026",
+        "url": "https://www.gov.pl/web/finanse/oferta-oszczednosciowych-obligacji-skarbowych--listopad-2026-r"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-listopadowe-obligacje.jpg"
+  },
+  {
     "id": "2026-11-01-nowa-terapia-dna",
     "status": "published",
     "category": "medycyna",
