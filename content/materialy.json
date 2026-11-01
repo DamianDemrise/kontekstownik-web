@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-11-01-zawiadomienie-to-nie-wyrok",
+    "status": "published",
+    "category": "polityka",
+    "slug": "zawiadomienie-to-nie-wyrok",
+    "title": "Zawiadomienie to nie wyrok. Co zapowiada Kancelaria Prezydenta?",
+    "lead": "Zawiadomienie do prokuratury brzmi jak wyrok.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=FJvVFsYoci0",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 56,
+    "summary": [
+      "Zawiadomienie do prokuratury brzmi jak wyrok. Ale to dopiero początek możliwej procedury."
+    ],
+    "transcript": [
+      "Zawiadomienie do prokuratury brzmi jak wyrok. Ale to dopiero początek możliwej procedury.",
+      "Pierwszego listopada rzecznik prezydenta Rafał Leśkiewicz zapowiedział takie kroki po nocnym zajściu przy Trybunale. Według jego relacji miało dojść do naruszenia nietykalności prezydenta.",
+      "Kancelaria Prezydenta to urząd obsługujący głowę państwa. Jej stanowisko nie zastępuje decyzji prokuratury ani orzeczenia sądu.",
+      "Zawiadomienie przekazuje podejrzenie przestępstwa. Organ sprawdza informacje i podejmuje decyzję o wszczęciu albo odmowie wszczęcia postępowania. Samo zgłoszenie nie dowodzi winy.",
+      "Rozróżniaj cztery rzeczy: zapowiedź pisma, jego złożenie, decyzję o postępowaniu i wyrok. Na dziewiętnastą trzydzieści potwierdzona jest zapowiedź. Nie przedstawiamy jej jako skazania.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Onet: wypowiedź Leśkiewicza w Radiu Wnet, 1.11 godz. 17:43",
+        "url": "https://www.onet.pl/informacje/onetwiadomosci/szarpanina-przed-tk-z-udzialem-karola-nawrockiego-palac-zapowiada-wniosek-do/x38m4j4,79cfc278"
+      },
+      {
+        "title": "Ministerstwo Sprawiedliwości: przyjęcie zawiadomienia i decyzja o wszczęciu",
+        "url": "https://www.gov.pl/web/sprawiedliwosc/przestepstwa-motywowane-uprzedzeniami"
+      },
+      {
+        "title": "Radio Wnet: własny opis rozmowy z Rafałem Leśkiewiczem, 1.11.2026",
+        "url": "https://wnet.fm/2026/11/01/leskiewicz-beda-zawiadomienia-do-prokuratury-po-incydencie-z-prezydentem-w-tk"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-zawiadomienie-to-nie-wyrok.jpg"
+  },
+  {
     "id": "2026-11-01-woreczek-pod-warga",
     "status": "published",
     "category": "medycyna",
