@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-11-01-woreczek-pod-warga",
+    "status": "published",
+    "category": "medycyna",
+    "slug": "woreczek-pod-warga",
+    "title": "Woreczek pod wargą. Snus czy saszetka nikotynowa?",
+    "lead": "Mały woreczek pod wargą.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=w1rHCev7d5Q",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 57,
+    "summary": [
+      "Mały woreczek pod wargą. W internecie często nazywany snusem. Ale ta nazwa miesza dwa różne produkty."
+    ],
+    "transcript": [
+      "Mały woreczek pod wargą. W internecie często nazywany snusem. Ale ta nazwa miesza dwa różne produkty.",
+      "Tradycyjny snus zawiera tytoń. Saszetka nikotynowa nie zawiera tytoniu, choć dostarcza nikotynę. Wygląd może być podobny, skład i przepisy są inne.",
+      "Według Głównego Inspektoratu Sanitarnego nikotyna z saszetki przenika przez śluzówkę jamy ustnej. Brak dymu nie oznacza braku substancji uzależniającej.",
+      "W Polsce sprzedaż tytoniu do stosowania doustnego, czyli snusu, jest zakazana. Woreczków nikotynowych nie wolno sprzedawać osobom poniżej osiemnastego roku życia.",
+      "GIS podkreśla ryzyko uzależnienia i ograniczone dane o skutkach długotrwałego używania saszetek. Sam kadr z woreczkiem nie mówi, co dokładnie zawiera. Nazwa z komentarza nie zastępuje sprawdzenia produktu.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "GIS: saszetki nikotynowe",
+        "url": "https://www.gov.pl/web/gis/saszetki-nikotynowe"
+      },
+      {
+        "title": "GIS: zakaz sprzedaży osobom poniżej 18 lat",
+        "url": "https://www.gov.pl/web/gis/poznaj-prawde-o-nowych-produktach-nikotynowych"
+      },
+      {
+        "title": "Stanowisko Ministerstwa Zdrowia: zakaz sprzedaży tytoniu do stosowania doustnego",
+        "url": "https://www.gov.pl/attachment/6642ec1f-92f9-43ee-bbf1-94b46b4b2324"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-woreczek-pod-warga.jpg"
+  },
+  {
     "id": "2026-11-01-od-2-listopada-policja-w-gotowosci",
     "status": "published",
     "category": "wydarzenia",
