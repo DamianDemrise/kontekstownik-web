@@ -1,5 +1,42 @@
 [
   {
+    "id": "2026-11-01-nagranie-z-drzwi-tk",
+    "status": "published",
+    "category": "polityka",
+    "slug": "nagranie-z-drzwi-tk",
+    "title": "Nagranie z drzwi TK. Co widać, czego nie widać?",
+    "lead": "Jedno nagranie. Dwie sprzeczne relacje.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=89JlgxpgDUg",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 54,
+    "summary": [
+      "Jedno nagranie. Dwie sprzeczne relacje. Jak czytać obrazy z drzwi Trybunału Konstytucyjnego?"
+    ],
+    "transcript": [
+      "Jedno nagranie. Dwie sprzeczne relacje. Jak czytać obrazy z drzwi Trybunału Konstytucyjnego?",
+      "W nocy z trzydziestego na trzydziestego pierwszego października Karol Nawrocki przyjechał do Trybunału. W tle trwa spór o jego kierownictwo.",
+      "Maciej Berek opublikował nagranie i zarzucił prezydentowi fizyczny atak na sędziów. Otoczenie prezydenta przedstawia sytuację odwrotnie: mówi o blokowaniu wejścia i naruszeniu jego nietykalności.",
+      "To relacje stron, a nie ustalenie sądu. Krótki film może pomóc ustalić przebieg zajścia, ale sam nie rozstrzyga całego sporu prawnego.",
+      "Trybunał bada między innymi zgodność ustaw z konstytucją. Kontrola nad drzwiami budynku nie jest odpowiedzią na pytanie, kto zgodnie z prawem kieruje instytucją.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Onet: nagrania i przypisane wypowiedzi obu stron",
+        "url": "https://wiadomosci.onet.pl/kraj/szarpanina-karola-nawrockiego-z-sedziami-w-budynku-tk-jest-nagranie/fctf724"
+      },
+      {
+        "title": "Konstytucja RP, art. 188, 194 i 235",
+        "url": "https://trybunal.gov.pl/o-trybunale/akty-normatywne/konstytucja-rzeczypospolitej-polskiej"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-nagranie-z-drzwi-tk.jpg"
+  },
+  {
     "id": "2026-11-01-zawiadomienie-to-nie-wyrok",
     "status": "published",
     "category": "polityka",
