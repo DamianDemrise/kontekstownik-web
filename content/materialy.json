@@ -1,5 +1,47 @@
 [
   {
+    "id": "2026-11-01-1-czy-2-listopada",
+    "status": "published",
+    "category": "spoleczenstwo",
+    "slug": "1-czy-2-listopada",
+    "title": "1 czy 2 listopada? Dwa dni, dwa różne znaczenia",
+    "lead": "Pierwszego listopada odwiedzamy groby.",
+    "date": "2026-11-01",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=kpwjq8xUxmU",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 45,
+    "summary": [
+      "Pierwszego listopada odwiedzamy groby. Ale katolickie Zaduszki są dzień później. Dlaczego?"
+    ],
+    "transcript": [
+      "Pierwszego listopada odwiedzamy groby. Ale katolickie Zaduszki są dzień później. Dlaczego?",
+      "Pierwszego listopada Kościół katolicki wspomina wszystkich świętych. Także tych nieznanych z imienia.",
+      "Drugiego listopada przypada modlitwa za wszystkich wiernych zmarłych. To osobne wspomnienie.",
+      "Modlitwy za zmarłych są dużo starsze. Świadectwa pochodzą już z drugiego wieku.",
+      "W dziewięćset dziewięćdziesiątym ósmym roku opat Odylon wprowadził listopadowe wspomnienie w podległych klasztorach. Zwyczaj rozpowszechniał się stopniowo.",
+      "Rodzinne odwiedzanie grobów łączy pamięć o bliskich. Nie zmienia jednak znaczenia tych dwóch dni.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Commemoration of all the Faithful Departed",
+        "url": "https://www.vaticannews.va/en/liturgical-holidays/commemoration-of-all-the-faithful-departed--all-souls-day-.html"
+      },
+      {
+        "title": "List na tysiąclecie wspomnienia wiernych zmarłych",
+        "url": "https://www.vatican.va/content/john-paul-ii/en/letters/1998/documents/hf_jp-ii_let_19980602_cluny.html"
+      },
+      {
+        "title": "All Saints Day: holiness in daily life",
+        "url": "https://www.vaticannews.va/en/pope/news/2018-11/pope-francis-angelus-all-saints-day-holiness-beatitudes.html"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-1-czy-2-listopada.jpg"
+  },
+  {
     "id": "2026-11-01-nie-wszedzie-1-listopada",
     "status": "published",
     "category": "spoleczenstwo",
