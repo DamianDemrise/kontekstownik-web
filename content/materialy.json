@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-11-01-nowa-terapia-dna",
+    "status": "published",
+    "category": "medycyna",
+    "slug": "nowa-terapia-dna",
+    "title": "Nowa terapia DNA. Dla kogo jest zatwierdzona?",
+    "lead": "Terapia oparta na DNA ma pomóc ograniczyć powtarzające się operacje.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=WO7OvtFq1Z4",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 50,
+    "summary": [
+      "Terapia oparta na DNA ma pomóc ograniczyć powtarzające się operacje. Ale dotyczy jednej konkretnej choroby."
+    ],
+    "transcript": [
+      "Terapia oparta na DNA ma pomóc ograniczyć powtarzające się operacje. Ale dotyczy jednej konkretnej choroby.",
+      "Amerykańska FDA zatwierdziła immunoterapię plazmidowym DNA dla dorosłych z nawracającą brodawczakowatością dróg oddechowych. To rzadka choroba związana z wirusem HPV.",
+      "Według urzędu leczenie pomaga układowi odpornościowemu i zmniejsza częstotliwość zabiegów usuwających zmiany w drogach oddechowych. Zmiany mogą utrudniać oddychanie i powracać po ich usunięciu podczas kolejnych zabiegów.",
+      "Decyzję wydano w trybie przyspieszonym. Dalsze badania mają potwierdzić korzyści. To nie lek na wszystkie nowotwory i nie informacja o dostępności tej terapii w Polsce.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "FDA • komunikat 30.10.2026",
+        "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-plasmid-dna-based-immunotherapy-adults-recurrent-respiratory-papillomatosis"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-nowa-terapia-dna.jpg"
+  },
+  {
     "id": "2026-11-01-pierwszy-olimpijski-rozdzial-afryki",
     "status": "published",
     "category": "wydarzenia",
