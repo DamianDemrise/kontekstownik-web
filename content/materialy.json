@@ -1,5 +1,54 @@
 [
   {
+    "id": "2026-11-01-kto-rzadzi-w-naszym-kraju",
+    "status": "published",
+    "category": "polityka",
+    "slug": "kto-rzadzi-w-naszym-kraju",
+    "title": "Kto rządzi w naszym kraju? Prezydent, premier i partie w minutę",
+    "lead": "Kto rządzi w naszym kraju?",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=y9Bn0cKYmOw",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7703102203459898646",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 53,
+    "summary": [
+      "Kto rządzi w naszym kraju? Prezydent, premier czy szef partii?"
+    ],
+    "transcript": [
+      "Kto rządzi w naszym kraju? Prezydent, premier czy szef partii?",
+      "Obywatele wybierają parlament i prezydenta. Władza jest podzielona.",
+      "Sejm ma czterystu sześćdziesięciu posłów, Senat stu senatorów. Uchwalają ustawy. Sejm kontroluje rząd.",
+      "Premier kieruje rządem. Rząd prowadzi politykę państwa i wykonuje ustawy. Potrzebuje poparcia Sejmu.",
+      "Prezydent reprezentuje państwo. Podpisuje ustawy, może je zawetować albo skierować do Trybunału Konstytucyjnego.",
+      "Partie budują parlamentarną większość. Ale szef partii nie jest osobnym organem władzy państwowej.",
+      "Sądy rozstrzygają sprawy niezależnie od rządu.",
+      "Nie ma więc jednego szefa Polski. Kompetencje rozdziela Konstytucja.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Konstytucja RP: tekst",
+        "url": "https://www.senat.gov.pl/o-senacie/wybrane-akty-prawne/konstytucja/"
+      },
+      {
+        "title": "Sejm i Senat",
+        "url": "https://www.prezydent.pl/prawo/konstytucja-rp/rozdzial-iv-sejm-i-senat"
+      },
+      {
+        "title": "Rada Ministrów i premier",
+        "url": "https://www.gov.pl/web/premier/podstawy-prawne2"
+      },
+      {
+        "title": "Prezydent RP",
+        "url": "https://www.prezydent.pl/prawo/konstytucja-rp/rozdzial-v-prezydent-rzeczypospolitej-polskiej"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-kto-rzadzi-w-naszym-kraju.jpg"
+  },
+  {
     "id": "2026-11-01-dlaczego-ciagle-po-i-pis",
     "status": "published",
     "category": "polityka",
