@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-11-01-od-2-listopada-policja-w-gotowosci",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "od-2-listopada-policja-w-gotowosci",
+    "title": "Od 2 listopada policja w gotowości. Co to naprawdę znaczy?",
+    "lead": "Od drugiego listopada policja w gotowości.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=pe_gGcWnQjs",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 54,
+    "summary": [
+      "Od drugiego listopada policja w gotowości. Brzmi alarmująco. Co naprawdę wynika z dokumentu?"
+    ],
+    "transcript": [
+      "Od drugiego listopada policja w gotowości. Brzmi alarmująco. Co naprawdę wynika z dokumentu?",
+      "Onet opisuje polecenie z dwudziestego dziewiątego października. Wskazane oddziały mają być gotowe do natychmiastowego wyjazdu od drugiego do ósmego listopada.",
+      "Według komunikatu Policji przytoczonego przez redakcję chodzi o zagrożenia sabotażem i dywersją. To wyjaśnienie służby, a nie niezależne ustalenie wszystkich okoliczności.",
+      "Policja zaprzecza związkowi tego rozkazu ze sporem o Trybunał Konstytucyjny. Nie należy przedstawiać takiego związku jako potwierdzonego faktu.",
+      "Gotowość wskazanych funkcjonariuszy nie jest ogłoszeniem mobilizacji obywateli. Samo pismo nie dowodzi też, że wprowadzono stan nadzwyczajny. Zanim udostępnisz sensacyjny nagłówek, sprawdź zakres i źródło.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Polska Policja — oryginalny komunikat na X (bezpośredni odczyt 403)",
+        "url": "https://x.com/PolskaPolicja/status/2116291426338189690"
+      },
+      {
+        "title": "Onet 31.10 — treść komunikatu i rozkazu",
+        "url": "https://wiadomosci.onet.pl/kraj/gotowosc-mobilizacyjna-od-2-do-8-listopada-jest-komunikat-policji/6jylxkt"
+      },
+      {
+        "title": "Wawa.info — treść polecenia i wyjaśnienie",
+        "url": "https://wawa.info/artykul/pistolety-maszynowe-i-n2560954"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-od-2-listopada-policja-w-gotowosci.jpg"
+  },
+  {
     "id": "2026-11-01-210-wagonow",
     "status": "published",
     "category": "gospodarka",
