@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-11-01-98-milionow-odglosow",
+    "status": "published",
+    "category": "technologia",
+    "slug": "98-milionow-odglosow",
+    "title": "98 milionów odgłosów. AI słucha nietoperzy",
+    "lead": "Dziewięćdziesiąt osiem milionów odgłosów nietoperzy.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=duwCrjbEv8c",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 56,
+    "summary": [
+      "Dziewięćdziesiąt osiem milionów odgłosów nietoperzy. Jak to policzyć, skoro większości z nich nawet nie słyszymy?"
+    ],
+    "transcript": [
+      "Dziewięćdziesiąt osiem milionów odgłosów nietoperzy. Jak to policzyć, skoro większości z nich nawet nie słyszymy?",
+      "Bat Conservation Trust i Forest Research opisują badanie trzystu dziesięciu lasów w Anglii. Detektory nagrywały ultradźwięki w latach dwa tysiące dwadzieścia jeden do dwadzieścia cztery.",
+      "Powstało dziewięćdziesiąt tysięcy godzin nagrań. To ponad dziesięć lat słuchania bez przerwy. Sztuczna inteligencja pomogła rozpoznawać zawołania w tej ogromnej masie danych.",
+      "Eksperci sprawdzali część rozpoznań. Technologia przyspiesza analizę, ale nadal potrzebna jest kontrola specjalistów.",
+      "Najważniejsze: liczba odgłosów nie oznacza liczby zwierząt. Jeden nietoperz może odezwać się wiele razy. Badanie pokazuje aktywność i rozmieszczenie, a nie spis dziewięćdziesięciu ośmiu milionów osobników.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Bat Conservation Trust — wyniki 30.10",
+        "url": "https://www.bats.org.uk/news/2026/10/ai-reveals-98-million-bat-calls-in-britains-largest-woodland-bat-survey"
+      },
+      {
+        "title": "Forest Research — współautor badania i dashboard",
+        "url": "https://www.forestresearch.gov.uk/"
+      },
+      {
+        "title": "TSN — omówienie wyników",
+        "url": "https://tsnmedia.org/woodland-bat-survey-ai/"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-98-milionow-odglosow.jpg"
+  },
+  {
     "id": "2026-11-01-fbi-wskazuje-sprawcow-ataku-na-binance",
     "status": "published",
     "category": "wydarzenia",
