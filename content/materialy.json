@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-11-01-macbook-z-dotykiem",
+    "status": "published",
+    "category": "technologia",
+    "slug": "macbook-z-dotykiem",
+    "title": "MacBook z dotykiem. Co właściwie ogłosił Apple?",
+    "lead": "MacBook, którego obsługujesz palcem po ekranie?",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=VnmxJM4lyOs",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 48,
+    "summary": [
+      "MacBook, którego obsługujesz palcem po ekranie? Apple właśnie zapowiedział takiego laptopa."
+    ],
+    "transcript": [
+      "MacBook, którego obsługujesz palcem po ekranie? Apple właśnie zapowiedział takiego laptopa.",
+      "Według komunikatu producenta nowy MacBook Pro łączy dotykowy wyświetlacz PROLED XDR z klawiaturą i gładzikiem. Dotykiem można na przykład obracać modele przestrzenne.",
+      "Zapowiedź i przedsprzedaż ruszyły dwudziestego ósmego października. Początek dostępności producent wyznaczył na szóstego listopada. Palec ma być kolejnym sposobem obsługi, obok tradycyjnych narzędzi pracy na komputerze.",
+      "Nowy sposób sterowania może ułatwić niektóre zadania. Ale wygodę, ekran i czas pracy trzeba ocenić w niezależnych testach. Na razie opisujemy deklaracje Apple, a nie wynik naszych pomiarów.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Apple Newsroom • 28.10.2026",
+        "url": "https://www.apple.com/newsroom/2026/10/apple-unveils-groundbreaking-macbook-pro-with-proled-xdr-display/"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-macbook-z-dotykiem.jpg"
+  },
+  {
     "id": "2026-11-01-listopadowe-obligacje",
     "status": "published",
     "category": "gospodarka",
