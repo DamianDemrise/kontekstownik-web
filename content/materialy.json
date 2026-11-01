@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-11-01-fbi-wskazuje-sprawcow-ataku-na-binance",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "fbi-wskazuje-sprawcow-ataku-na-binance",
+    "title": "FBI wskazuje sprawców ataku na Binance",
+    "lead": "Ponad sześć miliardów dolarów w kryptowalutach.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=HIEvkgU_AZo",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 47,
+    "summary": [
+      "Ponad sześć miliardów dolarów w kryptowalutach. FBI wskazuje sprawców kradzieży z Binance."
+    ],
+    "transcript": [
+      "Ponad sześć miliardów dolarów w kryptowalutach. FBI wskazuje sprawców kradzieży z Binance.",
+      "W komunikacie z trzydziestego pierwszego października amerykańska służba przypisuje atak Korei Północnej. To ustalenia FBI, nie wyrok sądu.",
+      "Śledczy obserwowali zamianę skradzionych aktywów głównie na Ethereum. Oczekują kolejnych etapów prania środków. Służby apelują do firm o blokowanie transakcji związanych ze wskazanymi adresami. Lista adresów pomaga śledzić przepływ aktywów.",
+      "Rozpoznanie adresów nie oznacza odzyskania pieniędzy.",
+      "Chcesz zrozumieć, jak działa kryptowaluta i dlaczego tak trudno odzyskać skradzione środki? Sprawdź nasze wyjaśnienie na kanale.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "url": "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
+        "title": "FBI • komunikat 31.10.2026"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-fbi-wskazuje-sprawcow-ataku-na-binance.jpg"
+  },
+  {
     "id": "2026-11-01-ai-odpowiedziala-z-orbity",
     "status": "published",
     "category": "technologia",
