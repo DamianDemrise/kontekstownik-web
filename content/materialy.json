@@ -1,5 +1,42 @@
 [
   {
+    "id": "2026-11-01-nie-wszedzie-1-listopada",
+    "status": "published",
+    "category": "spoleczenstwo",
+    "slug": "nie-wszedzie-1-listopada",
+    "title": "Nie wszędzie 1 listopada. Jak różne religie pamiętają zmarłych?",
+    "lead": "Czy cały świat ma swoje Zaduszki?",
+    "date": "2026-11-01",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=QHSdKOHavF4",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 45,
+    "summary": [
+      "Czy cały świat ma swoje Zaduszki? Nie. Różne religie mają własne tradycje pamięci."
+    ],
+    "transcript": [
+      "Czy cały świat ma swoje Zaduszki? Nie. Różne religie mają własne tradycje pamięci.",
+      "W prawosławiu odprawia się nabożeństwa za zmarłych. Modlitwy towarzyszą pogrzebowi, rocznicom i wyznaczonym dniom wspomnień.",
+      "W judaizmie jorcajt to rocznica śmierci konkretnej osoby, według kalendarza żydowskiego. Zwyczaj obejmuje zapalenie świecy i modlitwę.",
+      "W islamie modlitwa za zmarłych obejmuje prośbę do Boga o przebaczenie. Nie jest odpowiednikiem jednego listopadowego święta.",
+      "Zwyczaje różnią się także między społecznościami. Wspólna potrzeba pamięci nie oznacza takich samych wierzeń ani kalendarzy.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Prayers for the Departed",
+        "url": "https://www.oca.org/questions/deathfunerals/prayers-for-the-departed"
+      },
+      {
+        "title": "Supplicating audibly at the graveside after burial",
+        "url": "https://dar-alifta.org/en/fatwa/details/6304/supplicating-audibly-at-the-graveside-after-burial"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-nie-wszedzie-1-listopada.jpg"
+  },
+  {
     "id": "2026-11-01-kwiaty-w-meksyku-lampiony-w-japonii",
     "status": "published",
     "category": "spoleczenstwo",
