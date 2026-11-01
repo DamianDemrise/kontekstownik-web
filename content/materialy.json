@@ -1,5 +1,50 @@
 [
   {
+    "id": "2026-11-01-oredzie-tuska",
+    "status": "published",
+    "category": "polityka",
+    "slug": "oredzie-tuska",
+    "title": "Orędzie Tuska. Co zmienia?",
+    "lead": "Premier zabrał głos w sprawie Trybunału.",
+    "date": "2026-11-01",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=36XD4cJ74cQ",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 45,
+    "summary": [
+      "Premier zabrał głos w sprawie Trybunału. Ale co zmienia samo orędzie?"
+    ],
+    "transcript": [
+      "Premier zabrał głos w sprawie Trybunału. Ale co zmienia samo orędzie?",
+      "Donald Tusk zadeklarował zapewnienie Trybunałowi bezpieczeństwa i warunków pracy. Zapowiedział też jego niezależność, również od siebie.",
+      "Premier bronił działań policji. Prezydent Karol Nawrocki kwestionował legalność działań wobec kierownictwa Trybunału.",
+      "To stanowiska uczestników konfliktu. Samo wystąpienie polityka nie rozstrzyga sporów prawnych ani nie zastępuje orzeczenia sądu.",
+      "Dlatego trzeba oddzielać słowa od decyzji i ich podstaw prawnych. Z orędzia wiemy, co premier zapowiada. Nie wynika z niego, że cały kryzys został rozwiązany.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "KPRM: pełny tekst orędzia Donalda Tuska,31.10.2026",
+        "url": "https://www.gov.pl/web/premier/oredzie-premiera-donalda-tuska2"
+      },
+      {
+        "title": "W Polsce prawo wygra z przemocą. Pełne orędzie",
+        "url": "https://www.youtube.com/watch?v=FsjUo39jplY"
+      },
+      {
+        "title": "Oświadczenie Karola Nawrockiego",
+        "url": "https://www.prezydent.pl/aktualnosci/wypowiedzi-prezydenta-rp/wystapienia/oswiadczenie-prezydenta-rzeczypospolitej-polskiej-karola-nawrockiego,129314"
+      },
+      {
+        "title": "Relacja z orędzia Donalda Tuska",
+        "url": "https://www.rp.pl/polityka/art45426091-oredzie-donalda-tuska-w-pewnych-sprawach-nie-moze-byc-kompromisu"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-oredzie-tuska.jpg"
+  },
+  {
     "id": "2026-11-01-1-czy-2-listopada",
     "status": "published",
     "category": "spoleczenstwo",
