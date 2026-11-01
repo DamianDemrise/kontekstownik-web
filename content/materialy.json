@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-11-01-dwa-sezony-i-mistrzostwo",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "dwa-sezony-i-mistrzostwo",
+    "title": "Dwa sezony i mistrzostwo. Fenomen Valkyries",
+    "lead": "Dwa sezony istnienia i już mistrzostwo.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=CyphGE4ExMk",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 52,
+    "summary": [
+      "Dwa sezony istnienia i już mistrzostwo. Tak zakończyła sezon drużyna Golden State Valkyries."
+    ],
+    "transcript": [
+      "Dwa sezony istnienia i już mistrzostwo. Tak zakończyła sezon drużyna Golden State Valkyries.",
+      "Trzydziestego pierwszego października pokonała Atlanta Dream sześćdziesiąt osiem do sześćdziesięciu trzech w siódmym meczu finału WNBA. Wynik potwierdza oficjalna strona klubu.",
+      "Siódme spotkanie oznaczało mecz o wszystko. Po sześciu meczach był remis w serii, więc zwycięzca tego jednego pojedynku zdobywał tytuł.",
+      "Gabby Williams zdobyła trzydzieści punktów, jak podaje Associated Press. To prawie połowa dorobku całego zwycięskiego zespołu w decydującym spotkaniu.",
+      "Najciekawsza jest skala tempa: nowa organizacja doszła do mistrzostwa już w drugim sezonie. To historia budowania drużyny, a nie dowód, że każdy nowy klub powtórzy taki wynik.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Golden State Valkyries: oficjalne potwierdzenie mistrzostwa 68–63",
+        "url": "https://valkyries.wnba.com/"
+      },
+      {
+        "title": "WNBA — oficjalny mecz i relacja",
+        "url": "https://www.wnba.com/game/1042600307"
+      },
+      {
+        "title": "WNBA — finał, aktualizacje",
+        "url": "https://www.wnba.com/news/live-updates-2026-wnba-finals-game-7"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-dwa-sezony-i-mistrzostwo.jpg"
+  },
+  {
     "id": "2026-11-01-oredzie-tuska",
     "status": "published",
     "category": "polityka",
