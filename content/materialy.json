@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-11-01-pierwszy-olimpijski-rozdzial-afryki",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "pierwszy-olimpijski-rozdzial-afryki",
+    "title": "Pierwszy olimpijski rozdział Afryki. Dakar 2026",
+    "lead": "Olimpijski ogień w Afryce.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=1RJ2J1WqwZc",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 54,
+    "summary": [
+      "Olimpijski ogień w Afryce. Senegal otworzył rozdział, którego wcześniej na tym kontynencie nie było."
+    ],
+    "transcript": [
+      "Olimpijski ogień w Afryce. Senegal otworzył rozdział, którego wcześniej na tym kontynencie nie było.",
+      "Trzydziestego pierwszego października rozpoczęły się Młodzieżowe Igrzyska Olimpijskie Dakar dwa tysiące dwadzieścia sześć. Międzynarodowy Komitet Olimpijski nazywa je pierwszym olimpijskim wydarzeniem sportowym w Afryce.",
+      "Ważne rozróżnienie: to igrzyska młodzieżowe. Nie seniorskie letnie igrzyska, które znamy z Paryża czy Tokio.",
+      "Rywalizacja trwa do trzynastego listopada. Program obejmuje dwadzieścia pięć sportów z konkurencjami medalowymi, a wydarzenia odbywają się w Dakarze, Diamniadio i Saly.",
+      "To więcej niż ceremonia z ogniem. Kontynent po raz pierwszy gości sportowców w takiej olimpijskiej formule. Warto śledzić same zawody, pamiętając o ich młodzieżowym charakterze.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "IOC — oficjalna strona Dakar 2026",
+        "url": "https://www.olympics.com/ioc/dakar-2026?displayAsWebViewlight=true"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-pierwszy-olimpijski-rozdzial-afryki.jpg"
+  },
+  {
     "id": "2026-11-01-dwa-sezony-i-mistrzostwo",
     "status": "published",
     "category": "wydarzenia",
