@@ -1,5 +1,59 @@
 [
   {
+    "id": "2026-11-01-kwiaty-w-meksyku-lampiony-w-japonii",
+    "status": "published",
+    "category": "spoleczenstwo",
+    "slug": "kwiaty-w-meksyku-lampiony-w-japonii",
+    "title": "Kwiaty w Meksyku, lampiony w Japonii. Dlaczego tak wspominają zmarłych?",
+    "lead": "Dlaczego w Meksyku zmarłych wspomina się kwiatami, a w Japonii lampionami?",
+    "date": "2026-11-01",
+    "as_of": "2026-10-31",
+    "youtube": "https://www.youtube.com/watch?v=ix20orOUf_g",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 45,
+    "summary": [
+      "Dlaczego w Meksyku zmarłych wspomina się kwiatami, a w Japonii lampionami?"
+    ],
+    "transcript": [
+      "Dlaczego w Meksyku zmarłych wspomina się kwiatami, a w Japonii lampionami?",
+      "Podczas Día de Muertos rodziny przygotowują ofrendy: ołtarze z portretami, świecami, jedzeniem i kwiatami.",
+      "Pomarańczowe płatki cempasuchil według tradycji wskazują zmarłym drogę. To element wierzeń, nie dowód powrotu duchów.",
+      "Zwyczaj łączy miejscowe tradycje z katolickim kalendarzem. Nie jest po prostu meksykańskim Halloween.",
+      "W Japonii Obon upamiętnia przodków. W części miejscowości lampiony puszcza się po wodzie.",
+      "Obon przypada latem, zależnie od regionu. Podobna potrzeba pamięci nie oznacza tej samej daty.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Znaczenie elementów ofrendy Día de Muertos",
+        "url": "https://www.gob.mx/inpi/articulos/conoces-el-significado-de-los-elementos-de-una-ofrenda-de-dia-de-muertos?_amp=true"
+      },
+      {
+        "title": "El origen del Día de Muertos",
+        "url": "https://www.inah.gob.mx/especiales-inah/articulos/el-origen-del-dia-de-muertos"
+      },
+      {
+        "title": "Obon",
+        "url": "https://jpsearch.go.jp/en/gallery/ndl-O6a96jYMq9Q"
+      },
+      {
+        "title": "Japan in August",
+        "url": "https://www.japan.travel/en/guide/august/"
+      },
+      {
+        "title": "Summer traditions in Japan",
+        "url": "https://www.japan.travel/en/sg/story/how-much-do-you-know-about-summer-traditions-japan/"
+      },
+      {
+        "title": "Obon Japan:Das Fest der Seelen",
+        "url": "https://www.japan.travel/de/de/story/obon-japan/"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-kwiaty-w-meksyku-lampiony-w-japonii.jpg"
+  },
+  {
     "id": "2026-11-01-kto-rzadzi-w-naszym-kraju",
     "status": "published",
     "category": "polityka",
