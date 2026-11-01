@@ -1,5 +1,42 @@
 [
   {
+    "id": "2026-11-01-reset-tk",
+    "status": "published",
+    "category": "polityka",
+    "slug": "reset-tk",
+    "title": "Reset TK. Co to znaczy i czego jeszcze nie ma?",
+    "lead": "Reset Trybunału. Brzmi jak przycisk, który kończy kryzys.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=baP6tfFmbM8",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 59,
+    "summary": [
+      "Reset Trybunału. Brzmi jak przycisk, który kończy kryzys. W rzeczywistości to propozycja polityczna, nie działające prawo."
+    ],
+    "transcript": [
+      "Reset Trybunału. Brzmi jak przycisk, który kończy kryzys. W rzeczywistości to propozycja polityczna, nie działające prawo.",
+      "Konfederacja proponuje zakończenie obecnych kadencji i wybór piętnastu nowych sędziów większością trzech piątych. Tak przedstawia własny plan po rozmowach z prezydentem.",
+      "Kolejne pomysły dotyczą ślubowania w Sejmie oraz publikowania wyroków przez prezesa Trybunału. Po sześćdziesięciu dniach bez wyboru miałoby pomóc losowanie kandydatów.",
+      "Dziś konstytucja przewiduje piętnastu sędziów wybieranych indywidualnie na dziewięć lat. Wygaszenie ich kadencji wymagałoby zmiany konstytucji, a nie samej konferencji prasowej.",
+      "I uwaga na liczby: trzy piąte to proponowany próg wyboru sędziów. Zmiana konstytucji wymaga w Sejmie co najmniej dwóch trzecich głosów przy odpowiedniej obecności oraz zgody Senatu.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Konfederacja: Po spotkaniu z Prezydentem. Potrzebny reset konstytucyjny (sekcja strony)",
+        "url": "https://konfederacja.pl/33888-2/"
+      },
+      {
+        "title": "Konstytucja RP, art. 188, 194 i 235",
+        "url": "https://trybunal.gov.pl/o-trybunale/akty-normatywne/konstytucja-rzeczypospolitej-polskiej"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-reset-tk.jpg"
+  },
+  {
     "id": "2026-11-01-nagranie-z-drzwi-tk",
     "status": "published",
     "category": "polityka",
