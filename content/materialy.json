@@ -1,5 +1,50 @@
 [
   {
+    "id": "2026-11-01-210-wagonow",
+    "status": "published",
+    "category": "gospodarka",
+    "slug": "210-wagonow",
+    "title": "210 wagonów. Jak kolej reaguje na świąteczny tłok?",
+    "lead": "Wszyscy jadą na święta.",
+    "date": "2026-11-01",
+    "as_of": "2026-11-01",
+    "youtube": "https://www.youtube.com/watch?v=eE1hj2Z91k4",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 52,
+    "summary": [
+      "Wszyscy jadą na święta. Jak zmieścić więcej pasażerów bez uruchamiania całkiem nowego pociągu?"
+    ],
+    "transcript": [
+      "Wszyscy jadą na święta. Jak zmieścić więcej pasażerów bez uruchamiania całkiem nowego pociągu?",
+      "Według relacji Polskiego Radia PKP Intercity zaplanowało dwieście dziesięć dodatkowych wagonów w stu dwudziestu sześciu pociągach.",
+      "Wzmocnienia obejmują okres od dwudziestego ósmego października do drugiego listopada. Liczba dwieście dziesięć dotyczy wagonów, a nie nowych połączeń.",
+      "Mechanizm jest prosty: do wybranych składów dołącza się kolejne wagony. Dłuższy pociąg może przewieźć więcej osób, wykorzystując ten sam kurs.",
+      "To jednak nie gwarantuje wolnego miejsca na konkretny wyjazd. Przed podróżą sprawdź swój pociąg i dostępność rezerwacji bezpośrednio u przewoźnika. Plan wzmocnień nie zastępuje aktualnej informacji o bilecie.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Polskie Radio Kierowców 29.10 — relacja komunikatu PKP",
+        "url": "https://radiokierowcow.pl/artykul/3747281%2Cwszystkich-swietych-2026-pkp-intercity-doda-210-wagonow-do-pociagow"
+      },
+      {
+        "title": "TVP 3 Łódź 28.10 — 210 wagonów,126 pociągów",
+        "url": "https://lodz.tvp.pl/pkp-intercity-na-wszystkich-swietych-2026-wiecej-wagonow-i-miejsc%2C96178020"
+      },
+      {
+        "title": "TransInfo 28.10 — szczegóły wzmocnień",
+        "url": "https://transinfo.pl/inforail/pkp-intercity-wzmacnia-126-pociagow-na-wszystkich-swietych-dodatkowe-wagony-i-podwojne-sklady/"
+      },
+      {
+        "title": "Kurier Kolejowy: relacja komunikatu PKP Intercity",
+        "url": "https://kurier-kolejowy.pl/aktualnosci/52208/wiecej-miejsc-w-pociagach-i-wsparcie-dla-podroznych-pkp-intercity-na-wszystkich-swietych.html"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-01-210-wagonow.jpg"
+  },
+  {
     "id": "2026-11-01-98-milionow-odglosow",
     "status": "published",
     "category": "technologia",
