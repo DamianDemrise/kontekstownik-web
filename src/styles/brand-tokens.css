@@ -1,0 +1,30 @@
+/* Wygenerowane z brand.config.json — nie edytuj ręcznie. */
+:root {
+  --kx-ink: #080D12;
+  --kx-ink-raised: #111821;
+  --kx-paper: #FFFFFF;
+  --kx-paper-warm: #F4F1EA;
+  --kx-on-dark: #F5F7FA;
+  --kx-on-light: #080D12;
+  --kx-muted: #8A94A3;
+  --kx-font: "Montserrat", system-ui, sans-serif;
+}
+[data-brand="main"] {
+  --kx-accent-a: #FF8A00;
+  --kx-accent-b: #FF8A00;
+  --kx-accent-a-on-light: #B85400;
+  --kx-accent-b-on-light: #B85400;
+}
+[data-brand="kids"] {
+  --kx-accent-a: #FFE035;
+  --kx-accent-b: #04A8AD;
+  --kx-accent-a-on-light: #9C7300;
+  --kx-accent-b-on-light: #047F84;
+}
+[data-brand="influ"] {
+  --kx-gradient: linear-gradient(90deg, #D62976, #962FBF, #4F5BD5);
+  --kx-accent-a: #D62976;
+  --kx-accent-b: #4F5BD5;
+  --kx-accent-a-on-light: #D62976;
+  --kx-accent-b-on-light: #4F5BD5;
+}

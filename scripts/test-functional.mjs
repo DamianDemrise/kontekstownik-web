@@ -16,31 +16,39 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
   await page.goto(URL_, { waitUntil: 'networkidle' });
-  const links = await page.$$eval('a.cta', (as) => as.map((a) => ({ href: a.href, target: a.target, rel: a.rel, name: a.getAttribute('aria-label') })));
+  const links = await page.$$eval('.brand-tile--main a[data-platform]', (as) => as.map((a) => ({ href: a.href, target: a.target, rel: a.rel, name: a.getAttribute('aria-label') })));
   check('link YouTube', links[0]?.href === 'https://www.youtube.com/@kontekstowniktv' && links[0].target === '_blank' && links[0].rel === 'noopener noreferrer', links[0]?.href);
   check('link TikTok', links[1]?.href === 'https://www.tiktok.com/@kontekstownik' && links[1].target === '_blank' && links[1].rel === 'noopener noreferrer', links[1]?.href);
   check('nazwy dostępne', links.every((l) => l.name && l.name.length > 10));
-  check('dokładnie 2 przyciski platform', (await page.$$('a.cta')).length === 2);
+  check('kafelek main: dokładnie YouTube i TikTok', (await page.$$('.brand-tile--main a[data-platform]')).length === 2);
+  const tileLinks = await page.$$eval('.brand-tile', (ts) => Object.fromEntries(ts.map((t) => [t.className.match(/brand-tile--(\w+)/)[1], [...t.querySelectorAll('.brand-tile__accounts a')].map((a) => a.dataset.platform || a.dataset.social)])));
+  check('kafelki: Kids bez TikToka, Influ z własną stroną Facebook, linki tylko do istniejących kont', tileLinks.kids.join() === 'youtube,instagram,facebook' && tileLinks.influ.join() === 'youtube,tiktok,instagram,facebook' && tileLinks.main.join() === 'youtube,tiktok,instagram,facebook,email', JSON.stringify(tileLinks));
+  const tileHrefs = await page.$$eval('.brand-tile__main', (as) => as.map((a) => a.getAttribute('href')));
+  check('kafelki prowadzą do #najnowsze-main, /kids/, /influ/', tileHrefs.join() === '#najnowsze-main,/kids/,/influ/', tileHrefs.join());
+  const bands = await page.$$eval('.band', (bs) => bs.map((b) => [b.id, b.querySelectorAll('li').length, b.querySelectorAll('iframe,video,embed').length]));
+  check('trzy pasy Najnowsze, bez playerów/iframe', bands.map((b) => b[0]).join() === 'najnowsze-main,najnowsze-kids,najnowsze-influ' && bands.every((b) => b[1] >= 1 && b[2] === 0), JSON.stringify(bands));
+  const wiecej = await page.$eval('.band--influ .band__soon', (e) => e.textContent).catch(() => '');
+  check('Influ: zaślepka „wkrótce” zamiast fikcyjnych treści', /wkrótce/.test(wiecej));
 
-  // Kolejność: przełącznik PL, EN, potem YouTube, TikTok
-  const langLinks = await page.$$eval('.lang a', (as) => as.length);
-  for (let i = 0; i <= langLinks; i++) await page.keyboard.press('Tab');
+  // Nagłówek kanałów poprzedza język; nadal da się dojść klawiaturą do obu głównych platform.
+  const beforeYoutube = await page.evaluate(() => [...document.querySelectorAll('a[href],button,input,select,textarea')].filter(e => e.getClientRects().length && !e.disabled).findIndex(e => e.matches('.brand-tile--main a[data-platform="youtube"]')));
+  for (let i = 0; i <= beforeYoutube; i++) await page.keyboard.press('Tab');
   const f1 = await page.evaluate(() => [document.activeElement.dataset.platform, getComputedStyle(document.activeElement).outlineStyle]);
   await page.keyboard.press('Tab');
   const f2 = await page.evaluate(() => document.activeElement.dataset.platform);
-  check('Tab: przełącznik języka → YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
+  check('Tab: nagłówek i język → YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
   await page.screenshot({ path: 'docs/screenshots/focus-keyboard-1366.png' });
 
-  const before = await page.$eval('.cta--yt', (e) => getComputedStyle(e).boxShadow);
-  await page.hover('.cta--yt');
+  const before = await page.$eval('.brand-tile--main', (e) => getComputedStyle(e).borderTopColor);
+  await page.hover('.brand-tile--main');
   await page.waitForTimeout(500);
-  const after = await page.$eval('.cta--yt', (e) => getComputedStyle(e).boxShadow);
-  check('hover YouTube zmienia poświatę', before !== after);
+  const after = await page.$eval('.brand-tile--main', (e) => getComputedStyle(e).borderTopColor);
+  check('hover kafelka zmienia obramowanie', before !== after);
   await page.screenshot({ path: 'docs/screenshots/hover-youtube-1366.png' });
 
   const globeDrawn = await page.$eval('.globe__dots', (c) => c.width > 100);
   check('globus narysowany (canvas)', globeDrawn);
-  const missingImgs = await page.$$eval('img', (is) => is.filter((i) => i.getClientRects().length && (!i.complete || i.naturalWidth === 0)).length); // karty na dalszych stronach są ukryte (lazy nie ruszy)
+  const missingImgs = await page.$$eval('img', (is) => is.filter((i) => { const r = i.getBoundingClientRect(); return r.height && r.top < innerHeight && r.bottom > 0 && (!i.complete || i.naturalWidth === 0); }).length); // karty na dalszych stronach są ukryte (lazy nie ruszy)
   check('brak brakujących grafik', missingImgs === 0);
   check('brak błędów JS/konsoli', errors.length === 0, errors.join(' | '));
   await ctx0.close();
@@ -62,7 +70,7 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
   const page = await ctx.newPage();
   await page.goto(URL_);
-  const vis = await page.$eval('.cta--yt', (e) => e.getBoundingClientRect().height > 40);
+  const vis = await page.$eval('.brand-tile--main a[data-platform="youtube"]', (e) => e.getBoundingClientRect().height >= 44);
   check('bez JavaScriptu przyciski działają', vis);
   await ctx.close();
 }
@@ -102,9 +110,9 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   check('Akceptuję: page_view wysłany', log.hits.some((h) => /[?&]en=page_view/.test(h)));
   ctx.on('page', (p) => p.close().catch(() => {}));
   // GA4 łączy zdarzenia w paczki wysyłane z kilkusekundowym opóźnieniem
-  await page.click('.cta--yt');
+  await page.click('.brand-tile--main a[data-platform="youtube"]');
   await page.waitForTimeout(7000);
-  await page.click('.cta--tt');
+  await page.click('.brand-tile--main a[data-platform="tiktok"]');
   await page.waitForTimeout(7000);
   const beacons = await page.evaluate(() => window.__beacons || []);
   const pc = [...log.hits, ...beacons].filter((h) => /en=platform_click/.test(h));
@@ -138,15 +146,15 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   const { ctx, log } = await consentContext({ width: 1366, height: 768 });
   const page = await ctx.newPage();
   await page.goto(URL_, { waitUntil: 'networkidle' });
-  const soc = await page.$$eval('.social a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
-  check('kanały: Facebook, Instagram, e-mail', soc.map((x) => x.n).join() === 'facebook,instagram,email', soc.map((x) => x.href).join(' '));
+  const soc = await page.$$eval('.brand-tile--main a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
+  check('kanały: Facebook, Instagram, e-mail', soc.map((x) => x.n).join() === 'instagram,facebook,email', soc.map((x) => x.href).join(' '));
   check('kanały: FB/IG w nowej karcie z noopener, mailto do kontekstownik@gmail.com',
     soc.filter((x) => x.n !== 'email').every((x) => x.t === '_blank' && x.rel === 'noopener noreferrer') && soc.find((x) => x.n === 'email').href === 'mailto:kontekstownik@gmail.com');
   check('kanały: nazwy dostępne i cel dotykowy ≥ 44 px', soc.every((x) => x.name && x.h >= 44));
   await page.click('[data-consent="accept"]');
   await page.waitForTimeout(2500);
   ctx.on('page', (p) => p.close().catch(() => {}));
-  await page.click('a[data-social="instagram"]');
+  await page.click('.brand-tile--main a[data-social="instagram"]');
   await page.waitForTimeout(7000);
   const beacons = await page.evaluate(() => window.__beacons || []);
   const all = [...log.hits, ...beacons];
@@ -179,7 +187,10 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     check('pasek ukryty, dopóki widać baner zgody', await page.$eval('[data-new-pill]', (p) => p.hidden));
     await page.click('[data-consent="reject"]');
     await page.waitForTimeout(800);
-    check('pasek „Nowy materiał” pojawia się po decyzji o cookies', await page.isVisible('[data-new-pill]'));
+    check('pasek nie zasłania hero: ukryty, dopóki widać kafelki marek', await page.$eval('[data-new-pill]', (p) => p.hidden));
+    await page.evaluate(() => window.scrollTo(0, document.querySelector('.brand-tiles').getBoundingClientRect().bottom + scrollY + 40));
+    await page.waitForTimeout(1200);
+    check('pasek „Nowy materiał” pojawia się po przewinięciu poza hero', await page.isVisible('[data-new-pill]'));
     await page.screenshot({ path: 'docs/screenshots/nowy-material-pasek-1366.png' });
     await page.click('[data-new-pill-link]');
     await page.waitForTimeout(1200);
@@ -201,7 +212,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
       check('tagi: pasek widoczny, „Wszystkie” + tylko kategorie z materiałami', t.visible && t.chips[0] === 'all' && t.chips.slice(1).sort().join() === t.cats.sort().join(), t.chips.join(','));
       if (t.chips.length > 2) {
         await page.click(`[data-filter="${t.chips[1]}"]`);
-        const f = await page.evaluate((c) => [...document.querySelectorAll('[data-mgrid] > li')].every((li) => li.hidden === (li.dataset.category !== c)), t.chips[1]);
+        const f = await page.evaluate((c) => { const all = [...document.querySelectorAll('[data-mgrid] > li')]; const visible = all.filter(li => !li.hidden); return visible.length > 0 && visible.every(li => li.dataset.category === c) && all.filter(li => li.dataset.category !== c).every(li => li.hidden); }, t.chips[1]);
         check('tagi: filtr pokazuje tylko wybraną kategorię', f);
         await page.click('[data-filter="all"]');
       }
@@ -308,6 +319,9 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     const p2 = await ctx2.newPage();
     await p2.goto(URL_, { waitUntil: 'networkidle' });
     await p2.waitForTimeout(1800);
+    check('telefon: pasek nie zasłania kafelków marek w hero', await p2.$eval('[data-new-pill]', (p) => p.hidden));
+    await p2.evaluate(() => window.scrollTo(0, document.querySelector('.brand-tiles').getBoundingClientRect().bottom + scrollY + 40));
+    await p2.waitForTimeout(1200);
     await p2.click('[data-new-pill-close]');
     await p2.waitForTimeout(600);
     await p2.reload({ waitUntil: 'networkidle' });
@@ -329,8 +343,8 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     alt: Object.fromEntries([...document.querySelectorAll('link[rel=alternate][hreflang]')].map((l) => [l.hreflang, l.href])),
     current: document.querySelector('.lang a[aria-current="page"]')?.textContent,
     other: [...document.querySelectorAll('.lang a:not([aria-current])')].map((a) => new URL(a.href).pathname),
-    platforms: document.querySelectorAll('a.cta[data-platform]').length,
-    socials: document.querySelectorAll('.social a[data-social]').length,
+    platforms: document.querySelectorAll('a.cta[data-platform], .brand-tile--main a[data-platform]').length,
+    socials: document.querySelectorAll('.social a[data-social], .brand-tile--main a[data-social]').length,
     topics: [...document.querySelectorAll('.topic span')].map((x) => x.textContent),
     cards: [...document.querySelectorAll('.card__main')].map((a) => new URL(a.href).pathname),
     privacy: document.querySelector('.legal a') ? new URL(document.querySelector('.legal a').href).pathname : null,
@@ -345,7 +359,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   check('EN: lang="en", canonical /en/', en.lang === 'en' && en.canonical === `${S}/en/`, en.canonical);
   check('hreflang PL↔EN wzajemne + x-default', pl.alt.en === `${S}/en/` && en.alt.pl === `${S}/` && pl.alt['x-default'] === `${S}/` && en.alt['x-default'] === `${S}/`);
   check('przełącznik: PL→/en/, EN→/', pl.current === 'PL' && pl.other.join() === '/en/' && en.current === 'EN' && en.other.join() === '/');
-  check('EN ma tę samą strukturę co PL (przyciski, kanały, tematy)', en.platforms === pl.platforms && en.socials === pl.socials && en.topics.length === pl.topics.length);
+  check('EN ma tę samą strukturę co PL (przyciski, kanały, tematy)', en.platforms === pl.platforms && en.socials === pl.socials && en.topics.length === 4);
   check('EN: tematy po angielsku, baner i polityka po angielsku', en.topics.join() === 'Politics,Economy,Society,World' && en.consent === 'Your privacy' && en.privacy === '/en/privacy-policy/');
   const leftovers = ['Oglądaj', 'Wyjaśniamy', 'Polityka prywatności', 'Ustawienia cookies', 'Najnowsze', 'Obejrzyj', 'Odrzucam', 'Akceptuję'].filter((w) => en.text.includes(w));
   check('EN: brak polskich tekstów interfejsu', leftovers.length === 0, leftovers.join(','));
@@ -364,6 +378,42 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   const pp = await scan();
   check('EN polityka: lang en, hreflang do polskiej, odesłanie do wersji PL jako wiążącej', pp.lang === 'en' && pp.alt.pl === `${S}/polityka-prywatnosci/` && /Polish version prevails/.test(pp.text));
   check('EN: brak błędów JS', errs.length === 0, errs.join('|'));
+  await ctx.close();
+}
+{ // wszystkie obrazy (także lazy) na stronie głównej i podstronach marek ładują się po przewinięciu
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await ctx.addInitScript(REJECTED);
+  const page = await ctx.newPage();
+  for (const path of ['', 'kids/', 'influ/']) {
+    await page.goto(new URL(path, URL_).href, { waitUntil: 'networkidle' });
+    await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight / 2) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } });
+    await page.waitForTimeout(800);
+    const broken = await page.$$eval('img', (is) => is.filter((i) => i.getBoundingClientRect().width > 0 && (!i.complete || i.naturalWidth === 0)).map((i) => i.getAttribute('src')));
+    check(`/${path}: wszystkie widoczne obrazy po przewinięciu załadowane (okładki Kids, Influ, materiały)`, broken.length === 0, broken.join(', '));
+  }
+  await ctx.close();
+}
+{ // formularz tematu: wybór kanału (tylko z JS), limit 100 znaków liczony z prefiksem, cele dotykowe
+  const noJs = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
+  const p0 = await noJs.newPage();
+  await p0.goto(URL_);
+  check('formularz bez JS: wybór kanału ukryty (temat idzie do Kontekstownika jak dotąd)', await p0.$eval('[data-topic-channels]', (e) => !e.offsetParent));
+  await noJs.close();
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await ctx.addInitScript(REJECTED);
+  const page = await ctx.newPage();
+  await page.goto(URL_, { waitUntil: 'networkidle' });
+  const sizes = await page.$$eval('.topic-form__channel span', (els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
+  check('formularz z JS: trzy kanały, cele ≥ 44 px', sizes.length === 3 && sizes.every((h) => h >= 44), sizes.join('/'));
+  await page.fill('.topic-form__input', 'x'.repeat(100));
+  check('Kontekstownik: limit 100 znaków', await page.$eval('.topic-form__input', (e) => e.value.length === 100 && e.maxLength === 100));
+  await page.click('.topic-form__channel--kids');
+  check('Kids: prefiks „[Kids] ” wlicza się do limitu (93), nadmiar ucięty, licznik zgodny', await page.evaluate(() => {
+    const i = document.querySelector('.topic-form__input');
+    return i.maxLength === 93 && i.value.length === 93 && document.querySelector('[data-topic-count]').textContent === '93/93';
+  }));
+  await page.click('.topic-form__channel--influ');
+  check('Influ: limit 92 („[Influ] ”)', await page.$eval('.topic-form__input', (e) => e.maxLength === 92 && e.value.length === 92));
   await ctx.close();
 }
 await browser.close();
