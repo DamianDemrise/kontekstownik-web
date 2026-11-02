@@ -22,13 +22,13 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   check('nazwy dostępne', links.every((l) => l.name && l.name.length > 10));
   check('dokładnie 2 przyciski platform', (await page.$$('a.cta')).length === 2);
 
-  // Kolejność: przełącznik PL, EN, potem YouTube, TikTok
-  const langLinks = await page.$$eval('.lang a', (as) => as.length);
-  for (let i = 0; i <= langLinks; i++) await page.keyboard.press('Tab');
+  // Nagłówek kanałów poprzedza język; nadal da się dojść klawiaturą do obu głównych platform.
+  const beforeYoutube = await page.evaluate(() => [...document.querySelectorAll('a[href],button,input,select,textarea')].filter(e => e.getClientRects().length && !e.disabled).findIndex(e => e.matches('.cta--yt')));
+  for (let i = 0; i <= beforeYoutube; i++) await page.keyboard.press('Tab');
   const f1 = await page.evaluate(() => [document.activeElement.dataset.platform, getComputedStyle(document.activeElement).outlineStyle]);
   await page.keyboard.press('Tab');
   const f2 = await page.evaluate(() => document.activeElement.dataset.platform);
-  check('Tab: przełącznik języka → YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
+  check('Tab: nagłówek i język → YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
   await page.screenshot({ path: 'docs/screenshots/focus-keyboard-1366.png' });
 
   const before = await page.$eval('.cta--yt', (e) => getComputedStyle(e).boxShadow);
@@ -40,7 +40,7 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
 
   const globeDrawn = await page.$eval('.globe__dots', (c) => c.width > 100);
   check('globus narysowany (canvas)', globeDrawn);
-  const missingImgs = await page.$$eval('img', (is) => is.filter((i) => i.getClientRects().length && (!i.complete || i.naturalWidth === 0)).length); // karty na dalszych stronach są ukryte (lazy nie ruszy)
+  const missingImgs = await page.$$eval('img', (is) => is.filter((i) => { const r = i.getBoundingClientRect(); return r.height && r.top < innerHeight && r.bottom > 0 && (!i.complete || i.naturalWidth === 0); }).length); // karty na dalszych stronach są ukryte (lazy nie ruszy)
   check('brak brakujących grafik', missingImgs === 0);
   check('brak błędów JS/konsoli', errors.length === 0, errors.join(' | '));
   await ctx0.close();
@@ -201,7 +201,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
       check('tagi: pasek widoczny, „Wszystkie” + tylko kategorie z materiałami', t.visible && t.chips[0] === 'all' && t.chips.slice(1).sort().join() === t.cats.sort().join(), t.chips.join(','));
       if (t.chips.length > 2) {
         await page.click(`[data-filter="${t.chips[1]}"]`);
-        const f = await page.evaluate((c) => [...document.querySelectorAll('[data-mgrid] > li')].every((li) => li.hidden === (li.dataset.category !== c)), t.chips[1]);
+        const f = await page.evaluate((c) => { const all = [...document.querySelectorAll('[data-mgrid] > li')]; const visible = all.filter(li => !li.hidden); return visible.length > 0 && visible.every(li => li.dataset.category === c) && all.filter(li => li.dataset.category !== c).every(li => li.hidden); }, t.chips[1]);
         check('tagi: filtr pokazuje tylko wybraną kategorię', f);
         await page.click('[data-filter="all"]');
       }
