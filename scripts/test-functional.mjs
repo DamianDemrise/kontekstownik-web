@@ -16,14 +16,22 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
   await page.goto(URL_, { waitUntil: 'networkidle' });
-  const links = await page.$$eval('a.cta', (as) => as.map((a) => ({ href: a.href, target: a.target, rel: a.rel, name: a.getAttribute('aria-label') })));
+  const links = await page.$$eval('.brand-tile--main a[data-platform]', (as) => as.map((a) => ({ href: a.href, target: a.target, rel: a.rel, name: a.getAttribute('aria-label') })));
   check('link YouTube', links[0]?.href === 'https://www.youtube.com/@kontekstowniktv' && links[0].target === '_blank' && links[0].rel === 'noopener noreferrer', links[0]?.href);
   check('link TikTok', links[1]?.href === 'https://www.tiktok.com/@kontekstownik' && links[1].target === '_blank' && links[1].rel === 'noopener noreferrer', links[1]?.href);
   check('nazwy dostępne', links.every((l) => l.name && l.name.length > 10));
-  check('dokładnie 2 przyciski platform', (await page.$$('a.cta')).length === 2);
+  check('kafelek main: dokładnie YouTube i TikTok', (await page.$$('.brand-tile--main a[data-platform]')).length === 2);
+  const tileLinks = await page.$$eval('.brand-tile', (ts) => Object.fromEntries(ts.map((t) => [t.className.match(/brand-tile--(\w+)/)[1], [...t.querySelectorAll('.brand-tile__accounts a')].map((a) => a.dataset.platform || a.dataset.social)])));
+  check('kafelki: Kids bez TikToka, Influ bez Facebooka, linki tylko do istniejących kont', tileLinks.kids.join() === 'youtube,instagram,facebook' && tileLinks.influ.join() === 'youtube,tiktok,instagram' && tileLinks.main.join() === 'youtube,tiktok,instagram,facebook,email', JSON.stringify(tileLinks));
+  const tileHrefs = await page.$$eval('.brand-tile__main', (as) => as.map((a) => a.getAttribute('href')));
+  check('kafelki prowadzą do #najnowsze-main, /kids/, /influ/', tileHrefs.join() === '#najnowsze-main,/kids/,/influ/', tileHrefs.join());
+  const bands = await page.$$eval('.band', (bs) => bs.map((b) => [b.id, b.querySelectorAll('li').length, b.querySelectorAll('iframe,video,embed').length]));
+  check('trzy pasy Najnowsze, bez playerów/iframe', bands.map((b) => b[0]).join() === 'najnowsze-main,najnowsze-kids,najnowsze-influ' && bands.every((b) => b[1] >= 1 && b[2] === 0), JSON.stringify(bands));
+  const wiecej = await page.$eval('.band--influ .band__soon', (e) => e.textContent).catch(() => '');
+  check('Influ: zaślepka „wkrótce” zamiast fikcyjnych treści', /wkrótce/.test(wiecej));
 
   // Nagłówek kanałów poprzedza język; nadal da się dojść klawiaturą do obu głównych platform.
-  const beforeYoutube = await page.evaluate(() => [...document.querySelectorAll('a[href],button,input,select,textarea')].filter(e => e.getClientRects().length && !e.disabled).findIndex(e => e.matches('.cta--yt')));
+  const beforeYoutube = await page.evaluate(() => [...document.querySelectorAll('a[href],button,input,select,textarea')].filter(e => e.getClientRects().length && !e.disabled).findIndex(e => e.matches('.brand-tile--main a[data-platform="youtube"]')));
   for (let i = 0; i <= beforeYoutube; i++) await page.keyboard.press('Tab');
   const f1 = await page.evaluate(() => [document.activeElement.dataset.platform, getComputedStyle(document.activeElement).outlineStyle]);
   await page.keyboard.press('Tab');
@@ -31,11 +39,11 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   check('Tab: nagłówek i język → YouTube → TikTok z widocznym focusem', f1[0] === 'youtube' && f1[1] === 'solid' && f2 === 'tiktok', `${f1.join('/')} → ${f2}`);
   await page.screenshot({ path: 'docs/screenshots/focus-keyboard-1366.png' });
 
-  const before = await page.$eval('.cta--yt', (e) => getComputedStyle(e).boxShadow);
-  await page.hover('.cta--yt');
+  const before = await page.$eval('.brand-tile--main', (e) => getComputedStyle(e).borderTopColor);
+  await page.hover('.brand-tile--main');
   await page.waitForTimeout(500);
-  const after = await page.$eval('.cta--yt', (e) => getComputedStyle(e).boxShadow);
-  check('hover YouTube zmienia poświatę', before !== after);
+  const after = await page.$eval('.brand-tile--main', (e) => getComputedStyle(e).borderTopColor);
+  check('hover kafelka zmienia obramowanie', before !== after);
   await page.screenshot({ path: 'docs/screenshots/hover-youtube-1366.png' });
 
   const globeDrawn = await page.$eval('.globe__dots', (c) => c.width > 100);
@@ -62,7 +70,7 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
   const page = await ctx.newPage();
   await page.goto(URL_);
-  const vis = await page.$eval('.cta--yt', (e) => e.getBoundingClientRect().height > 40);
+  const vis = await page.$eval('.brand-tile--main a[data-platform="youtube"]', (e) => e.getBoundingClientRect().height >= 44);
   check('bez JavaScriptu przyciski działają', vis);
   await ctx.close();
 }
@@ -102,9 +110,9 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   check('Akceptuję: page_view wysłany', log.hits.some((h) => /[?&]en=page_view/.test(h)));
   ctx.on('page', (p) => p.close().catch(() => {}));
   // GA4 łączy zdarzenia w paczki wysyłane z kilkusekundowym opóźnieniem
-  await page.click('.cta--yt');
+  await page.click('.brand-tile--main a[data-platform="youtube"]');
   await page.waitForTimeout(7000);
-  await page.click('.cta--tt');
+  await page.click('.brand-tile--main a[data-platform="tiktok"]');
   await page.waitForTimeout(7000);
   const beacons = await page.evaluate(() => window.__beacons || []);
   const pc = [...log.hits, ...beacons].filter((h) => /en=platform_click/.test(h));
@@ -138,15 +146,15 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   const { ctx, log } = await consentContext({ width: 1366, height: 768 });
   const page = await ctx.newPage();
   await page.goto(URL_, { waitUntil: 'networkidle' });
-  const soc = await page.$$eval('.social a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
-  check('kanały: Facebook, Instagram, e-mail', soc.map((x) => x.n).join() === 'facebook,instagram,email', soc.map((x) => x.href).join(' '));
+  const soc = await page.$$eval('.brand-tile--main a[data-social]', (as) => as.map((a) => ({ n: a.dataset.social, href: a.href, t: a.target, rel: a.rel, name: a.getAttribute('aria-label'), h: a.getBoundingClientRect().height })));
+  check('kanały: Facebook, Instagram, e-mail', soc.map((x) => x.n).join() === 'instagram,facebook,email', soc.map((x) => x.href).join(' '));
   check('kanały: FB/IG w nowej karcie z noopener, mailto do kontekstownik@gmail.com',
     soc.filter((x) => x.n !== 'email').every((x) => x.t === '_blank' && x.rel === 'noopener noreferrer') && soc.find((x) => x.n === 'email').href === 'mailto:kontekstownik@gmail.com');
   check('kanały: nazwy dostępne i cel dotykowy ≥ 44 px', soc.every((x) => x.name && x.h >= 44));
   await page.click('[data-consent="accept"]');
   await page.waitForTimeout(2500);
   ctx.on('page', (p) => p.close().catch(() => {}));
-  await page.click('a[data-social="instagram"]');
+  await page.click('.brand-tile--main a[data-social="instagram"]');
   await page.waitForTimeout(7000);
   const beacons = await page.evaluate(() => window.__beacons || []);
   const all = [...log.hits, ...beacons];
@@ -179,7 +187,10 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     check('pasek ukryty, dopóki widać baner zgody', await page.$eval('[data-new-pill]', (p) => p.hidden));
     await page.click('[data-consent="reject"]');
     await page.waitForTimeout(800);
-    check('pasek „Nowy materiał” pojawia się po decyzji o cookies', await page.isVisible('[data-new-pill]'));
+    check('pasek nie zasłania hero: ukryty, dopóki widać kafelki marek', await page.$eval('[data-new-pill]', (p) => p.hidden));
+    await page.evaluate(() => window.scrollTo(0, document.querySelector('.brand-tiles').getBoundingClientRect().bottom + scrollY + 40));
+    await page.waitForTimeout(1200);
+    check('pasek „Nowy materiał” pojawia się po przewinięciu poza hero', await page.isVisible('[data-new-pill]'));
     await page.screenshot({ path: 'docs/screenshots/nowy-material-pasek-1366.png' });
     await page.click('[data-new-pill-link]');
     await page.waitForTimeout(1200);
@@ -308,6 +319,9 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     const p2 = await ctx2.newPage();
     await p2.goto(URL_, { waitUntil: 'networkidle' });
     await p2.waitForTimeout(1800);
+    check('telefon: pasek nie zasłania kafelków marek w hero', await p2.$eval('[data-new-pill]', (p) => p.hidden));
+    await p2.evaluate(() => window.scrollTo(0, document.querySelector('.brand-tiles').getBoundingClientRect().bottom + scrollY + 40));
+    await p2.waitForTimeout(1200);
     await p2.click('[data-new-pill-close]');
     await p2.waitForTimeout(600);
     await p2.reload({ waitUntil: 'networkidle' });
@@ -329,8 +343,8 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
     alt: Object.fromEntries([...document.querySelectorAll('link[rel=alternate][hreflang]')].map((l) => [l.hreflang, l.href])),
     current: document.querySelector('.lang a[aria-current="page"]')?.textContent,
     other: [...document.querySelectorAll('.lang a:not([aria-current])')].map((a) => new URL(a.href).pathname),
-    platforms: document.querySelectorAll('a.cta[data-platform]').length,
-    socials: document.querySelectorAll('.social a[data-social]').length,
+    platforms: document.querySelectorAll('a.cta[data-platform], .brand-tile--main a[data-platform]').length,
+    socials: document.querySelectorAll('.social a[data-social], .brand-tile--main a[data-social]').length,
     topics: [...document.querySelectorAll('.topic span')].map((x) => x.textContent),
     cards: [...document.querySelectorAll('.card__main')].map((a) => new URL(a.href).pathname),
     privacy: document.querySelector('.legal a') ? new URL(document.querySelector('.legal a').href).pathname : null,
@@ -345,7 +359,7 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   check('EN: lang="en", canonical /en/', en.lang === 'en' && en.canonical === `${S}/en/`, en.canonical);
   check('hreflang PL↔EN wzajemne + x-default', pl.alt.en === `${S}/en/` && en.alt.pl === `${S}/` && pl.alt['x-default'] === `${S}/` && en.alt['x-default'] === `${S}/`);
   check('przełącznik: PL→/en/, EN→/', pl.current === 'PL' && pl.other.join() === '/en/' && en.current === 'EN' && en.other.join() === '/');
-  check('EN ma tę samą strukturę co PL (przyciski, kanały, tematy)', en.platforms === pl.platforms && en.socials === pl.socials && en.topics.length === pl.topics.length);
+  check('EN ma tę samą strukturę co PL (przyciski, kanały, tematy)', en.platforms === pl.platforms && en.socials === pl.socials && en.topics.length === 4);
   check('EN: tematy po angielsku, baner i polityka po angielsku', en.topics.join() === 'Politics,Economy,Society,World' && en.consent === 'Your privacy' && en.privacy === '/en/privacy-policy/');
   const leftovers = ['Oglądaj', 'Wyjaśniamy', 'Polityka prywatności', 'Ustawienia cookies', 'Najnowsze', 'Obejrzyj', 'Odrzucam', 'Akceptuję'].filter((w) => en.text.includes(w));
   check('EN: brak polskich tekstów interfejsu', leftovers.length === 0, leftovers.join(','));

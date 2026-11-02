@@ -20,13 +20,18 @@ export function initNewPill() {
   const banner = document.getElementById('consent');
   const bannerOpen = () => banner && !banner.hidden;
   let timeUp = false;
+  // Na stronie z kafelkami marek pasek nie zasłania hero: pokazuje się dopiero po przewinięciu poza nie.
+  const tiles = document.querySelector('.brand-tiles');
+  let heroGone = !tiles;
   const show = () => {
-    if (done || !timeUp || bannerOpen() || !pill.hidden) return;
+    if (done || !timeUp || !heroGone || bannerOpen() || !pill.hidden) return;
     pill.classList.add('is-off');
     pill.hidden = false;
     requestAnimationFrame(() => requestAnimationFrame(() => pill.classList.remove('is-off')));
   };
   if (banner) new MutationObserver(show).observe(banner, { attributes: true, attributeFilter: ['hidden'] });
+
+  if (tiles) new IntersectionObserver(([e]) => { heroGone = !e.isIntersecting; if (heroGone) show(); }).observe(tiles);
 
   new IntersectionObserver(([e]) => { if (e.isIntersecting) finish(); }, { threshold: 0.15 }).observe(section);
 

@@ -96,7 +96,7 @@ function coverImg(m, sizes, eager = false) {
 }
 
 // Karta: okładka i tytuł prowadzą do podstrony materiału; przyciski – prosto na platformy.
-function card(m, lang) {
+export function card(m, lang) {
   const t = T[lang];
   const title = txt(m, lang, 'title');
   const fmt = formatLabel(m, t);
@@ -157,13 +157,15 @@ function rating(m, lang, t) {
     `<p class="rate__status" role="status" aria-live="polite" data-rate-status></p></div>`;
 }
 
-export function topicCta(lang = 'pl') {
+export function topicCta(lang = 'pl', channels = false) {
   const t = T[lang];
   const id = `topic-${lang}`;
   return `<aside class="topic-cta" aria-labelledby="${id}-title"><div class="topic-cta__text">` +
     `<h2 class="topic-cta__title" id="${id}-title">${t.topicTitle}</h2><p>${t.topicText}</p></div>` +
     `<form class="topic-form" action="${TOPIC_FORM.action}" method="POST" target="_blank" data-topic-form ` +
     `data-ok="${esc(t.topicOk)}" data-err="${esc(t.topicErr)}" data-short="${esc(t.topicShort)}" data-wait="${esc(t.topicWait)}">` +
+    (channels ? `<fieldset class="topic-form__channels"><legend>Dla którego kanału?</legend>` +
+      [['main', 'Kontekstownik'], ['kids', 'Kids'], ['influ', 'Influ']].map(([v, l], i) => `<label class="topic-form__channel topic-form__channel--${v}"><input type="radio" name="topic-channel" value="${v}"${i ? '' : ' checked'}><span>${l}</span></label>`).join('') + `</fieldset>` : '') +
     `<label class="visually-hidden" for="${id}-input">${t.topicLabel}</label>` +
     `<div class="topic-form__row"><span class="topic-form__field"><input class="topic-form__input" id="${id}-input" name="${TOPIC_FORM.field}" type="text" maxlength="100" required ` +
     `autocomplete="off" placeholder="${esc(t.topicPlaceholder)}" aria-describedby="${id}-hint">` +
@@ -194,6 +196,7 @@ function pager(t) {
 }
 
 export function renderSection(all, lang = 'pl') {
+  const channels = lang === 'pl';
   const items = forLang(all, lang);
   if (!items.length) return { hint: '', section: '' };
   const t = T[lang];
@@ -204,7 +207,7 @@ export function renderSection(all, lang = 'pl') {
       `<header class="materials__head"><h2 class="materials__title" id="materialy-title">${t.latest}</h2>` +
       `<p class="materials__sub">${t.latestSub}</p></header>` +
       toolbar(items, t) +
-      `<ul class="materials__grid" data-mgrid>${items.map((m) => card(m, lang)).join('')}</ul>${pager(t)}${topicCta(lang)}</div></section>`,
+      `<ul class="materials__grid" data-mgrid>${items.map((m) => card(m, lang)).join('')}</ul>${pager(t)}${topicCta(lang, channels)}</div></section>`,
   };
 }
 

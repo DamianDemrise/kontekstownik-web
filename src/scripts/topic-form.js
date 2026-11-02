@@ -19,6 +19,8 @@ export function initTopicForms() {
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const channel = form.querySelector('input[name="topic-channel"]:checked')?.value;
+      const tag = { kids: '[Kids] ', influ: '[Influ] ' }[channel] || '';
       const text = input.value.trim().replace(/\s+/g, ' ');
       if (hp.value) return; // bot
       if (text.length < 3) { say(form.dataset.short, false); input.focus(); return; }
@@ -28,7 +30,7 @@ export function initTopicForms() {
 
       button.disabled = true;
       try {
-        await fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ [input.name]: text }) });
+        await fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ [input.name]: tag + text }) });
         try { localStorage.setItem(LIMIT_KEY, JSON.stringify([...sent, now])); } catch { /* bez limitu w trybie prywatnym */ }
         form.reset();
         count.textContent = '0/100';

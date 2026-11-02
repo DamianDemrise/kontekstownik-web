@@ -4,6 +4,7 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { loadMaterials, renderCovers, contentDir } from './scripts/materials.mjs';
 import { renderSection, renderPage, renderSitemap, forLang } from './scripts/materials-render.mjs';
 
+import { renderHomeHero, renderHomeBands } from './scripts/home-render.mjs';
 import {prepareBrands, brandsPlugin, brandSitemapEntries} from './scripts/brands.mjs';
 
 const root = import.meta.dirname;
@@ -35,8 +36,10 @@ function materials(data) {
       if (!lang) return html;
       const { hint, section } = renderSection(data.items, lang);
       // Ze stopką pod materiałami stopka płynie w dokumencie; bez nich siedzi na dole pierwszego ekranu.
+      const home = lang === 'pl';
+      html = html.replace('<!--home:hero-->', home ? renderHomeHero() : '').replace('<!--home:bands-->', home ? renderHomeBands(data.items) : '');
       return html.replace('<!--materialy:hint-->', hint).replace('<!--materialy:section-->', section)
-        .replace('<footer class="legal">', section ? '<footer class="legal legal--static">' : '<footer class="legal">');
+        .replace('<footer class="legal">', section || home ? '<footer class="legal legal--static">' : '<footer class="legal">');
     },
     async generateBundle() {
       for (const c of data.covers) this.emitFile({ type: 'asset', fileName: c.fileName, source: await c.render() });

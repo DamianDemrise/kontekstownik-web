@@ -30,7 +30,8 @@ for (const [w, h, name, mobile, path = ''] of SIZES) {
   await page.waitForTimeout(1800);
   const r = await page.evaluate(() => {
     const rect = (s) => document.querySelector(s).getBoundingClientRect();
-    const logo = rect('.brand__svg'), yt = rect('.cta--yt'), tt = rect('.cta--tt');
+    const tiles = document.querySelector('.brand-tiles'), logo = rect('.brand__svg'),
+      yt = rect(tiles ? '.brand-tile--main a[data-platform="youtube"]' : '.cta--yt'), tt = rect(tiles ? '.brand-tile--main a[data-platform="tiktok"]' : '.cta--tt');
     return {
       hScroll: document.documentElement.scrollWidth > window.innerWidth,
       vScroll: document.documentElement.scrollHeight > window.innerHeight,

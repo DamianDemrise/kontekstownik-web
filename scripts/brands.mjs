@@ -36,6 +36,16 @@ function channelButtons(b) {
   }).join('');
 }
 
+// Published Instagram URLs and approved covers from PUBLIKACJE_SERIA_03.json (1 Nov 2026).
+export const kidsItems = [
+  ['01','Skąd się wziął Minecraft?','DfNhbSTKhlu'],
+  ['02','Dlaczego bajki tak nas wciągają?','DfNhpEBqtMV'],
+  ['03','Czy z bajek można nauczyć się angielskiego?','DfNh0UPK9AN'],
+  ['04','Dlaczego oglądamy, jak ktoś gra?','DfNiE5Aqsit'],
+];
+export const influItems = [
+  {title: 'Andziaks przeprasza. Za te słowa o podatkach.', date: '2026-11-02', cover: '/brands/andziaks.jpg', url: 'https://www.youtube.com/shorts/rtMQjyIiy5M', platform: 'YouTube'},
+];
 function latestInflu() {
   return `<section class="brand-latest" aria-labelledby="brand-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Najnowszy materiał</p><h2 id="brand-latest-title">Najpierw wypowiedź. Potem kontekst.</h2></div>
     <article class="brand-feature"><a class="brand-feature__image" href="https://www.youtube.com/shorts/rtMQjyIiy5M" target="_blank" rel="noopener noreferrer" aria-label="Andziaks przeprasza — obejrzyj na YouTube (nowa karta)"><img src="/brands/andziaks.jpg" alt="Andziaks podczas oświadczenia. Nagłówek: Andziaks przeprasza." width="1080" height="1920" loading="lazy"></a>
@@ -44,12 +54,7 @@ function latestInflu() {
 
 function latestKids() {
   // Published Instagram URLs and approved covers from PUBLIKACJE_SERIA_03.json (1 Nov 2026).
-  const items = [
-    ['01','Skąd się wziął Minecraft?','DfNhbSTKhlu'],
-    ['02','Dlaczego bajki tak nas wciągają?','DfNhpEBqtMV'],
-    ['03','Czy z bajek można nauczyć się angielskiego?','DfNh0UPK9AN'],
-    ['04','Dlaczego oglądamy, jak ktoś gra?','DfNiE5Aqsit'],
-  ];
+  const items = kidsItems;
   return `<section class="brand-latest" aria-labelledby="kids-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Gry, bajki i internet</p><h2 id="kids-latest-title">Pytania z codziennego świata.</h2></div><div class="brand-kids-grid">${items.map(([id,title,reel])=>`<article><a href="https://www.instagram.com/kontekstownikkids/reel/${reel}/" target="_blank" rel="noopener noreferrer" aria-label="${title} — obejrzyj na Instagramie (nowa karta)"><img src="/brands/kids-${id}.jpg" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">1 listopada 2026</p><h3>${title}</h3><span>Instagram ↗</span></div></a></article>`).join('')}</div></section>`;
 }
 
