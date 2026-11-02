@@ -1,5 +1,82 @@
 [
   {
+    "id": "2026-11-02-wtorek-w-trybunale",
+    "status": "published",
+    "category": "polityka",
+    "slug": "wtorek-w-trybunale",
+    "title": "Wtorek w Trybunale: kto może uchwalić budżet TK?",
+    "lead": "Wtorek w Trybunale: projekt dochodów i wydatków TK na 2027 rok i pytanie o kworum.",
+    "date": "2026-11-02",
+    "as_of": "2026-11-02",
+    "youtube": "https://www.youtube.com/watch?v=r-EtEIDMe80",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 59,
+    "summary": [
+      "Wtorek w Trybunale: projekt dochodów i wydatków TK na 2027 rok i pytanie o kworum. Stan na 2 listopada 2026, przed zgromadzeniem zwołanym na 3 listopada. Materiał nie przesądza wyniku."
+    ],
+    "transcript": [
+      "Wtorek w Trybunale: projekt dochodów i wydatków TK na 2027 rok i pytanie o kworum. Stan na 2 listopada 2026, przed zgromadzeniem zwołanym na 3 listopada. Materiał nie przesądza wyniku.",
+      "Ostatni moment. Tak Anna Korwin-Piotrowska uzasadnia zwołanie zgromadzenia sędziów Trybunału.",
+      "We wtorek, trzeciego listopada, mają zająć się projektem dochodów i wydatków na dwa tysiące dwudziesty siódmy rok.",
+      "Czy wystarczy uczestników? Kworum pozostaje niewiadomą. Wskazują na to Rzeczpospolita i sama Korwin-Piotrowska.",
+      "Ona powołuje się na artykuł sto trzydziesty i przerwę w czynnościach prezesa. Bogdan Święczkowski odrzuca jej decyzje.",
+      "Stawka jest finansowa. W Sejmie Ministerstwo Finansów tłumaczyło, że czeka na plan przyjęty przez zgromadzenie. Parlament nadal pracuje nad budżetem.",
+      "W tle są wnioski o uchylenie immunitetów Święczkowskiemu i Sochańskiemu. Rozstrzygnięcie pozostaje otwarte.",
+      "Stan na drugiego listopada. Przed nami pytania o obecność, kworum i uchwały.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "url": "https://www.rmf24.pl/fakty/polska/news-kto-przyszedl-dzis-do-pracy-pat-w-trybunale-konstytucyjnym,nIdn,1024363",
+        "publisher": "RMF24",
+        "title": "RMF24"
+      },
+      {
+        "url": "https://www.rp.pl/polityka/art45430641-donald-tusk-o-tk-prezydent-nawrocki-wybiera-silowa-konfrontacje-panstwo-nie-ustapi",
+        "publisher": "rp.pl",
+        "title": "rp.pl"
+      },
+      {
+        "url": "https://www.gosc.pl/doc/9946573.Korwin-Piotrowska-o-sytuacji-w-siedzibie-TK",
+        "publisher": "PAP / Gość.pl (wypowiedź w TVP Info)",
+        "title": "PAP / Gość.pl (wypowiedź w TVP Info)"
+      },
+      {
+        "url": "https://radiokielce.pl/1454039/korwin-piotrowska-zgromadzenie-ogolne-sedziow-tk-we-wtorek-prawdopodobnie-o-15-30/",
+        "publisher": "PAP / Radio Kielce",
+        "title": "PAP / Radio Kielce"
+      },
+      {
+        "url": "https://www.polsatnews.pl/wiadomosc/2026-11-01/swieczkowski-probowal-wejsc-na-teren-trybunalu-zwrocil-sie-do-policjantow/",
+        "publisher": "Polsat News",
+        "title": "Polsat News"
+      },
+      {
+        "url": "https://sejm.gov.pl/Sejm10.nsf/transmisje_arch.xsp?unid=E5FD84D678E58DA6C1258E7C0041C998",
+        "publisher": "Sejm RP — nagranie",
+        "title": "Sejm RP — nagranie"
+      },
+      {
+        "url": "https://api.sejm.gov.pl/sejm/term10/proceedings/66/2026-10-08/transcripts/106",
+        "publisher": "Sejm RP — stenogram",
+        "title": "Sejm RP — stenogram"
+      },
+      {
+        "url": "https://api.sejm.gov.pl/sejm/term10/proceedings/66/2026-10-08/transcripts/pdf",
+        "publisher": "Sejm RP — dokument PDF",
+        "title": "Sejm RP — dokument PDF"
+      },
+      {
+        "url": "https://www.konstytucjarp.pl/wp-content/uploads/2026/10/konstytucjarp-tk-building-dec2022.jpg",
+        "publisher": "TK / Konstytucja RP — fotografia archiwalna",
+        "title": "TK / Konstytucja RP — fotografia archiwalna"
+      }
+    ],
+    "note": "Lektor powstał przy użyciu AI. Muzyka: „Anxiety” — Kai Engel (CC BY 4.0).",
+    "cover": "2026-11-02-wtorek-w-trybunale.jpg"
+  },
+  {
     "id": "2026-11-02-po-co-rosji-wlasny-starlink-i-dlaczego-ukraina-naklada-sankcje",
     "status": "published",
     "category": "polityka",
