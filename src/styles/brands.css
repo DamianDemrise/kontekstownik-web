@@ -1,6 +1,6 @@
 /* Channel navigation and brand landings; the original main composition stays intact. */
 .channel-header{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;gap:28px;min-height:84px;padding:16px clamp(20px,4vw,72px);border-bottom:1px solid #ffffff12;background:linear-gradient(#080d12e8,#080d1299)}
-.channel-header__home{font-size:30px;font-weight:800;letter-spacing:-.08em;line-height:1}
+.channel-header__home{display:block;width:40px;height:40px;flex:none}.channel-header__home img{display:block;width:100%;height:100%}
 .channel-header__home span{color:var(--brand-accent,#ff8a00)}
 .channel-switch{display:flex;gap:4px;padding:5px;border:1px solid #ffffff1c;border-radius:999px;background:#ffffff05}
 .channel-switch a{padding:11px 20px;font-size:13px;line-height:1;font-weight:700;border-radius:999px;color:#b6c1cd;transition:background .2s,color .2s}
@@ -9,20 +9,19 @@
 .channel-header__caption{margin-left:auto;padding-right:90px;color:#8995a4;font-size:11px;letter-spacing:.04em}
 .has-channel-header>.lang{top:24px;z-index:7}
 .has-channel-header .hero{padding-top:max(110px,calc(var(--u)*7))}
-[data-brand]{--brand-accent:#d62976;--brand-secondary:#4f5bd5;--bg:#0f0b16;--orange:var(--brand-accent);background:var(--bg)}
-[data-brand=kids]{--brand-accent:#ffe035;--brand-secondary:#04a8ad;--bg:#062b31}
-[data-brand] .channel-header{background:linear-gradient(#0b1017cc,transparent)}
-[data-brand] .channel-header__caption{padding-right:0}
+/* Kolory z tokenów pakietu marki (brand-tokens.css). */
+body[data-brand]{--brand-accent:var(--kx-accent-a);--brand-secondary:var(--kx-accent-b);--bg:var(--kx-ink);--orange:var(--brand-accent);background:var(--bg)}
+body[data-brand] .channel-header{background:linear-gradient(#0b1017cc,transparent)}
+body[data-brand] .channel-header__caption{padding-right:0}
 .brand-page{position:relative;isolation:isolate;overflow:hidden}
-.brand-backdrop{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 12% 38%,color-mix(in srgb,var(--brand-accent) 12%,transparent),transparent 50%),radial-gradient(ellipse at 90% 20%,color-mix(in srgb,var(--brand-secondary) 19%,transparent),transparent 55%)}
-.brand-backdrop span{position:absolute;border:1px solid #ffffff08;border-radius:50%;width:650px;height:650px;right:-230px;top:180px}
-.brand-backdrop span:nth-child(2){width:900px;height:900px;right:-360px;top:55px}
-.brand-backdrop span:nth-child(3){width:1150px;height:1150px;right:-480px;top:-65px}
+/* Tło hero z pakietu marki (ramka z dwóch narożników); mobilna wersja pionowa. */
+.brand-backdrop{position:absolute;inset:0;z-index:-1;pointer-events:none;background:center top/cover no-repeat}
+body[data-brand=kids] .brand-backdrop{background-image:url(/brand/kids/hero-tlo-desktop-2560x1280.jpg)}
+body[data-brand=influ] .brand-backdrop{background-image:url(/brand/influ/hero-tlo-desktop-2560x1280.jpg)}
+@media(max-width:640px){body[data-brand=kids] .brand-backdrop{background-image:url(/brand/kids/hero-tlo-mobile-1080x1920.jpg)}body[data-brand=influ] .brand-backdrop{background-image:url(/brand/influ/hero-tlo-mobile-1080x1920.jpg)}}
 .brand-landing{display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:clamp(40px,7vw,120px);width:min(1240px,100%);min-height:100svh;margin:auto;padding:150px 40px 100px}
 .brand-landing__art{display:grid;place-items:center;position:relative;min-width:0}
-.brand-landing__art img{width:100%;height:auto;max-height:480px;object-fit:contain;filter:drop-shadow(0 24px 70px #0005)}
-[data-brand=kids] .brand-landing__art img{width:min(100%,420px);border-radius:32px;transform:rotate(-4deg);outline:1px solid #ffffff20}
-[data-brand=influ] .brand-landing__art{min-height:420px;border-radius:32px;background:linear-gradient(145deg,#201629,#121220);border:1px solid #ffffff13;box-shadow:0 30px 100px #0004;padding:32px;transform:rotate(-3deg)}
+.brand-landing__art img{display:block;width:min(100%,340px);height:auto;aspect-ratio:1;object-fit:contain}
 .brand-eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:11px;line-height:1.6;font-weight:700;color:var(--brand-accent);margin:0 0 18px}
 .brand-landing h1{font-size:clamp(50px,6.5vw,86px);font-weight:800;line-height:.95;letter-spacing:-.055em;margin:0 0 28px;text-transform:uppercase}
 .brand-landing h1 span{display:block;font-size:clamp(18px,2.4vw,28px);letter-spacing:.02em;margin-bottom:13px}
@@ -60,11 +59,12 @@
 @media(max-width:640px){
  .channel-header{gap:12px;padding:14px 16px;min-height:76px}.channel-header__home{font-size:26px}.channel-switch{flex:1;justify-content:center;gap:2px;padding:4px}.channel-switch a{padding:11px 12px;font-size:11px}
  .has-channel-header>.lang{top:86px;right:16px}.has-channel-header .hero{padding-top:155px}
- .brand-landing{grid-template-columns:1fr;gap:40px;padding:116px 24px 70px;min-height:0;text-align:center}.brand-landing__art{max-width:340px;margin:0 auto;width:100%}.brand-landing__art img{max-height:260px}
- [data-brand=kids] .brand-landing__art img{width:230px;border-radius:22px;transform:rotate(-3deg)}
- [data-brand=influ] .brand-landing__art{min-height:180px;max-width:300px;border-radius:22px;padding:24px}
- .brand-landing h1{font-size:58px;margin-bottom:24px}.brand-landing h1 span{font-size:20px}.brand-eyebrow{font-size:10px;margin-bottom:15px}.brand-landing__description{font-size:14px;margin:17px auto 24px}.brand-topics,.brand-channels{justify-content:center}
+ .brand-landing{grid-template-columns:1fr;gap:40px;padding:116px 24px 70px;min-height:0;text-align:center}.brand-landing__art{max-width:340px;margin:0 auto;width:100%}.brand-landing__art img{width:min(100%,220px)}
+   .brand-landing h1{font-size:58px;margin-bottom:24px}.brand-landing h1 span{font-size:20px}.brand-eyebrow{font-size:10px;margin-bottom:15px}.brand-landing__description{font-size:14px;margin:17px auto 24px}.brand-topics,.brand-channels{justify-content:center}
  .brand-channels{gap:9px}.brand-channel{min-width:0;flex:1;gap:9px;padding:14px 12px;font-size:12px}.brand-topics{gap:7px;margin-bottom:25px}.brand-topics li{padding:7px 10px;font-size:10px}
  .brand-kids-grid{gap:12px}.brand-kids-grid article div{padding:14px}.brand-kids-grid h3{font-size:14px}.brand-latest,.brand-note{padding:15px 24px 60px}.brand-feature{grid-template-columns:1fr;gap:28px;padding:22px}.brand-feature__image{max-width:220px}.brand-feature__text{text-align:left}.brand-feature__text>p:not(.brand-eyebrow){font-size:14px}.brand-feature__links a{padding:12px 14px}
 }
 @media(prefers-reduced-motion:reduce){.channel-switch a,.brand-channel{transition:none}.brand-channel:hover{transform:none}}
+
+/* Influ: gradient z pakietu marki na polach z białym tekstem. */
+body[data-brand=influ] .channel-switch a[aria-current=page]{background:var(--kx-gradient);color:#fff}

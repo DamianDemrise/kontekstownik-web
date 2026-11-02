@@ -44,6 +44,11 @@ for (const [w, h, name, mobile, path = ''] of SIZES) {
   const bad = r.hScroll || r.logoClipped || r.overlap || r.ctaH < 44 || errors.length;
   if (bad) failed++;
   console.log(`${bad ? 'FAIL' : 'ok  '} ${name}: hScroll=${r.hScroll} vScroll=${r.vScroll} logoClipped=${r.logoClipped} cta=${r.ctaW.join('/')}x${r.ctaH} overlap=${r.overlap}${errors.length ? ' errors=' + errors.join(' | ') : ''}`);
+  // Obrazy są lazy: przewijamy całą stronę, żeby zrzut pełnej strony nie miał pustych okładek.
+  await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight / 2) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } scrollTo(0, 0); });
+  await page.waitForTimeout(600);
+  const broken = await page.$$eval('img', (is) => is.filter((i) => i.getBoundingClientRect().width > 0 && (!i.complete || i.naturalWidth === 0)).map((i) => i.getAttribute('src')));
+  if (broken.length) { failed++; console.log(`FAIL ${name}: niezaładowane obrazy ${broken.join(', ')}`); }
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
   await ctx.close();
 }

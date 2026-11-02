@@ -10,6 +10,7 @@ import '../styles/motion.css';
 import '../styles/responsive.css';
 import '../styles/consent.css';
 import '../styles/materials.css';
+import '../styles/brand-tokens.css';
 import '../styles/brands.css';
 import '../styles/home.css';
 import { initConsent } from './consent.js';

@@ -22,7 +22,7 @@ const REJECTED = `localStorage.setItem('kontekstownik-consent', JSON.stringify({
   check('nazwy dostępne', links.every((l) => l.name && l.name.length > 10));
   check('kafelek main: dokładnie YouTube i TikTok', (await page.$$('.brand-tile--main a[data-platform]')).length === 2);
   const tileLinks = await page.$$eval('.brand-tile', (ts) => Object.fromEntries(ts.map((t) => [t.className.match(/brand-tile--(\w+)/)[1], [...t.querySelectorAll('.brand-tile__accounts a')].map((a) => a.dataset.platform || a.dataset.social)])));
-  check('kafelki: Kids bez TikToka, Influ bez Facebooka, linki tylko do istniejących kont', tileLinks.kids.join() === 'youtube,instagram,facebook' && tileLinks.influ.join() === 'youtube,tiktok,instagram' && tileLinks.main.join() === 'youtube,tiktok,instagram,facebook,email', JSON.stringify(tileLinks));
+  check('kafelki: Kids bez TikToka, Influ z własną stroną Facebook, linki tylko do istniejących kont', tileLinks.kids.join() === 'youtube,instagram,facebook' && tileLinks.influ.join() === 'youtube,tiktok,instagram,facebook' && tileLinks.main.join() === 'youtube,tiktok,instagram,facebook,email', JSON.stringify(tileLinks));
   const tileHrefs = await page.$$eval('.brand-tile__main', (as) => as.map((a) => a.getAttribute('href')));
   check('kafelki prowadzą do #najnowsze-main, /kids/, /influ/', tileHrefs.join() === '#najnowsze-main,/kids/,/influ/', tileHrefs.join());
   const bands = await page.$$eval('.band', (bs) => bs.map((b) => [b.id, b.querySelectorAll('li').length, b.querySelectorAll('iframe,video,embed').length]));
@@ -378,6 +378,19 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   const pp = await scan();
   check('EN polityka: lang en, hreflang do polskiej, odesłanie do wersji PL jako wiążącej', pp.lang === 'en' && pp.alt.pl === `${S}/polityka-prywatnosci/` && /Polish version prevails/.test(pp.text));
   check('EN: brak błędów JS', errs.length === 0, errs.join('|'));
+  await ctx.close();
+}
+{ // wszystkie obrazy (także lazy) na stronie głównej i podstronach marek ładują się po przewinięciu
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await ctx.addInitScript(REJECTED);
+  const page = await ctx.newPage();
+  for (const path of ['', 'kids/', 'influ/']) {
+    await page.goto(new URL(path, URL_).href, { waitUntil: 'networkidle' });
+    await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight / 2) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } });
+    await page.waitForTimeout(800);
+    const broken = await page.$$eval('img', (is) => is.filter((i) => i.getBoundingClientRect().width > 0 && (!i.complete || i.naturalWidth === 0)).map((i) => i.getAttribute('src')));
+    check(`/${path}: wszystkie widoczne obrazy po przewinięciu załadowane (okładki Kids, Influ, materiały)`, broken.length === 0, broken.join(', '));
+  }
   await ctx.close();
 }
 { // formularz tematu: wybór kanału (tylko z JS), limit 100 znaków liczony z prefiksem, cele dotykowe

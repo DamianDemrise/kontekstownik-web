@@ -165,7 +165,7 @@ export function topicCta(lang = 'pl', channels = false) {
     `<form class="topic-form" action="${TOPIC_FORM.action}" method="POST" target="_blank" data-topic-form ` +
     `data-ok="${esc(t.topicOk)}" data-err="${esc(t.topicErr)}" data-short="${esc(t.topicShort)}" data-wait="${esc(t.topicWait)}">` +
     (channels ? `<fieldset class="topic-form__channels" data-topic-channels hidden><legend>Dla którego kanału?</legend>` +
-      [['main', 'Kontekstownik'], ['kids', 'Kids'], ['influ', 'Influ']].map(([v, l], i) => `<label class="topic-form__channel topic-form__channel--${v}"><input type="radio" name="topic-channel" value="${v}"${i ? '' : ' checked'}><span>${l}</span></label>`).join('') + `</fieldset>` : '') +
+      [['main', 'Kontekstownik'], ['kids', 'Kids'], ['influ', 'Influ']].map(([v, l], i) => `<label class="topic-form__channel topic-form__channel--${v}" data-brand="${v}"><input type="radio" name="topic-channel" value="${v}"${i ? '' : ' checked'}><span>${l}</span></label>`).join('') + `</fieldset>` : '') +
     `<label class="visually-hidden" for="${id}-input">${t.topicLabel}</label>` +
     `<div class="topic-form__row"><span class="topic-form__field"><input class="topic-form__input" id="${id}-input" name="${TOPIC_FORM.field}" type="text" maxlength="100" required ` +
     `autocomplete="off" placeholder="${esc(t.topicPlaceholder)}" aria-describedby="${id}-hint">` +

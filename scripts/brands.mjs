@@ -17,14 +17,14 @@ export const brands = {
     description: 'Wypowiedzi, reakcje i wydarzenia ze świata influencerów. Oryginalne fragmenty, źródła i kontekst.',
     headline: 'Influencerzy. Wypowiedzi. Kontekst.', logo: '/brands/influ.svg',
     topics: ['Influencerzy', 'Wypowiedzi', 'Reakcje', 'Kulisy'],
-    channels: {youtube: 'https://www.youtube.com/@kontekstownikinflu', tiktok: 'https://www.tiktok.com/@kontekstownikinflu', instagram: 'https://www.instagram.com/kontekstownikinflu/'},
+    channels: {youtube: 'https://www.youtube.com/@kontekstownikinflu', tiktok: 'https://www.tiktok.com/@kontekstownikinflu', instagram: 'https://www.instagram.com/kontekstownikinflu/', facebook: 'https://www.facebook.com/profile.php?id=61595878572945'},
   },
 };
 const esc = (s) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 
 export function brandNavigation(active = 'main', lang = 'pl') {
   const en = lang === 'en';
-  return `<header class="channel-header"><a class="channel-header__home" href="/" aria-label="${en ? 'Kontekstownik — home' : 'Kontekstownik — strona główna'}">K<span aria-hidden="true">.</span></a>
+  return `<header class="channel-header"><a class="channel-header__home" href="/" aria-label="${en ? 'Kontekstownik — home' : 'Kontekstownik — strona główna'}"><img src="/brand/main/sygnet-kafel.svg" alt="" width="40" height="40"></a>
     <nav class="channel-switch" aria-label="${en ? 'Choose a channel' : 'Wybierz kanał'}">${Object.entries(brands).map(([id,b]) => `<a href="${b.path}" data-channel="${id}"${en && id !== 'main' ? ' hreflang="pl" lang="pl"' : ''}${id === active ? ' aria-current="page"' : ''}>${b.label}</a>`).join('')}</nav>
     <span class="channel-header__caption">${en ? 'Three channels. Different perspectives.' : 'Trzy kanały. Różne perspektywy.'}</span></header>`;
 }
@@ -64,17 +64,20 @@ export function renderBrandPage(template, id) {
   let head = template.slice(0, template.indexOf('<body>'));
   head = head.replace(/<title>.*?<\/title>/, `<title>${esc(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(b.description)}">`)
+    .replace(/<link rel="icon" href="\/favicon.svg"[^>]*>/, `<link rel="icon" href="/brand/${id}/favicon.svg" type="image/svg+xml">`)
+    .replace(/<link rel="icon" href="\/favicon-32.png"[^>]*>/, `<link rel="icon" href="/brand/${id}/favicon-32.png" sizes="32x32" type="image/png">`)
+    .replace(/<link rel="apple-touch-icon"[^>]*>/, `<link rel="apple-touch-icon" href="/brand/${id}/apple-touch-icon-180.png">`)
     .replace(/<link rel="canonical"[^>]+>/, `<link rel="canonical" href="${origin}${b.path}">`)
     .replace(/\s*<link rel="alternate"[^>]+>/g, '')
     .replace(/<meta property="og:(title|description|site_name|url|image|image:secure_url|image:alt)"[^>]+>/g, '')
     .replace(/<meta name="twitter:(title|description|image|image:alt)"[^>]+>/g, '')
     .replace(/<meta property="og:image:(type|width|height)"[^>]+>/g, '')
     .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'WebSite',name:b.name,url:origin+b.path,inLanguage:'pl-PL'})}</script>`)
-    .replace('</head>', `<meta property="og:image" content="${origin}/brands/${id === 'kids' ? 'kids.png' : 'influ-avatar.png'}"><meta name="twitter:image" content="${origin}/brands/${id === 'kids' ? 'kids.png' : 'influ-avatar.png'}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(b.description)}"><meta property="og:url" content="${origin}${b.path}"><meta property="og:site_name" content="${b.name}"></head>`);
+    .replace('</head>', `<meta property="og:image" content="${origin}/brand/${id}/og-1200x630.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:image" content="${origin}/brand/${id}/og-1200x630.png"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(b.description)}"><meta property="og:url" content="${origin}${b.path}"><meta property="og:site_name" content="${b.name}"></head>`);
   const footer = template.slice(template.indexOf('  <footer class="legal">'));
   return `${head}<body data-brand="${id}">${brandNavigation(id)}<main class="brand-page">
     <div class="brand-backdrop" aria-hidden="true"><span></span><span></span><span></span></div>
-    <section class="brand-landing" aria-labelledby="brand-heading"><div class="brand-landing__art"><img src="${b.logo}" alt="" ${id==='kids'?'width="1254" height="1254"':'width="2400" height="375"'}></div>
+    <section class="brand-landing" aria-labelledby="brand-heading"><div class="brand-landing__art"><img src="/brand/${id}/awatar-kwadrat.svg" alt="" width="340" height="340"></div>
     <div class="brand-landing__copy"><p class="brand-eyebrow">${id==='kids'?'Do wspólnego oglądania':'Świat twórców internetu'}</p><h1 id="brand-heading">${b.name.replace('KONTEKSTOWNIK ', '<span>Kontekstownik</span> ')}</h1><p class="brand-landing__headline">${b.headline}</p><p class="brand-landing__description">${b.description}</p>
     <ul class="brand-topics" aria-label="Tematy kanału">${b.topics.map(t=>`<li>${t}</li>`).join('')}</ul><div class="brand-channels" aria-label="Oglądaj nas na platformach">${channelButtons(b)}</div></div></section>
     ${id==='influ'?latestInflu():latestKids()}

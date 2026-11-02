@@ -2,8 +2,8 @@
 import {brands, kidsItems, influItems} from './brands.mjs';
 import {card, forLang, FEATURED} from './materials-render.mjs';
 
-// Jedno miejsce na grafiki marek: podmiana pliku /brand/<marka>/logo.png (kwadrat, min. 192 px) zmienia kafelki bez zmian w kodzie.
-const brandLogo = (id) => `/brand/${id}/logo.png`;
+// Jedno miejsce na grafiki marek: podmiana pliku /brand/<marka>/sygnet-kafel.svg (kwadrat; źródło: repo kontekstownik-brand, dist/<marka>/logo) zmienia kafelki bez zmian w kodzie.
+const brandLogo = (id) => `/brand/${id}/sygnet-kafel.svg`;
 const PLATFORM = {youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram', facebook: 'Facebook', email: 'E-mail'};
 const main = {
   logo: brandLogo('main'), name: 'Kontekstownik', sentence: 'Polityka, gospodarka i świat. Wyjaśniamy, co naprawdę się dzieje.',
@@ -22,8 +22,8 @@ const tiles = [
 
 export function renderHomeHero() {
   return `<ul class="brand-tiles" aria-label="Trzy kanały Kontekstownika">${tiles.map((t) => `
-    <li class="brand-tile brand-tile--${t.id}"><a class="brand-tile__main" href="${t.href}">
-      <img class="brand-tile__logo" src="${t.logo}" alt="" width="192" height="192" decoding="async">
+    <li class="brand-tile brand-tile--${t.id}" data-brand="${t.id}"><a class="brand-tile__main" href="${t.href}">
+      <img class="brand-tile__logo" src="${t.logo}" alt="" width="72" height="72" decoding="async">
       <span class="brand-tile__name">${t.name}</span><span class="brand-tile__text">${t.sentence}</span>
       <span class="brand-tile__go">${t.go} <span aria-hidden="true">${t.id === 'main' ? '↓' : '→'}</span></span></a>
       <p class="brand-tile__accounts"><span class="visually-hidden">Konta ${t.name}: </span>${Object.entries(t.channels).map(([k, u]) =>
@@ -31,7 +31,7 @@ export function renderHomeHero() {
 }
 
 const fmtDate = (d) => new Intl.DateTimeFormat('pl-PL', {day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'}).format(new Date(d + 'T12:00:00Z'));
-const band = (id, title, more, body) => `<section class="band band--${id}" id="najnowsze-${id}" aria-labelledby="band-${id}-title"><header class="band__head"><h2 class="band__title" id="band-${id}-title">${title}</h2>${more}</header>${body}</section>`;
+const band = (id, title, more, body) => `<section class="band band--${id}" data-brand="${id}" id="najnowsze-${id}" aria-labelledby="band-${id}-title"><header class="band__head"><h2 class="band__title" id="band-${id}-title">${title}</h2>${more}</header>${body}</section>`;
 const verticalCard = ({title, date, cover, url, platform}) => `<li><article class="vcard"><a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${title} (otwiera się w nowej karcie)"><img src="${cover}" alt="" width="1080" height="1920" loading="lazy" decoding="async"><span class="vcard__body"><time datetime="${date}">${fmtDate(date)}</time><h3>${title}</h3><span class="vcard__go">${platform} <span aria-hidden="true">↗</span></span></span></a></article></li>`;
 
 export function renderHomeBands(all) {

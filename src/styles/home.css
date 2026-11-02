@@ -1,12 +1,10 @@
 /* Strona główna jako centrum trzech kanałów: kafelki marek (hero) i pasy „Najnowsze”. */
 .has-channel-header .hero:has(.brand-tiles) { z-index: 3; min-height: 0; justify-content: flex-start; padding-top: max(110px, calc(var(--u) * 7)); padding-bottom: 56px; gap: calc(var(--u) * 3); }
 .brand-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; width: min(1100px, 100%); text-align: left; }
-.brand-tile { --c: var(--orange); --c2: var(--orange); display: flex; flex-direction: column; border: 1px solid #ffffff1c; border-radius: 22px; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 10%, #0c1219), #0c1219 70%); overflow: hidden; transition: transform .25s, border-color .25s; }
+.brand-tile { --c: var(--kx-accent-a); --c2: var(--kx-accent-b); display: flex; flex-direction: column; border: 1px solid #ffffff1c; border-radius: 22px; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 10%, #0c1219), #0c1219 70%); overflow: hidden; transition: transform .25s, border-color .25s; }
 .brand-tile:hover { transform: translateY(-4px); border-color: var(--c); }
-.brand-tile--kids { --c: #ffe035; --c2: #04a8ad; }
-.brand-tile--influ { --c: #e03c8a; --c2: #6b78ff; }
 .brand-tile__main { flex: 1; display: grid; gap: 10px; align-content: start; padding: 24px 24px 12px; }
-.brand-tile__logo { display: block; flex: none; width: 72px; height: 72px; padding: 6px; border-radius: 16px; object-fit: contain; background: #0a0f15; box-shadow: 0 0 0 1px #ffffff1a; }
+.brand-tile__logo { display: block; flex: none; width: 72px; height: 72px; }
 .brand-tile__name { margin-top: 6px; font-size: 22px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
 .brand-tile__text { font-size: 14px; line-height: 1.6; color: #b7becd; }
 .brand-tile__go { margin-top: 4px; font-size: 14px; font-weight: 700; color: var(--c); }
@@ -15,9 +13,7 @@
 .brand-tile__accounts a:hover { background: color-mix(in srgb, var(--c) 18%, transparent); color: #fff; }
 
 .bands { position: relative; z-index: 1; padding: 56px 16px 0; background: linear-gradient(180deg, transparent, rgb(8 13 18 / .92) 80px, var(--bg)); }
-.band { max-width: 1240px; margin: 0 auto 64px; --c: var(--orange); }
-.band--kids { --c: #ffe035; }
-.band--influ { --c: #e03c8a; }
+.band { max-width: 1240px; margin: 0 auto 64px; --c: var(--kx-accent-a); }
 .band__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 2px solid color-mix(in srgb, var(--c) 55%, transparent); padding-bottom: 12px; }
 .band__title { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem); font-weight: 800; color: #fff; }
 .band__more { font-size: 13px; font-weight: 700; color: var(--c); }
@@ -40,8 +36,8 @@
 .topic-form__channel input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
 .topic-form__channel span { display: flex; align-items: center; min-height: 44px; padding: 0 16px; font-size: 13px; font-weight: 700; color: #d7dce6; border: 1px solid #ffffff2a; border-radius: 999px; }
 .topic-form__channel input:checked + span { background: var(--orange); border-color: var(--orange); color: #111; }
-.topic-form__channel--kids input:checked + span { background: #ffe035; border-color: #ffe035; }
-.topic-form__channel--influ input:checked + span { background: #e03c8a; border-color: #e03c8a; color: #fff; }
+.topic-form__channel[data-brand] input:checked + span { background: var(--kx-accent-a); border-color: var(--kx-accent-a); }
+.topic-form__channel[data-brand=influ] input:checked + span { background: var(--kx-gradient); border-color: transparent; color: #fff; }
 .topic-form__channel input:focus-visible + span { outline: 2px solid #fff; outline-offset: 2px; }
 
 @media (max-width: 1000px) { .vgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bands .materials__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
