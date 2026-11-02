@@ -44,10 +44,18 @@ export const kidsItems = [
   ['04','Dlaczego oglądamy, jak ktoś gra?','DfNiE5Aqsit'],
 ];
 export const influItems = [
+  {title: '30 zł za zapiekankę przy cmentarzu?! Książulo sprawdza', date: '2026-11-02', cover: '/brands/ksiazulo.jpg', url: 'https://www.youtube.com/shorts/IFt3bjsn2zY', platform: 'YouTube'},
   {title: 'Andziaks przeprasza. Za te słowa o podatkach.', date: '2026-11-02', cover: '/brands/andziaks.jpg', url: 'https://www.youtube.com/shorts/rtMQjyIiy5M', platform: 'YouTube'},
 ];
+export const kidsLatest = [
+  {title: 'Ogień w kosmosie. Dlaczego płomień znika z oczu?', date: '2026-11-02', cover: '/brands/kids-ogien.jpg', url: 'https://www.youtube.com/shorts/oWCOHDkBokw', platform: 'YouTube'},
+  ...kidsItems.map(([id, title, reel]) => ({title, date: '2026-11-01', cover: `/brands/kids-${id}.jpg`, url: `https://www.instagram.com/kontekstownikkids/reel/${reel}/`, platform: 'Instagram'})),
+];
 function latestInflu() {
-  return `<section class="brand-latest" aria-labelledby="brand-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Najnowszy materiał</p><h2 id="brand-latest-title">Najpierw wypowiedź. Potem kontekst.</h2></div>
+  const latest = influItems[0];
+  return `<section class="brand-latest" aria-labelledby="brand-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Najnowsze materiały</p><h2 id="brand-latest-title">Najpierw wypowiedź. Potem kontekst.</h2></div>
+    <article class="brand-feature"><a class="brand-feature__image" href="${latest.url}" target="_blank" rel="noopener noreferrer" aria-label="${esc(latest.title)} — obejrzyj na YouTube (nowa karta)"><img src="${latest.cover}" alt="" width="1080" height="1920" loading="lazy"></a>
+    <div class="brand-feature__text"><p class="brand-eyebrow">Wypowiedzi · 2 listopada 2026</p><h3>${latest.title}</h3><p>30 zł za zapiekankę. Zestawiamy ocenę ceny z pozytywną częścią recenzji — z oryginalnym dźwiękiem i naszym komentarzem.</p><div class="brand-feature__links"><a href="${latest.url}" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a href="https://www.instagram.com/reel/DfPfkW4tZgO/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.tiktok.com/@kontekstownikinflu/video/7703576250744425750" target="_blank" rel="noopener noreferrer">TikTok ↗</a></div></div></article>
     <article class="brand-feature"><a class="brand-feature__image" href="https://www.youtube.com/shorts/rtMQjyIiy5M" target="_blank" rel="noopener noreferrer" aria-label="Andziaks przeprasza — obejrzyj na YouTube (nowa karta)"><img src="/brands/andziaks.jpg" alt="Andziaks podczas oświadczenia. Nagłówek: Andziaks przeprasza." width="1080" height="1920" loading="lazy"></a>
     <div class="brand-feature__text"><p class="brand-eyebrow">Wypowiedzi · 2 listopada 2026</p><h3>Andziaks przeprasza. Za te słowa o podatkach.</h3><p>Co powiedziała w Q&amp;A i jak wyjaśniła to w późniejszym oświadczeniu? Pokazujemy obie wypowiedzi, razem z ich kontekstem.</p><div class="brand-feature__links"><a href="https://www.youtube.com/shorts/rtMQjyIiy5M" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a href="https://www.instagram.com/reel/DfPX0XItP7Z/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.tiktok.com/@kontekstownikinflu/video/7703563013369957654" target="_blank" rel="noopener noreferrer">TikTok ↗</a></div></div></article></section>`;
 }
@@ -55,7 +63,8 @@ function latestInflu() {
 function latestKids() {
   // Published Instagram URLs and approved covers from PUBLIKACJE_SERIA_03.json (1 Nov 2026).
   const items = kidsItems;
-  return `<section class="brand-latest" aria-labelledby="kids-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Gry, bajki i internet</p><h2 id="kids-latest-title">Pytania z codziennego świata.</h2></div><div class="brand-kids-grid">${items.map(([id,title,reel])=>`<article><a href="https://www.instagram.com/kontekstownikkids/reel/${reel}/" target="_blank" rel="noopener noreferrer" aria-label="${title} — obejrzyj na Instagramie (nowa karta)"><img src="/brands/kids-${id}.jpg" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">1 listopada 2026</p><h3>${title}</h3><span>Instagram ↗</span></div></a></article>`).join('')}</div></section>`;
+  const latest = kidsLatest[0];
+  return `<section class="brand-latest" aria-labelledby="kids-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Najnowsze materiały</p><h2 id="kids-latest-title">Pytania z codziennego świata.</h2></div><div class="brand-kids-grid"><article><a href="${latest.url}" target="_blank" rel="noopener noreferrer" aria-label="${latest.title} — obejrzyj na YouTube (nowa karta)"><img src="${latest.cover}" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">2 listopada 2026</p><h3>${latest.title}</h3><span>YouTube ↗</span></div></a></article>${items.map(([id,title,reel])=>`<article><a href="https://www.instagram.com/kontekstownikkids/reel/${reel}/" target="_blank" rel="noopener noreferrer" aria-label="${title} — obejrzyj na Instagramie (nowa karta)"><img src="/brands/kids-${id}.jpg" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">1 listopada 2026</p><h3>${title}</h3><span>Instagram ↗</span></div></a></article>`).join('')}</div></section>`;
 }
 
 export function renderBrandPage(template, id) {

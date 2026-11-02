@@ -1,5 +1,5 @@
 // Strona główna jako centrum trzech kanałów: kafelki marek w hero i pasy „Najnowsze”. Statyczny HTML, bez JS i odtwarzaczy.
-import {brands, kidsItems, influItems} from './brands.mjs';
+import {brands, kidsLatest, influItems} from './brands.mjs';
 import {card, forLang, FEATURED} from './materials-render.mjs';
 
 // Jedno miejsce na grafiki marek: podmiana pliku /brand/<marka>/sygnet-kafel.svg (kwadrat; źródło: repo kontekstownik-brand, dist/<marka>/logo) zmienia kafelki bez zmian w kodzie.
@@ -36,7 +36,7 @@ const verticalCard = ({title, date, cover, url, platform}) => `<li><article clas
 
 export function renderHomeBands(all) {
   const items = forLang(all, 'pl').slice(0, FEATURED);
-  const kids = kidsItems.map(([id, title, reel]) => ({title, date: '2026-11-01', cover: `/brands/kids-${id}.jpg`, url: `https://www.instagram.com/kontekstownikkids/reel/${reel}/`, platform: 'Instagram'}));
+  const kids = kidsLatest.slice(0, 4);
   const soon = (what) => `<p class="band__soon">${what} wkrótce.</p>`;
   return `<div class="bands" id="najnowsze">` +
     band('main', 'Najnowsze: Kontekstownik', '<a class="band__more" href="#materialy">Wszystkie materiały <span aria-hidden="true">↓</span></a>',
