@@ -49,7 +49,7 @@ for (const [w, h, name, mobile, path = ''] of SIZES) {
   await page.waitForTimeout(600);
   const broken = await page.$$eval('img', (is) => is.filter((i) => i.getBoundingClientRect().width > 0 && (!i.complete || i.naturalWidth === 0)).map((i) => i.getAttribute('src')));
   if (broken.length) { failed++; console.log(`FAIL ${name}: niezaładowane obrazy ${broken.join(', ')}`); }
-  await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
+  await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: false });
   await ctx.close();
 }
 await browser.close();
