@@ -1,6 +1,6 @@
 // Strona główna jako centrum trzech kanałów: kafelki marek w hero i pasy „Najnowsze”. Statyczny HTML, bez JS i odtwarzaczy.
 import {brands, kidsItems, influItems} from './brands.mjs';
-import {card, pagePath, forLang} from './materials-render.mjs';
+import {card, forLang, FEATURED} from './materials-render.mjs';
 
 // Jedno miejsce na grafiki marek: podmiana pliku /brand/<marka>/logo.png (kwadrat, min. 192 px) zmienia kafelki bez zmian w kodzie.
 const brandLogo = (id) => `/brand/${id}/logo.png`;
@@ -35,7 +35,7 @@ const band = (id, title, more, body) => `<section class="band band--${id}" id="n
 const verticalCard = ({title, date, cover, url, platform}) => `<li><article class="vcard"><a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${title} (otwiera się w nowej karcie)"><img src="${cover}" alt="" width="1080" height="1920" loading="lazy" decoding="async"><span class="vcard__body"><time datetime="${date}">${fmtDate(date)}</time><h3>${title}</h3><span class="vcard__go">${platform} <span aria-hidden="true">↗</span></span></span></a></article></li>`;
 
 export function renderHomeBands(all) {
-  const items = forLang(all, 'pl').slice(0, 3);
+  const items = forLang(all, 'pl').slice(0, FEATURED);
   const kids = kidsItems.map(([id, title, reel]) => ({title, date: '2026-11-01', cover: `/brands/kids-${id}.jpg`, url: `https://www.instagram.com/kontekstownikkids/reel/${reel}/`, platform: 'Instagram'}));
   const soon = (what) => `<p class="band__soon">${what} wkrótce.</p>`;
   return `<div class="bands" id="najnowsze">` +

@@ -23,7 +23,7 @@ check('po filtrze (3 wyniki) strona 3 -> 1', paginate(3, 3).page === 1);
 // --- przeglądarka (opcjonalnie; --logic-only nie uruchamia UI)
 if (!process.argv.includes('--logic-only')) {
 const CATS = ['polityka', 'gospodarka', 'swiat'];
-async function sectionHtml(n) {
+async function sectionHtml(n, featured = false) {
   const dir = mkdtempSync(join(tmpdir(), 'kx-pg-'));
   mkdirSync(join(dir, 'okladki'));
   copyFileSync('content/przyklad/okladki/2026-11-03-inflacja.jpg', join(dir, 'okladki', 'c.jpg'));
@@ -35,15 +35,17 @@ async function sectionHtml(n) {
   writeFileSync(join(dir, 'materialy.json'), JSON.stringify(items));
   const loaded = await loadMaterials(dir);
   for (const m of loaded) m._cover = { 480: 'data:,', 960: 'data:,', 1440: 'data:,' }; // bez generowania WebP
-  return renderSection(loaded, 'pl').section;
+  const section = renderSection(loaded, 'pl').section;
+  // Stronicowanie testujemy bez pasa „Najnowsze” (data-featured); wariant z pasem ma osobny test niżej.
+  return featured ? section : section.replace(/ data-featured="\d+"/, '');
 }
 const js = { 'materials-tools.js': readFileSync('src/scripts/materials-tools.js', 'utf8'), 'materials-paging.js': readFileSync('src/scripts/materials-paging.js', 'utf8') };
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const browser = await chromium.launch({ executablePath: CHROME, args: process.env.CHROME_ARGS ? [process.env.CHROME_ARGS] : [] });
-async function open(n, { noJs = false } = {}) {
+async function open(n, { noJs = false, featured = false } = {}) {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, javaScriptEnabled: !noJs });
   const page = await ctx.newPage();
-  const html = `<!doctype html><html lang="pl"><body><main>${await sectionHtml(n)}</main><script type="module">import { initMaterialsTools } from '/materials-tools.js'; initMaterialsTools();</script></body></html>`;
+  const html = `<!doctype html><html lang="pl"><body><main>${await sectionHtml(n, featured)}</main><script type="module">import { initMaterialsTools } from '/materials-tools.js'; initMaterialsTools();</script></body></html>`;
   await page.route('https://t.test/**', (r) => {
     const f = r.request().url().split('/').pop();
     r.fulfill(js[f] ? { contentType: 'text/javascript', body: js[f] } : { contentType: 'text/html', body: html });
@@ -91,6 +93,22 @@ for (const [n, firstPage, pages] of [[9, 9, 1], [10, 9, 2], [18, 9, 2], [19, 9, 
   check('zmiana sortowania wraca na stronę 1', v.state === 'Strona 1 z 3' && v.shown === 9, JSON.stringify(v));
   const dates = await page.$$eval('[data-mgrid] > li:not([hidden])', (l) => l.map((x) => x.dataset.date));
   check('sortowanie „Najstarsze” działa na stronie 1', dates.join() === [...dates].sort().join());
+  await ctx.close();
+}
+{ // pas „Najnowsze” na stronie głównej: lista zaczyna się od kolejnych, filtr i „Najstarsze” pokazują komplet
+  const { ctx, page } = await open(19, { featured: true });
+  const original = await page.evaluate(() => [...document.querySelectorAll('[data-mgrid] > li')].map((li, i) => { li.dataset.i = i; return li.dataset.date; }));
+  const visibleIdx = () => page.$$eval('[data-mgrid] > li:not([hidden])', (l) => l.map((x) => Number(x.dataset.i)));
+  let v = await view(page);
+  check('z pasem: domyślna lista ma 9 na stronie, 2 strony (16 kart)', v.shown === 9 && v.state === 'Strona 1 z 2', JSON.stringify(v));
+  check('z pasem: trzy najnowsze (indeksy 0–2) nie powtarzają się na liście', (await visibleIdx()).every((i) => i >= 3) && v.total === 19);
+  await page.click('[data-page-next]');
+  check('z pasem: ostatnia strona ma 7 kart, też bez najnowszych', (await view(page)).shown === 7 && (await visibleIdx()).every((i) => i >= 3));
+  await page.click('[data-filter="polityka"]');
+  check('z pasem: filtr kategorii pokazuje komplet (7)', (await view(page)).shown === 7);
+  await page.click('[data-filter="all"]'); await page.click('[data-sort="oldest"]');
+  v = await view(page);
+  check('z pasem: „Najstarsze” pokazuje komplet (3 strony)', v.state === 'Strona 1 z 3', JSON.stringify(v));
   await ctx.close();
 }
 { // bez JS: wszystkie karty i linki w HTML, pasek ukryty

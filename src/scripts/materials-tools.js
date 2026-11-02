@@ -6,6 +6,7 @@ export function initMaterialsTools() {
   const grid = document.querySelector('[data-mgrid]');
   if (!tools || !grid) return;
   const items = [...grid.children];
+  const featured = Math.min(Number(grid.dataset.featured) || 0, Math.max(items.length - 1, 0));
   const status = tools.querySelector('[data-mtools-status]');
   let filter = 'all';
   let order = 'newest';
@@ -17,7 +18,10 @@ export function initMaterialsTools() {
 
   const apply = () => {
     const sorted = [...items].sort((a, b) => (order === 'newest' ? -1 : 1) * a.dataset.date.localeCompare(b.dataset.date));
-    const matching = sorted.filter((li) => filter === 'all' || li.dataset.category === filter);
+    // Na stronie głównej najnowsze karty są już w pasie „Najnowsze”: domyślny widok listy zaczyna się od kolejnych.
+    // Filtr kategorii i sortowanie „od najstarszych” pokazują komplet.
+    const base = filter === 'all' && order === 'newest' ? sorted.slice(featured) : sorted;
+    const matching = base.filter((li) => filter === 'all' || li.dataset.category === filter);
     const p = paginate(matching.length, page);
     page = p.page;
     const onPage = new Set(matching.slice(p.from, p.to));

@@ -380,6 +380,29 @@ async function consentContext(viewport = { width: 1366, height: 768 }) {
   check('EN: brak błędów JS', errs.length === 0, errs.join('|'));
   await ctx.close();
 }
+{ // formularz tematu: wybór kanału (tylko z JS), limit 100 znaków liczony z prefiksem, cele dotykowe
+  const noJs = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
+  const p0 = await noJs.newPage();
+  await p0.goto(URL_);
+  check('formularz bez JS: wybór kanału ukryty (temat idzie do Kontekstownika jak dotąd)', await p0.$eval('[data-topic-channels]', (e) => !e.offsetParent));
+  await noJs.close();
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await ctx.addInitScript(REJECTED);
+  const page = await ctx.newPage();
+  await page.goto(URL_, { waitUntil: 'networkidle' });
+  const sizes = await page.$$eval('.topic-form__channel span', (els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
+  check('formularz z JS: trzy kanały, cele ≥ 44 px', sizes.length === 3 && sizes.every((h) => h >= 44), sizes.join('/'));
+  await page.fill('.topic-form__input', 'x'.repeat(100));
+  check('Kontekstownik: limit 100 znaków', await page.$eval('.topic-form__input', (e) => e.value.length === 100 && e.maxLength === 100));
+  await page.click('.topic-form__channel--kids');
+  check('Kids: prefiks „[Kids] ” wlicza się do limitu (93), nadmiar ucięty, licznik zgodny', await page.evaluate(() => {
+    const i = document.querySelector('.topic-form__input');
+    return i.maxLength === 93 && i.value.length === 93 && document.querySelector('[data-topic-count]').textContent === '93/93';
+  }));
+  await page.click('.topic-form__channel--influ');
+  check('Influ: limit 92 („[Influ] ”)', await page.$eval('.topic-form__input', (e) => e.maxLength === 92 && e.value.length === 92));
+  await ctx.close();
+}
 await browser.close();
 console.log(results.join('\n'));
 process.exit(results.some((r) => r.startsWith('FAIL')) ? 1 : 0);

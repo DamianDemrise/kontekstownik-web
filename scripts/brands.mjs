@@ -25,7 +25,7 @@ const esc = (s) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceA
 export function brandNavigation(active = 'main', lang = 'pl') {
   const en = lang === 'en';
   return `<header class="channel-header"><a class="channel-header__home" href="/" aria-label="${en ? 'Kontekstownik — home' : 'Kontekstownik — strona główna'}">K<span aria-hidden="true">.</span></a>
-    <nav class="channel-switch" aria-label="${en ? 'Choose a channel' : 'Wybierz kanał'}">${Object.entries(brands).map(([id,b]) => `<a href="${b.path}" data-channel="${id}"${id === active ? ' aria-current="page"' : ''}>${b.label}</a>`).join('')}</nav>
+    <nav class="channel-switch" aria-label="${en ? 'Choose a channel' : 'Wybierz kanał'}">${Object.entries(brands).map(([id,b]) => `<a href="${b.path}" data-channel="${id}"${en && id !== 'main' ? ' hreflang="pl" lang="pl"' : ''}${id === active ? ' aria-current="page"' : ''}>${b.label}</a>`).join('')}</nav>
     <span class="channel-header__caption">${en ? 'Three channels. Different perspectives.' : 'Trzy kanały. Różne perspektywy.'}</span></header>`;
 }
 

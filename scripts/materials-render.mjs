@@ -164,7 +164,7 @@ export function topicCta(lang = 'pl', channels = false) {
     `<h2 class="topic-cta__title" id="${id}-title">${t.topicTitle}</h2><p>${t.topicText}</p></div>` +
     `<form class="topic-form" action="${TOPIC_FORM.action}" method="POST" target="_blank" data-topic-form ` +
     `data-ok="${esc(t.topicOk)}" data-err="${esc(t.topicErr)}" data-short="${esc(t.topicShort)}" data-wait="${esc(t.topicWait)}">` +
-    (channels ? `<fieldset class="topic-form__channels"><legend>Dla którego kanału?</legend>` +
+    (channels ? `<fieldset class="topic-form__channels" data-topic-channels hidden><legend>Dla którego kanału?</legend>` +
       [['main', 'Kontekstownik'], ['kids', 'Kids'], ['influ', 'Influ']].map(([v, l], i) => `<label class="topic-form__channel topic-form__channel--${v}"><input type="radio" name="topic-channel" value="${v}"${i ? '' : ' checked'}><span>${l}</span></label>`).join('') + `</fieldset>` : '') +
     `<label class="visually-hidden" for="${id}-input">${t.topicLabel}</label>` +
     `<div class="topic-form__row"><span class="topic-form__field"><input class="topic-form__input" id="${id}-input" name="${TOPIC_FORM.field}" type="text" maxlength="100" required ` +
@@ -195,6 +195,9 @@ function pager(t) {
     `<button type="button" class="mpager__btn" data-page-next>${t.next} <span aria-hidden="true">→</span></button></nav>`;
 }
 
+// Liczba najnowszych materiałów pokazywanych w pasie „Najnowsze” na stronie głównej PL; lista pod pasami zaczyna się od kolejnego.
+export const FEATURED = 3;
+
 export function renderSection(all, lang = 'pl') {
   const channels = lang === 'pl';
   const items = forLang(all, lang);
@@ -207,7 +210,7 @@ export function renderSection(all, lang = 'pl') {
       `<header class="materials__head"><h2 class="materials__title" id="materialy-title">${t.latest}</h2>` +
       `<p class="materials__sub">${t.latestSub}</p></header>` +
       toolbar(items, t) +
-      `<ul class="materials__grid" data-mgrid>${items.map((m) => card(m, lang)).join('')}</ul>${pager(t)}${topicCta(lang, channels)}</div></section>`,
+      `<ul class="materials__grid" data-mgrid${channels ? ` data-featured="${FEATURED}"` : ''}>${items.map((m) => card(m, lang)).join('')}</ul>${pager(t)}${topicCta(lang, channels)}</div></section>`,
   };
 }
 
