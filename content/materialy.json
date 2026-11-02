@@ -1,5 +1,85 @@
 [
   {
+    "id": "2026-11-02-po-co-rosji-wlasny-starlink-i-dlaczego-ukraina-naklada-sankcje",
+    "status": "published",
+    "category": "polityka",
+    "slug": "po-co-rosji-wlasny-starlink-i-dlaczego-ukraina-naklada-sankcje",
+    "title": "Po co Rosji własny Starlink i dlaczego Ukraina nakłada sankcje?",
+    "lead": "Po co Rosji własny Starlink, skoro sankcje nie wyłączą jego satelitów?",
+    "date": "2026-11-02",
+    "as_of": "2026-11-02",
+    "youtube": "https://www.youtube.com/watch?v=_TZ-LM26FlA",
+    "primary": "youtube",
+    "format": "full",
+    "duration_seconds": 54,
+    "summary": [
+      "Po co Rosji własny Starlink, skoro sankcje nie wyłączą jego satelitów?"
+    ],
+    "transcript": [
+      "Po co Rosji własny Starlink, skoro sankcje nie wyłączą jego satelitów?",
+      "Trzydziestego października Ukraina objęła sankcjami dziesięć firm i dziewiętnaście osób powiązanych z systemem Rassvet. Osobno także trzydzieści dziewięć statków floty cieni.",
+      "Rassvet ma dawać internet z niskiej orbity, niezależnie od infrastruktury naziemnej. W marcu poleciało szesnaście satelitów, w lipcu kolejne szesnaście.",
+      "Rosyjska armia używała nieautoryzowanych terminali Starlink. W lutym Ukraina i SpaceX je zablokowały.",
+      "Według ukraińskiego dyplomaty Denysa Sienika własna sieć pomogłaby Rosji namierzać ruchome cele na bieżąco. To ocena Kijowa, nie ustalenie techniczne.",
+      "Sankcje mają utrudnić dostęp do części i finansowania. Same nie wyłączą satelitów na orbicie. To wniosek, nie wyrok.",
+      "Obserwuj Kontekstownik, żeby być na bieżąco!"
+    ],
+    "sources": [
+      {
+        "title": "Ukraine adds people & companies linked to Russian satellite system to sanctions list",
+        "publisher": "globalsanctions.com",
+        "url": "https://globalsanctions.com/2026/10/ukraine-adds-people-companies-linked-to-russian-satellite-system-to-sanctions-list/"
+      },
+      {
+        "title": "Ukraina z apelem do USA. Chodzi o \"rosyjski Starlink\"",
+        "publisher": "wiadomosci.onet.pl",
+        "url": "https://wiadomosci.onet.pl/swiat/ukraina-z-apelem-do-usa-chodzi-o-rosyjski-starlink-i-nowe-sankcje/pmk30yq"
+      },
+      {
+        "title": "Rosja i Starlink. Kradzione nie tuczy - Rzeczpospolita",
+        "publisher": "rp.pl",
+        "url": "https://www.rp.pl/konflikty-zbrojne/art43744661-rosja-i-starlink-kradzione-nie-tuczy"
+      },
+      {
+        "title": "Rosyjskie drony korzystały ze Starlink. Ukraina je zablokowała",
+        "publisher": "nowin.pl",
+        "url": "https://www.nowin.pl/2026/02/03/czy-rosyjskie-drony-wykorzystuja-starlink-i-w-jaki-sposob-omijaja-zabezpieczenia/"
+      },
+      {
+        "title": "Starlink, wywiad i sankcje wobec Rosji. Wołodymyr Zełenski ostrzega ...",
+        "publisher": "rp.pl",
+        "url": "https://www.rp.pl/konflikty-zbrojne/art45353541-zelenski-oskarza-administracje-trumpa-o-zaklocenia-starlinka-sygnal-wyszedl-od-rzadu"
+      },
+      {
+        "title": "Zełeński domaga się sankcji na chińskie firmy. Miały pomagać Rosji ...",
+        "publisher": "bithub.pl",
+        "url": "https://bithub.pl/inwestycje/nowe-technologie/zelenski-domaga-sie-sankcji-na-chinskie-firmy-mialy-pomagac-rosji-stworzyc-odpowiednik-starlinka/"
+      },
+      {
+        "title": "Ukraina współpracuje ze SpaceX, by zablokować Starlink Rosji - BBC",
+        "publisher": "bbc.com",
+        "url": "https://www.bbc.com/polska/articles/clywv29z66no"
+      },
+      {
+        "title": "Rosja już uruchomiła podróbkę Starlinka. \"Znacznie szybciej niż planowała\"",
+        "publisher": "wiadomosci.onet.pl",
+        "url": "https://wiadomosci.onet.pl/politico/rosja-juz-uruchomila-podrobke-starlinka-znacznie-szybciej-niz-planowala/qhl7k4p"
+      },
+      {
+        "title": "Starlink zablokowany dla rosjan: Chaos na froncie i przypadki ostrzału ...",
+        "publisher": "aktualnik.pl",
+        "url": "https://aktualnik.pl/technologia/starlink-zablokowany-dla-rosjan-chaos-na-froncie-i-przypadki-ostrzau-wasnych-wojsk/"
+      },
+      {
+        "title": "Rosja pędzi do 292 satelitów do 2027 roku: Dlaczego Ukraina naciska na ...",
+        "publisher": "upday.com",
+        "url": "https://www.upday.com/pl/rosja-pedzi-do-292-satelitow-do-2027-roku-dlaczego-ukraina-naciska-na-muska-by/3slk2k4"
+      }
+    ],
+    "note": "Lektor, muzyka i ilustracje powstały przy użyciu AI.",
+    "cover": "2026-11-02-po-co-rosji-wlasny-starlink-i-dlaczego-ukraina-naklada-sankcje.jpg"
+  },
+  {
     "id": "2026-11-01-reset-tk",
     "status": "published",
     "category": "polityka",
