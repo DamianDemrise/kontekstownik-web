@@ -1,5 +1,50 @@
 [
   {
+    "id": "2026-11-02-atak-szkola-komyszuwacha",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "atak-na-szkole-w-komyszuwasze",
+    "title": "Rosyjski atak na szkołę w Komyszuwasze. 18 zabitych",
+    "lead": "Władze Ukrainy poinformowały o 18 zabitych i 5 rannych. Bilans może rosnąć.",
+    "date": "2026-11-02",
+    "as_of": "2026-11-02",
+    "youtube": "https://www.youtube.com/shorts/1X3YhIxoUOg",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7703635405882625302",
+    "primary": "youtube",
+    "format": "short",
+    "duration_seconds": 25,
+    "summary": [
+      "W Komyszuwasze w obwodzie zaporoskim 2 listopada rosyjski atak zabił 18 osób i ranił 5, według prezydenta Ukrainy i władz obwodu. Według Wołodymyra Zełenskiego doszło do podwójnego uderzenia w szkołę służącą do rozdawania pomocy humanitarnej i schron, w którym byli ludzie. Stan na 18:47 CET; bilans może rosnąć."
+    ],
+    "key_points": [
+      "W Komyszuwasze zginęło 18 osób, a 5 zostało rannych według stanu na 18:47 CET.",
+      "Zełenski poinformował o podwójnym uderzeniu."
+    ],
+    "transcript": [
+      "Osiemnaście osób zginęło, pięć zostało rannych w Komyszuwasze, w obwodzie zaporoskim. Taki bilans rosyjskiego ataku drugiego listopada podają prezydent Ukrainy i władze obwodu. Według Wołodymyra Zełenskiego zbombardowana szkoła służyła do rozdawania pomocy humanitarnej. Prezydent poinformował o ponownym uderzeniu w schron, w którym byli ludzie. Trwa akcja ratunkowa. Stan na osiemnastą czterdzieści siedem. Bilans może rosnąć."
+    ],
+    "sources": [
+      {
+        "title": "Komunikat Wołodymyra Zełenskiego",
+        "publisher": "Telegram prezydenta Ukrainy",
+        "url": "https://t.me/V_Zelenskiy_official/21601"
+      },
+      {
+        "title": "Komunikat władz obwodu zaporoskiego",
+        "publisher": "Zaporoska Obwodowa Administracja Wojskowa",
+        "url": "https://t.me/zoda_gov_ua/68774"
+      },
+      {
+        "title": "Anxiety — Kai Engel, CC BY 4.0",
+        "publisher": "Free Music Archive",
+        "url": "https://freemusicarchive.org/music/Kai_Engel/ICD-10/Kai_Engel_-_ICD-10_-_02_Anxiety_1425"
+      }
+    ],
+    "note": "Lektor powstał przy użyciu AI. Muzyka: „Anxiety” — Kai Engel, Free Music Archive / ICD-10, CC BY 4.0. Fragment utworu; montaż, regulacja głośności i ducking. Mapa: geoBoundaries / William & Mary geoLab, CC BY 4.0.",
+    "cover_alt": "Mapa Ukrainy z zaznaczoną Komyszuwachą i napisem Atak na szkołę. 18 ofiar.",
+    "cover": "2026-11-02-atak-szkola-komyszuwacha.png"
+  },
+  {
     "id": "2026-11-02-wtorek-w-trybunale",
     "status": "published",
     "category": "polityka",
