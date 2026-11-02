@@ -10,6 +10,7 @@ import '../styles/motion.css';
 import '../styles/responsive.css';
 import '../styles/consent.css';
 import '../styles/materials.css';
+import '../styles/brands.css';
 import { initConsent } from './consent.js';
 import { initNewPill } from './new-pill.js';
 import { initMaterialsTools } from './materials-tools.js';

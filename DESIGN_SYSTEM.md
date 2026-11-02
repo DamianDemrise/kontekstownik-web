@@ -74,3 +74,16 @@ globus rysowany raz, brak paralaksy. Skrypty ładują się po zdarzeniu `load`, 
 Nie dostarczono plików logo. Logotyp jest odtworzony z referencji jako tekst (Montserrat 800) + pomarańczowy narożnik w CSS,
 więc pozostaje prawdziwym `h1`. Gdy będą oryginalne pliki (SVG), podmień zawartość `.brand__logo` na `<img>`/inline SVG
 z `alt="KONTEKSTOWNIK"` i zachowaj `h1`. Favicon (K + narożnik) jest pochodną tego zapisu.
+
+
+## Trzy kanały — zmiana Damiana 2.11.2026
+
+Nawigacja w górnym nagłówku przełącza zwykłymi linkami `/`, `/kids/`, `/influ/` i działa bez JavaScript.
+Główna strona zachowuje kompozycję, pomarańcz, treść, adresy materiałów oraz SEO. Nowe landingi używają
+Montserrat i tej samej hierarchii: marka → temat → przyciski kanałów → opublikowany materiał.
+Kids korzysta z niezmienionego logo Kids, tła turkusowego i żółtych wyróżnień; Influ z istniejącego logo,
+ciemnego tła oraz różowo-niebieskich poświat. Nie kopiujemy sloganu głównego kanału.
+Kanały i materiały to zwykłe linki zewnętrzne; bez odtwarzaczy i skryptów platform. Profil TikTok Kids
+nie jest promowany, ponieważ publikacje TikTok Kids są odłożone. Materiał Andziaks pokazuje potwierdzone publikacje YouTube, Instagram i TikTok.
+Kids pokazuje 4 opublikowane filmy z serii „Gry, bajki i internet” z linkami Instagram.
+Źródła treści nowych landingów: `scripts/brands.mjs`; wygląd: `src/styles/brands.css`.

@@ -4,6 +4,8 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { loadMaterials, renderCovers, contentDir } from './scripts/materials.mjs';
 import { renderSection, renderPage, renderSitemap, forLang } from './scripts/materials-render.mjs';
 
+import {prepareBrands, brandsPlugin, brandSitemapEntries} from './scripts/brands.mjs';
+
 const root = import.meta.dirname;
 
 // Podstrony materiałów: źródłowe HTML generowane do materialy/<slug>/ i en/materials/<slug>/ (oba w .gitignore),
@@ -38,7 +40,7 @@ function materials(data) {
     },
     async generateBundle() {
       for (const c of data.covers) this.emitFile({ type: 'asset', fileName: c.fileName, source: await c.render() });
-      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: renderSitemap(data.items) });
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: renderSitemap(data.items).replace('</urlset>', brandSitemapEntries() + '</urlset>') });
     },
     configureServer(server) {
       // dev: zmiana w content/ wymaga restartu serwera (strony generowane przy starcie)
@@ -55,8 +57,9 @@ function materials(data) {
 
 export default defineConfig(async () => {
   const data = await prepareMaterials();
+  const brandInputs = prepareBrands(root);
   return {
-    plugins: [materials(data)],
+    plugins: [materials(data), brandsPlugin()],
     build: {
       outDir: 'dist',
       emptyOutDir: true,
@@ -69,6 +72,7 @@ export default defineConfig(async () => {
           en: resolve(root, 'en/index.html'),
           enPrivacy: resolve(root, 'en/privacy-policy/index.html'),
           ...data.inputs,
+          ...brandInputs,
         },
       },
     },

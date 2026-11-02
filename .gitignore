@@ -9,3 +9,7 @@ deploy.env
 /materialy/
 /en/materials/
 .import.lock/
+
+# Brand pages generated from the shared home shell by scripts/brands.mjs
+/kids/
+/influ/
