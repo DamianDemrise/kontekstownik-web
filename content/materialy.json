@@ -1,5 +1,46 @@
 [
   {
+    "id": "2026-11-03-poranny-alert-rcb",
+    "status": "published",
+    "category": "wydarzenia",
+    "slug": "poranny-alert-rcb-3-listopada",
+    "title": "Poranny alert RCB 3 listopada. Co się zmieniło?",
+    "lead": "Poranne ostrzeżenie dotyczące Ukrainy i późniejsza aktualizacja RCB o braku zagrożenia na terenie Polski.",
+    "date": "2026-11-03",
+    "as_of": "2026-11-03",
+    "youtube": "https://www.youtube.com/shorts/cI3eEUEdjF0",
+    "tiktok": "https://www.tiktok.com/@kontekstownik/video/7703900928692309270",
+    "primary": "youtube",
+    "format": "short",
+    "duration_seconds": 33,
+    "summary": [
+      "Materiał opisuje poranne komunikaty RCB z 3 listopada 2026 r. Nie jest bieżącym alertem."
+    ],
+    "key_points": [
+      "Ostrzeżenie dotyczyło ataku powietrznego na Ukrainę.",
+      "Późniejsza aktualizacja informowała o braku zagrożenia na terenie Polski.",
+      "Komunikaty wysłano w województwach lubelskim i podkarpackim."
+    ],
+    "transcript": [
+      "Najpierw alert RCB, potem informacja o braku zagrożenia. Wcześniejsze ostrzeżenie Rządowego Centrum Bezpieczeństwa dotyczyło rosyjskiego ataku powietrznego na Ukrainę. RCB informowało o monitorowaniu sytuacji i podniesieniu gotowości polskiej obrony powietrznej. Według Centrum zarówno ostrzeżenie, jak i późniejszą wiadomość wysłano do odbiorców w województwach lubelskim i podkarpackim. Godzina szósta czterdzieści dziewięć oznacza aktualizację strony RCB. Nie potwierdzał ataku na terytorium Polski."
+    ],
+    "sources": [
+      {
+        "title": "PAP MediaRoom — komunikat nadawcy RCB",
+        "publisher": "PAP MediaRoom — komunikat nadawcy RCB",
+        "url": "https://pap-mediaroom.pl/polityka-i-spoleczenstwo/rcb-zakonczyl-sie-atak-powietrzny-na-ukraine-brak-zagrozenia-na-terenie-18"
+      },
+      {
+        "title": "PAP MediaRoom — komunikat przypisany RCB, metadane źródła: PAP",
+        "publisher": "PAP MediaRoom — komunikat przypisany RCB, metadane źródła: PAP",
+        "url": "https://pap-mediaroom.pl/polityka-i-spoleczenstwo/rcb-rosyjski-atak-powietrzny-na-terenie-ukrainy-komunikat-23"
+      }
+    ],
+    "note": "Narracja i ilustracja telefonu: AI. F-16: archiwum USAF 09.2026, Leighton Lucero / DVIDS 1023753; nie zapis działań w Polsce. Muzyka: Anxiety — Kai Engel / Free Music Archive, CC BY 4.0; fragment, montaż, regulacja głośności i ducking.",
+    "cover_alt": "Ilustracja AI: telefon z ostrzeżeniem i późniejszą aktualizacją RCB.",
+    "cover": "2026-11-03-poranny-alert-rcb.jpg"
+  },
+  {
     "id": "2026-11-02-atak-szkola-komyszuwacha",
     "status": "published",
     "category": "wydarzenia",
