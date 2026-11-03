@@ -43,6 +43,10 @@ export const kidsItems = [
   ['03','Czy z bajek można nauczyć się angielskiego?','DfNh0UPK9AN'],
   ['04','Dlaczego oglądamy, jak ktoś gra?','DfNiE5Aqsit'],
 ];
+const kidsYoutubeIds = {
+  '01': 'ZORHlSuozTI', '02': 'oVQ14FP-Qt4',
+  '03': '_3ErH9MsCHg', '04': 'hGR_UYBDBJY',
+};
 export const influItems = [
   {title: '30 zł za zapiekankę przy cmentarzu?! Książulo sprawdza', date: '2026-11-02', cover: '/brands/ksiazulo.jpg', url: 'https://www.youtube.com/shorts/IFt3bjsn2zY', platform: 'YouTube'},
   {title: 'Andziaks przeprasza. Za te słowa o podatkach.', date: '2026-11-02', cover: '/brands/andziaks.jpg', url: 'https://www.youtube.com/shorts/rtMQjyIiy5M', platform: 'YouTube'},
@@ -64,7 +68,7 @@ function latestKids() {
   // Published Instagram URLs and approved covers from PUBLIKACJE_SERIA_03.json (1 Nov 2026).
   const items = kidsItems;
   const latest = kidsLatest[0];
-  return `<section class="brand-latest" aria-labelledby="kids-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Najnowsze materiały</p><h2 id="kids-latest-title">Pytania z codziennego świata.</h2></div><div class="brand-kids-grid"><article><a href="${latest.url}" target="_blank" rel="noopener noreferrer" aria-label="${latest.title} — obejrzyj na YouTube (nowa karta)"><img src="${latest.cover}" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">2 listopada 2026</p><h3>${latest.title}</h3><span>YouTube ↗</span></div></a></article>${items.map(([id,title,reel])=>`<article><a href="https://www.instagram.com/kontekstownikkids/reel/${reel}/" target="_blank" rel="noopener noreferrer" aria-label="${title} — obejrzyj na Instagramie (nowa karta)"><img src="/brands/kids-${id}.jpg" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">1 listopada 2026</p><h3>${title}</h3><span>Instagram ↗</span></div></a></article>`).join('')}</div></section>`;
+  return `<section class="brand-latest" aria-labelledby="kids-latest-title"><div class="brand-latest__heading"><p class="brand-eyebrow">Najnowsze materiały</p><h2 id="kids-latest-title">Pytania z codziennego świata.</h2></div><div class="brand-kids-grid"><article><a href="${latest.url}" target="_blank" rel="noopener noreferrer" aria-label="${latest.title} — obejrzyj na YouTube (nowa karta)"><img src="${latest.cover}" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">2 listopada 2026</p><h3>${latest.title}</h3><span>YouTube ↗</span></div></a></article>${items.map(([id,title,reel])=>`<article><a href="https://www.instagram.com/kontekstownikkids/reel/${reel}/" target="_blank" rel="noopener noreferrer" aria-label="${title} — obejrzyj na Instagramie (nowa karta)"><img src="/brands/kids-${id}.jpg" alt="" width="1080" height="1920" loading="lazy"><div><p class="brand-eyebrow">1 listopada 2026</p><h3>${title}</h3><span>Instagram ↗</span></div></a><a class="brand-card-alternate" href="https://www.youtube.com/shorts/${kidsYoutubeIds[id]}" target="_blank" rel="noopener noreferrer" aria-label="${title} — obejrzyj na YouTube (nowa karta)">YouTube ↗</a></article>`).join('')}</div></section>`;
 }
 
 export function renderBrandPage(template, id) {

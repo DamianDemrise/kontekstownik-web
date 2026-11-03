@@ -49,7 +49,8 @@ body[data-brand=influ] .brand-backdrop{background-image:url(/brand/influ/hero-tl
 .brand-note>p:last-child{margin-top:24px}
 .brand-kids-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .brand-kids-grid article{border:1px solid #ffffff1c;border-radius:18px;overflow:hidden;background:#ffffff04}
-.brand-kids-grid a{display:block;height:100%}
+.brand-kids-grid a{display:block;height:auto}
+.brand-kids-grid .brand-card-alternate{padding:0 18px 18px;font-size:12px;font-weight:700;color:var(--brand-accent)}
 .brand-kids-grid img{width:100%;height:auto;aspect-ratio:9/16;object-fit:contain}
 .brand-kids-grid article div{padding:18px}
 .brand-kids-grid h3{font-size:17px;line-height:1.35;margin:0 0 20px}
